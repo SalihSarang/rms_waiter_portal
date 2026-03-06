@@ -41,7 +41,7 @@ class CustomTextField extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            if (labelSuffix != null) labelSuffix!,
+            ?labelSuffix,
           ],
         ),
         const SizedBox(height: 8),
