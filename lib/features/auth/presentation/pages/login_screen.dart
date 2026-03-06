@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rms_design_system/app_colors/neutral_colors.dart';
-import 'package:rms_design_system/app_colors/status_colors.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/home/presentation/pages/main_screen.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_state.dart';
@@ -19,11 +18,10 @@ class LoginScreen extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: StatusColors.cancelled,
-              ),
+            RmsSnackbar.show(
+              context,
+              message: state.message,
+              type: RmsSnackbarType.error,
             );
           } else if (state is Authenticated) {
             Navigator.pushReplacement(
