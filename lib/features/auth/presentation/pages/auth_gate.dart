@@ -27,12 +27,13 @@ class _AuthGateState extends State<AuthGate> {
       builder: (context, state) {
         if (state is Authenticated) {
           return const MainScreen();
-        } else if (state is UnAuthenticated || state is AuthError) {
-          return const LoginScreen();
+        } else if (state is AuthInitial || state is AuthChecking) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
         }
 
-        // Show loading spinner while checking init state
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        return const LoginScreen();
       },
     );
   }

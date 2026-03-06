@@ -7,7 +7,9 @@ import 'package:waiter_portal/features/auth/domain/repositories/auth_repository.
 import 'package:waiter_portal/features/auth/domain/usecases/check_auth_status.dart';
 import 'package:waiter_portal/features/auth/domain/usecases/sign_in_waiter.dart';
 import 'package:waiter_portal/features/auth/domain/usecases/sign_out_waiter.dart';
+import 'package:waiter_portal/features/auth/domain/usecases/update_last_active_usecase.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:waiter_portal/features/shift/presentation/bloc/shift_bloc.dart';
 
 void authDI() {
   // Firebase Auth
@@ -32,6 +34,9 @@ void authDI() {
   getIt.registerLazySingleton(() => SignInWaiter(getIt<AuthRepository>()));
   getIt.registerLazySingleton(() => SignOutWaiter(getIt<AuthRepository>()));
   getIt.registerLazySingleton(() => CheckAuthStatus(getIt<AuthRepository>()));
+  getIt.registerLazySingleton(
+    () => UpdateLastActiveUseCase(getIt<AuthRepository>()),
+  );
 
   // BLoC
   getIt.registerFactory<AuthBloc>(
@@ -40,5 +45,9 @@ void authDI() {
       signOutWaiter: getIt(),
       checkAuthStatus: getIt(),
     ),
+  );
+
+  getIt.registerFactory<ShiftBloc>(
+    () => ShiftBloc(updateLastActiveUseCase: getIt()),
   );
 }

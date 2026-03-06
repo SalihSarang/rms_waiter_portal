@@ -6,6 +6,7 @@ import 'package:waiter_portal/firebase_options.dart';
 
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/auth_gate.dart';
+import 'features/shift/presentation/bloc/shift_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (context) => getIt<AuthBloc>()),
+        BlocProvider<ShiftBloc>(create: (context) => getIt<ShiftBloc>()),
       ],
       child: MaterialApp(
         title: 'Waiter Portal',

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/app_colors/neutral_colors.dart';
 import 'package:rms_design_system/app_colors/text_colors.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_event.dart';
-import 'package:waiter_portal/features/auth/presentation/pages/login_screen.dart';
+import 'package:waiter_portal/features/shift/presentation/widgets/shift_toggle_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -20,27 +17,25 @@ class ProfileScreen extends StatelessWidget {
         ),
         backgroundColor: NeutralColors.surface,
         iconTheme: const IconThemeData(color: TextColors.inverse),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              context.read<AuthBloc>().add(SignOutEvent());
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-              );
-            },
-          ),
-        ],
       ),
-      body: const Center(
-        child: Text(
-          'Profile Screen',
-          style: TextStyle(
-            color: TextColors.inverse,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            const ShiftToggleButton(),
+            const Spacer(),
+            const Center(
+              child: Text(
+                'Profile Screen',
+                style: TextStyle(
+                  color: TextColors.inverse,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const Spacer(),
+          ],
         ),
       ),
     );
