@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/app_colors/neutral_colors.dart';
 import 'package:waiter_portal/features/alerts/presentation/pages/alerts_screen.dart';
-import 'package:waiter_portal/features/home/presentation/widgets/custom_bottom_nav_bar.dart';
-import 'package:waiter_portal/features/orders/presentation/pages/orders_screen.dart';
+import 'package:waiter_portal/core/widgets/custom_bottom_nav_bar.dart';
+import 'package:waiter_portal/features/orders/presentation/pages/orders_page.dart';
 import 'package:waiter_portal/features/profile/presentation/pages/profile_screen.dart';
 import 'package:waiter_portal/features/tables/presentation/pages/tables_screen.dart';
 

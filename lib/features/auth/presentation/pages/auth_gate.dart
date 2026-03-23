@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_event.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_state.dart';
+import 'package:waiter_portal/features/auth/presentation/pages/blocked_screen.dart';
 import 'package:waiter_portal/features/auth/presentation/pages/login_screen.dart';
 import 'package:waiter_portal/features/home/presentation/pages/main_screen.dart';
 
@@ -27,6 +28,8 @@ class _AuthGateState extends State<AuthGate> {
       builder: (context, state) {
         if (state is Authenticated) {
           return const MainScreen();
+        } else if (state is AuthBlocked) {
+          return const BlockedScreen();
         } else if (state is AuthInitial || state is AuthChecking) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),

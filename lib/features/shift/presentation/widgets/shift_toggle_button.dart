@@ -114,7 +114,7 @@ class ShiftToggleButton extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.logout_rounded, size: 20),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12),
                         Text(
                           'End Shift & Logout',
                           style: TextStyle(

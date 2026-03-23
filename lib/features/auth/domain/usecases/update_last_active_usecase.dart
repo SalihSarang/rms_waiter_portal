@@ -1,6 +1,6 @@
 import '../repositories/auth_repository.dart';
 
-/// The [UpdateLastActiveUseCase] is designed to synchronize the
+/// The UpdateLastActiveUseCase is designed to synchronize the
 /// waiter's temporal activity state with the backend.
 /// This ensures the system maintains an accurate record of the
 /// waiter's operational availability.

@@ -16,6 +16,12 @@ class Authenticated extends AuthState {
 
 class UnAuthenticated extends AuthState {}
 
+class AuthBlocked extends AuthState {
+  final StaffModel staff;
+
+  AuthBlocked(this.staff);
+}
+
 class AuthError extends AuthState {
   final String message;
 

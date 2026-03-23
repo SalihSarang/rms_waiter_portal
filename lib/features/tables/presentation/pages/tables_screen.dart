@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:rms_design_system/app_colors/neutral_colors.dart';
-import 'package:rms_design_system/app_colors/text_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rms_design_system/rms_design_system.dart';
+import 'package:waiter_portal/core/di/injector.dart';
+
+import '../bloc/table_view_bloc.dart';
+import '../bloc/table_view_event.dart';
+import '../widgets/tables_screen/components/tables_screen_app_bar.dart';
+import '../widgets/tables_screen/components/tables_screen_body.dart';
 
 class TablesScreen extends StatelessWidget {
   const TablesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: NeutralColors.background,
-      body: const Center(
-        child: Text(
-          'Tables Screen',
-          style: TextStyle(
-            color: TextColors.inverse,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+    return BlocProvider(
+      create: (context) => getIt<TableViewBloc>()..add(TableViewInit()),
+      child: const Scaffold(
+        backgroundColor: NeutralColors.background,
+        appBar: TablesScreenAppBar(),
+        body: TablesScreenBody(),
       ),
     );
   }
 }
+

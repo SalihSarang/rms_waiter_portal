@@ -17,12 +17,13 @@ class _LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _obscurePassword = true;
+  final _obscurePasswordNotifier = ValueNotifier<bool>(true);
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _obscurePasswordNotifier.dispose();
     super.dispose();
   }
 
@@ -55,31 +56,35 @@ class _LoginFormState extends State<LoginForm> {
             validator: Validators.validateEmail,
           ),
           const SizedBox(height: 24),
-          RmsTextField(
-            controller: _passwordController,
-            label: 'PIN / Password',
-            hintText: '••••',
-            obscureText: _obscurePassword,
-            suffixIcon: IconButton(
-              icon: Icon(
-                _obscurePassword
-                    ? Icons.visibility_outlined
-                    : Icons.visibility_off_outlined,
-                color: NeutralColors.icon,
-              ),
-              onPressed: () {
-                setState(() {
-                  _obscurePassword = !_obscurePassword;
-                });
-              },
-            ),
-            validator: Validators.validatePassword,
+          ValueListenableBuilder<bool>(
+            valueListenable: _obscurePasswordNotifier,
+            builder: (context, obscurePassword, child) {
+              return RmsTextField(
+                controller: _passwordController,
+                label: 'Password',
+                hintText: 'Password',
+                obscureText: obscurePassword,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscurePassword
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    color: NeutralColors.icon,
+                  ),
+                  onPressed: () {
+                    _obscurePasswordNotifier.value =
+                        !_obscurePasswordNotifier.value;
+                  },
+                ),
+                validator: Validators.validatePassword,
+              );
+            },
           ),
           const SizedBox(height: 12),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () {}, // TODO: Implement forgot password
+              onPressed: () {},
               child: const Text(
                 'Forgot password?',
                 style: TextStyle(
