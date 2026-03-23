@@ -2,7 +2,7 @@ import 'package:rms_shared_package/models/staff_model/staff_model.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/waiter_auth_remote_datasource.dart';
 
-/// The [WaiterAuthRepoImpl] serves as the concrete implementation of the [AuthRepository].
+/// The WaiterAuthRepoImpl serves as the concrete implementation of the AuthRepository.
 /// It acts as a mediator between the domain layer and the remote data source,
 /// facilitating the flow of authentication data and ensuring robust error handling across boundaries.
 class WaiterAuthRepoImpl implements AuthRepository {
@@ -19,6 +19,11 @@ class WaiterAuthRepoImpl implements AuthRepository {
       // Propagation of exceptions to the domain layer for higher-level handling.
       rethrow;
     }
+  }
+
+  @override
+  Stream<StaffModel?> watchWaiterStatus(String uid) {
+    return remoteDataSource.watchWaiterStatus(uid);
   }
 
   @override

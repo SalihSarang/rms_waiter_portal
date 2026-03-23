@@ -16,16 +16,17 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 24, top: 8),
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      height: 60,
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: NeutralColors.surface,
         borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 15,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -53,13 +54,13 @@ class CustomBottomNavBar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color, size: 28),
+          Icon(icon, color: color, size: 18),
           const SizedBox(height: 4),
           Text(
             label,
             style: TextStyle(
               color: color,
-              fontSize: 12,
+              fontSize: 8,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
             ),
           ),
