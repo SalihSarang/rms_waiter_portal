@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
+import 'package:rms_shared_package/rms_shared_package.dart';
 
 import '../../../../tables/presentation/bloc/table_view_state.dart';
 import 'table_card.dart';
 
 class GridContent extends StatelessWidget {
   final TableViewState state;
+  final ValueChanged<TableModel>? onTableTap;
 
-  const GridContent({super.key, required this.state});
+  const GridContent({super.key, required this.state, this.onTableTap});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,11 @@ class GridContent extends StatelessWidget {
       ),
       itemCount: state.tables.length,
       itemBuilder: (context, index) {
-        return TableCard(table: state.tables[index]);
+        final table = state.tables[index];
+        return TableCard(
+          table: table,
+          onTap: () => onTableTap?.call(table),
+        );
       },
     );
   }

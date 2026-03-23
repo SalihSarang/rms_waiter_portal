@@ -10,6 +10,7 @@ import '../widgets/table_list_page/grid_content.dart';
 import '../widgets/table_list_page/table_bottom_bar.dart';
 import '../widgets/table_list_page/table_filter_row.dart';
 import '../widgets/table_list_page/table_list_app_bar.dart';
+import 'menue_page.dart';
 
 class TableListPage extends StatelessWidget {
   const TableListPage({super.key});
@@ -27,7 +28,20 @@ class TableListPage extends StatelessWidget {
               children: [
                 TableFilterRow(state: state),
                 const Divider(color: NeutralColors.border, height: 1),
-                Expanded(child: GridContent(state: state)),
+                Expanded(
+                  child: GridContent(
+                    state: state,
+                    onTableTap: (table) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              MenuePage(tableNumber: table.name),
+                        ),
+                      );
+                    },
+                  ),
+                ),
                 const TableBottomBar(),
               ],
             ),
