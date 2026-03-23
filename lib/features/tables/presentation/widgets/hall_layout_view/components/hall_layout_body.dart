@@ -4,6 +4,7 @@ import 'package:rms_design_system/rms_design_system.dart';
 import '../../../bloc/table_view_bloc.dart';
 import '../../../bloc/table_view_state.dart';
 import '../../table_view_canvas.dart';
+import 'package:waiter_portal/features/orders/presentation/pages/menue_page.dart';
 
 class HallLayoutBody extends StatelessWidget {
   const HallLayoutBody({super.key});
@@ -29,7 +30,16 @@ class HallLayoutBody extends StatelessWidget {
 
         return Stack(
           children: [
-            const TableViewCanvas(),
+            TableViewCanvas(
+              onTableTap: (table) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MenuePage(tableNumber: table.name),
+                  ),
+                );
+              },
+            ),
             if (state.isLoading)
               const Positioned(
                 top: 16,

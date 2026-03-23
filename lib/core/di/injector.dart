@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:waiter_portal/core/di/auth_di.dart';
+import 'package:waiter_portal/core/di/menu_di.dart';
 import 'package:waiter_portal/core/di/tables_di.dart';
 
 final getIt = GetIt.instance;
@@ -16,4 +17,7 @@ void setupDI() {
 
   // Tables DI
   tablesDI();
+
+  // Menu DI
+  menuDI();
 }
