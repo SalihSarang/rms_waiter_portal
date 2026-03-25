@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
-import 'package:rms_shared_package/models/menu_models/category_model/category_model.dart';
 
 abstract class ICategoryRemoteDataSource {
   Future<List<CategoryModel>> getCategories();

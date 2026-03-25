@@ -11,4 +11,9 @@ class FoodRepositoryImpl implements FoodRepository {
   Future<List<FoodModel>> getAllFoodItems() async {
     return await _remoteDataSource.getAllFoodItems();
   }
+
+  @override
+  Future<FoodModel?> getFoodById(String foodId) async {
+    return await _remoteDataSource.getFoodById(foodId);
+  }
 }

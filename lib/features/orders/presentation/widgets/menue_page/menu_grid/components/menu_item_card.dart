@@ -13,8 +13,9 @@ import 'menu_skeleton.dart';
 /// 4. **User Interaction**: Triggers an inkwell ripple effect on tap (disabled if sold out).
 class MenuItemCard extends StatelessWidget {
   final FoodModel food;
+  final VoidCallback? onTap;
 
-  const MenuItemCard({super.key, required this.food});
+  const MenuItemCard({super.key, required this.food, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +133,7 @@ class MenuItemCard extends StatelessWidget {
             child: Material(
               color: NeutralColors.transparent,
               child: InkWell(
-                onTap: isSoldOut ? null : () {},
+                onTap: isSoldOut ? null : onTap,
                 borderRadius: BorderRadius.circular(16),
               ),
             ),

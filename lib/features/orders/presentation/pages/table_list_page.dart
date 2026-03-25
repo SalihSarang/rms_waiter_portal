@@ -12,13 +12,20 @@ import '../widgets/table_list_page/table_filter_row.dart';
 import '../widgets/table_list_page/table_list_app_bar.dart';
 import 'menue_page.dart';
 
+import '../bloc/table_search/table_search_cubit.dart';
+
 class TableListPage extends StatelessWidget {
   const TableListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<TableViewBloc>()..add(TableViewInit()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<TableViewBloc>()..add(TableViewInit()),
+        ),
+        BlocProvider(create: (context) => getIt<TableSearchCubit>()),
+      ],
       child: BlocBuilder<TableViewBloc, TableViewState>(
         builder: (context, state) {
           return Scaffold(

@@ -12,6 +12,7 @@ import '../widgets/menue_page/menu_grid/menu_grid.dart';
 import '../widgets/menue_page/menu_search_bar.dart';
 import 'package:rms_shared_package/models/menu_models/food_model/food_model.dart';
 import 'package:rms_shared_package/models/menu_models/category_model/category_model.dart';
+import 'food_details_page.dart';
 
 /// [MenuePage] is the main entry point for the digital menu screen.
 ///
@@ -78,7 +79,19 @@ class MenuePage extends StatelessWidget {
                   const SizedBox(height: 16),
                   // ITEMS SECTION: Shows skeletons if loading, otherwise the items grid.
                   Expanded(
-                    child: MenuGrid(allFoods: foods, isLoading: isLoading),
+                    child: MenuGrid(
+                      allFoods: foods,
+                      isLoading: isLoading,
+                      onFoodTap: (food) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                FoodDetailsPage(foodId: food.id!),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               );

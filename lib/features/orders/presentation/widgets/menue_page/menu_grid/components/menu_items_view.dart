@@ -9,8 +9,9 @@ import 'menu_skeleton.dart';
 /// and renders them using [MenuItemCard].
 class MenuItemsView extends StatelessWidget {
   final List<FoodModel> foods;
+  final ValueChanged<FoodModel>? onFoodTap;
 
-  const MenuItemsView({super.key, required this.foods});
+  const MenuItemsView({super.key, required this.foods, this.onFoodTap});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,10 @@ class MenuItemsView extends StatelessWidget {
         ),
         itemCount: foods.length,
         itemBuilder: (context, index) {
-          return MenuItemCard(food: foods[index]);
+          return MenuItemCard(
+            food: foods[index],
+            onTap: () => onFoodTap?.call(foods[index]),
+          );
         },
       ),
     );
