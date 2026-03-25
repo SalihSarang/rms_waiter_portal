@@ -5,8 +5,8 @@ import 'package:waiter_portal/features/orders/presentation/pages/table_list_page
 import '../widgets/orders_page/components/orders_app_bar.dart';
 import '../widgets/orders_page/components/orders_list_view.dart';
 
-class OrdersScreen extends StatelessWidget {
-  const OrdersScreen({super.key});
+class OrdersPage extends StatelessWidget {
+  const OrdersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
