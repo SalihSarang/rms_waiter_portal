@@ -101,7 +101,10 @@ class _OrderCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -121,37 +124,36 @@ class _OrderCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             'Order #${order.id}',
-            style: const TextStyle(
-              color: NeutralColors.icon,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: NeutralColors.icon, fontSize: 12),
           ),
           const SizedBox(height: 16),
           const Divider(color: NeutralColors.border),
           const SizedBox(height: 12),
-          ...order.orderedMenu.map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${item.quantity}x ${item.name}',
-                      style: const TextStyle(
-                        color: NeutralColors.white,
-                        fontSize: 14,
-                      ),
+          ...order.orderedMenu.map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${item.quantity}x ${item.name}',
+                    style: const TextStyle(
+                      color: NeutralColors.white,
+                      fontSize: 14,
                     ),
-                    Text(
-                      '\$${(item.price * item.quantity).toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        color: NeutralColors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  Text(
+                    '\$${(item.price * item.quantity).toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      color: NeutralColors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
           const SizedBox(height: 12),
           const Divider(color: NeutralColors.border),
           const SizedBox(height: 12),
@@ -189,8 +191,6 @@ class _OrderCard extends StatelessWidget {
         return SemanticColors.warning;
       case OrderStatus.ready:
         return SemanticColors.success;
-      default:
-        return NeutralColors.icon;
     }
   }
 }
