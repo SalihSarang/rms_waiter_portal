@@ -7,7 +7,6 @@ import '../../../tables/presentation/bloc/table_view_bloc.dart';
 import '../../../tables/presentation/bloc/table_view_event.dart';
 import '../../../tables/presentation/bloc/table_view_state.dart';
 import '../widgets/table_list_page/grid_content.dart';
-import '../widgets/table_list_page/table_bottom_bar.dart';
 import '../widgets/table_list_page/table_filter_row.dart';
 import '../widgets/table_list_page/table_list_app_bar.dart';
 import 'menue_page.dart';
@@ -49,7 +48,6 @@ class TableListPage extends StatelessWidget {
                     },
                   ),
                 ),
-                const TableBottomBar(),
               ],
             ),
           );

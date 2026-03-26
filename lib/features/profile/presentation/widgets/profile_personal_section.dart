@@ -24,16 +24,12 @@ class ProfilePersonalSection extends StatelessWidget {
         ProfileMenuItem(
           icon: Icons.person_outline,
           title: 'Edit Profile Information',
-          onTap: () {
-            // TODO: Implement profile editing navigation
-          },
+          onTap: () {},
         ),
         ProfileMenuItem(
           icon: Icons.help_outline,
           title: 'Help & Support',
-          onTap: () {
-            // TODO: Implement support navigation
-          },
+          onTap: () {},
         ),
       ],
     );

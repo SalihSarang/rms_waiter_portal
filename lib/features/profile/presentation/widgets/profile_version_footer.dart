@@ -14,10 +14,7 @@ class ProfileVersionFooter extends StatelessWidget {
         builder: (context, snapshot) {
           return Text(
             'V${snapshot.data?.version ?? '1.0.0'}',
-            style: const TextStyle(
-              color: NeutralColors.icon,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: NeutralColors.icon, fontSize: 12),
           );
         },
       ),

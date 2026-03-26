@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
+/// A reusable skeleton loader block with a subtle gradient effect, used to represent
+/// loading states across the application.
 class RmsSkeletonBlock extends StatelessWidget {
   final double height;
   final double? width;
@@ -16,6 +18,7 @@ class RmsSkeletonBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // CONTAINER: Base structure for the skeleton element
       height: height,
       width: width,
       decoration: BoxDecoration(
@@ -23,6 +26,7 @@ class RmsSkeletonBlock extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Container(
+        // DECORATION: Linear gradient to create a subtle shimmer/depth effect
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius),
           gradient: LinearGradient(
