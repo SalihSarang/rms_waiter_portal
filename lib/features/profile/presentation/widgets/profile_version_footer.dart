@@ -13,7 +13,7 @@ class ProfileVersionFooter extends StatelessWidget {
         future: PackageInfo.fromPlatform(),
         builder: (context, snapshot) {
           return Text(
-            'V${snapshot.data?.version ?? '1.0.0'}',
+            'V${snapshot.data?.version}',
             style: const TextStyle(color: NeutralColors.icon, fontSize: 12),
           );
         },
