@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/app_colors/neutral_colors.dart';
-import 'package:rms_design_system/app_colors/text_colors.dart';
-import 'package:waiter_portal/features/shift/presentation/widgets/shift_toggle_button.dart';
+import '../widgets/profile_body.dart';
 
+/// The main entry point for the Profile feature.
+/// Handles the basic navigation structure (Scaffold/AppBar) and delegates
+/// content assembly to internal widgets.
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -13,31 +15,17 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Profile',
-          style: TextStyle(color: TextColors.inverse),
+          style: TextStyle(
+            color: NeutralColors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: NeutralColors.surface,
-        iconTheme: const IconThemeData(color: TextColors.inverse),
+        centerTitle: true,
+        backgroundColor: NeutralColors.background,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            const ShiftToggleButton(),
-            const Spacer(),
-            const Center(
-              child: Text(
-                'Profile Screen',
-                style: TextStyle(
-                  color: TextColors.inverse,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const Spacer(),
-          ],
-        ),
-      ),
+      body: const ProfileBody(),
     );
   }
 }

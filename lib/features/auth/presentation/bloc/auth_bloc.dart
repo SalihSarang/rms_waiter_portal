@@ -1,18 +1,21 @@
-import 'package:flutter/foundation.dart';
+import 'dart:async';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rms_shared_package/models/staff_model/staff_model.dart';
 import '../../domain/usecases/check_auth_status.dart';
 import '../../domain/usecases/sign_in_waiter.dart';
 import '../../domain/usecases/sign_out_waiter.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
-/// The [AuthBloc] serves as the central orchestration layer for all authentication-related logic.
+/// The AuthBloc serves as the central orchestration layer for all authentication-related logic.
 /// It bridges the gap between raw data sources and the UI, managing the transition
-/// between states such as [Authenticated], [UnAuthenticated], and [AuthLoading].
+/// between states such as Authenticated, UnAuthenticated, and AuthLoading.
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWaiter _signInWaiter;
   final SignOutWaiter _signOutWaiter;
   final CheckAuthStatus _checkAuthStatus;
+  StreamSubscription<StaffModel?>? _userSubscription;
 
   AuthBloc({
     required SignInWaiter signInWaiter,
@@ -26,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CheckAuthEvent>(_onCheckAuthEvent);
     on<SignInEvent>(_onSignInEvent);
     on<SignOutEvent>(_onSignOutEvent);
+    on<AuthStatusChangedEvent>(_onAuthStatusChangedEvent);
   }
 
   /// Evaluates the existing authentication context to determine if a session is currently active.
@@ -36,41 +40,43 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthChecking());
     try {
-      debugPrint('Validaing current authentication context...');
+      log('Validaing current authentication context...');
       final user = await _checkAuthStatus();
 
       if (user != null) {
-        debugPrint('Active session identified for user: ${user.name}');
+        log('Active session identified for user: ${user.name}');
+        _startUserMonitoring(user.id);
         emit(Authenticated(user));
       } else {
-        debugPrint(
+        log(
           'No active session found. Transitioning to unauthenticated state.',
         );
         emit(UnAuthenticated());
       }
     } catch (e) {
-      debugPrint('An error occurred during authentication verification: $e');
+      log('An error occurred during authentication verification: $e');
       emit(UnAuthenticated());
     }
   }
 
   /// Processes a sign-in request by validating credentials and establishing a new session.
-  /// This handler coordinates the transition from [AuthLoading] to either
-  /// [Authenticated] or [AuthError] based on the outcome of the sign-in process.
+  /// This handler coordinates the transition from AuthLoading to either
+  /// Authenticated or AuthError based on the outcome of the sign-in process.
   Future<void> _onSignInEvent(
     SignInEvent event,
     Emitter<AuthState> emit,
   ) async {
     emit(AuthLoading());
     try {
-      debugPrint('Initiating sign-in process for user: ${event.email}');
+      log('Initiating sign-in process for user: ${event.email}');
       final user = await _signInWaiter(event.email, event.password);
 
       if (user != null) {
-        debugPrint('Sign-in successful. Welcome, ${user.name}.');
+        log('Sign-in successful. Welcome, ${user.name}.');
+        _startUserMonitoring(user.id);
         emit(Authenticated(user));
       } else {
-        debugPrint(
+        log(
           'Sign-in failed: Invalid credentials or unauthorized access.',
         );
         emit(
@@ -80,7 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       }
     } catch (e) {
-      debugPrint('Sign-in process encountered a critical error: $e');
+      log('Sign-in process encountered a critical error: $e');
 
       // Sanitizing error messages to ensure they are user-friendly yet informative.
       String errorMessage = e.toString();
@@ -99,13 +105,53 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
-      debugPrint('Executing secure sign-out procedure.');
+      log('Executing secure sign-out procedure.');
+      _cancelUserMonitoring();
       await _signOutWaiter();
-      debugPrint('Sign-out completed. Session destroyed.');
+      log('Sign-out completed. Session destroyed.');
       emit(UnAuthenticated());
     } catch (e) {
-      debugPrint('Sign-out procedure failed: $e');
+      log('Sign-out procedure failed: $e');
       emit(AuthError('An error occurred while signing out. Please try again.'));
     }
+  }
+
+  void _onAuthStatusChangedEvent(
+    AuthStatusChangedEvent event,
+    Emitter<AuthState> emit,
+  ) {
+    final staff = event.staff;
+    if (staff == null) {
+      log('User profile deleted or session invalid. Emitting UnAuthenticated.');
+      _cancelUserMonitoring();
+      emit(UnAuthenticated());
+    } else if (!staff.isActive) {
+      log('User ${staff.name} is now marked as blocked.');
+      emit(AuthBlocked(staff));
+    } else {
+      log('User ${staff.name} status updated and active.');
+      // Update state if staff data changed significantly, otherwise stay in Authenticated
+      emit(Authenticated(staff));
+    }
+  }
+
+  void _startUserMonitoring(String uid) {
+    _cancelUserMonitoring();
+    _userSubscription = _checkAuthStatus.repository.watchWaiterStatus(uid).listen(
+      (staff) {
+        add(AuthStatusChangedEvent(staff));
+      },
+    );
+  }
+
+  void _cancelUserMonitoring() {
+    _userSubscription?.cancel();
+    _userSubscription = null;
+  }
+
+  @override
+  Future<void> close() {
+    _cancelUserMonitoring();
+    return super.close();
   }
 }

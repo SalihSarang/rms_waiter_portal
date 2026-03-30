@@ -3,6 +3,8 @@ import 'package:rms_design_system/app_colors/neutral_colors.dart';
 import 'package:rms_design_system/app_colors/primary_colors.dart';
 import 'package:rms_design_system/app_colors/text_colors.dart';
 
+/// A stylized bottom navigation bar with a floating appearance and semi-transparent
+/// container, designed for the Waiter application.
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onItemSelected;
@@ -16,20 +18,23 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 24, top: 8),
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      // CONTAINER: Main floating bar background with rounded corners and shadow
+      height: 60,
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: NeutralColors.surface,
         borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 15,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Row(
+        // ROW: Center-aligned navigation items
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildNavItem(0, Icons.assignment_outlined, 'Orders'),
@@ -51,15 +56,18 @@ class CustomBottomNavBar extends StatelessWidget {
       onTap: () => onItemSelected(index),
       behavior: HitTestBehavior.opaque,
       child: Column(
+        // COLUMN: Nav item visual stack (Icon + Text)
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color, size: 28),
+          // ICON: Navigation visual indicator
+          Icon(icon, color: color, size: 18),
           const SizedBox(height: 4),
+          // TEXT: Navigation label
           Text(
             label,
             style: TextStyle(
               color: color,
-              fontSize: 12,
+              fontSize: 8,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
             ),
           ),

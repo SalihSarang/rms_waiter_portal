@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waiter_portal/features/auth/domain/usecases/update_last_active_usecase.dart';
 import 'shift_event.dart';
 import 'shift_state.dart';
 
-/// The [ShiftBloc] is responsible for managing the operational shifts of the waiter.
+/// The ShiftBloc is responsible for managing the operational shifts of the waiter.
 /// it handles the lifecycle of a shift, including initiation (starting) and
 /// termination (ending), while synchronizing state with the remote backend.
 class ShiftBloc extends Bloc<ShiftEvent, ShiftState> {
@@ -21,7 +21,7 @@ class ShiftBloc extends Bloc<ShiftEvent, ShiftState> {
   }
 
   /// Manages the transition between shift states by updating the waiter's activity status.
-  /// This internal handler coordinates with the [UpdateLastActiveUseCase] to ensure
+  /// This internal handler coordinates with the UpdateLastActiveUseCase to ensure
   /// the backend reflects the waiter's current operational status.
   Future<void> _handleShiftUpdate(
     String uid,
@@ -31,7 +31,7 @@ class ShiftBloc extends Bloc<ShiftEvent, ShiftState> {
     emit(ShiftLoading());
     try {
       final now = DateTime.now();
-      debugPrint(
+      log(
         'Processing shift transition: ${isStarting ? "START" : "END"} at $now',
       );
 
@@ -39,14 +39,14 @@ class ShiftBloc extends Bloc<ShiftEvent, ShiftState> {
       await updateLastActiveUseCase(uid, now);
 
       if (isStarting) {
-        debugPrint('Shift successfully initiated for waiter: $uid');
+        log('Shift successfully initiated for waiter: $uid');
         emit(ShiftActive(now));
       } else {
-        debugPrint('Shift successfully terminated for waiter: $uid');
+        log('Shift successfully terminated for waiter: $uid');
         emit(ShiftEnded(now));
       }
     } catch (e) {
-      debugPrint('Critical failure during shift transition for UID $uid: $e');
+      log('Critical failure during shift transition for UID $uid: $e');
       emit(
         ShiftError(
           'Failed to update shift status. Please check your connection and try again.',

@@ -1,8 +1,8 @@
 import '../repositories/auth_repository.dart';
 
-/// The [SignOutWaiter] usecase handles the secure termination of
+/// The SignOutWaiter usecase handles the secure termination of
 /// the current waiter's authentication session.
-/// It ensures that all session-related data is cleared via the [AuthRepository].
+/// It ensures that all session-related data is cleared via the AuthRepository.
 class SignOutWaiter {
   final AuthRepository repository;
 
