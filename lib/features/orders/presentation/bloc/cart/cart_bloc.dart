@@ -77,12 +77,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   bool _isSameItem(CartItemModel item1, CartItemModel item2) {
     if (item1.foodId != item2.foodId) return false;
-    if (item1.selectedPortion?.name != item2.selectedPortion?.name)
+    if (item1.selectedPortion?.name != item2.selectedPortion?.name) {
       return false;
+    }
     if (item1.specialInstructions != item2.specialInstructions) return false;
 
-    if (item1.selectedAddOns.length != item2.selectedAddOns.length)
+    if (item1.selectedAddOns.length != item2.selectedAddOns.length) {
       return false;
+    }
 
     final addOnNames1 = item1.selectedAddOns.map((e) => e.name).toList()
       ..sort();

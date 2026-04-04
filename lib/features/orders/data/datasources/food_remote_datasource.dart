@@ -18,8 +18,9 @@ class FoodRemoteDataSourceImpl
       .withConverter<FoodModel>(
         fromFirestore: (snapshot, _) {
           final data = snapshot.data();
-          if (data == null)
+          if (data == null) {
             return FoodModel.empty(); // Should not happen with doc().get() if exists
+          }
 
           // Function to sanitize price in a list of maps
           List sanitizePrice(dynamic list) {
