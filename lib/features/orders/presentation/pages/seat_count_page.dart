@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 import '../widgets/seat_count_page/seat_selection_app_bar.dart';
 import '../widgets/seat_count_page/seat_selection_header.dart';
@@ -23,7 +24,7 @@ class SeatCountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (capacity <= 0) {
       return Scaffold(
-        backgroundColor: const Color(0xFF0A0E14),
+        backgroundColor: NeutralColors.background,
         appBar: const SeatCountErrorAppBar(),
         body: SeatCountErrorBody(capacity: capacity),
       );
@@ -32,7 +33,7 @@ class SeatCountPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => SeatCountCubit(),
       child: Scaffold(
-        backgroundColor: const Color(0xFF0A0E14),
+        backgroundColor: NeutralColors.background,
         appBar: SeatSelectionAppBar(tableName: tableName, capacity: capacity),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

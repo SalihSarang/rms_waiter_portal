@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_state.dart';
 import 'guest_count_button.dart';
@@ -19,8 +20,8 @@ class SeatCountGrid extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: const Color(0xFF0D121A),
-                border: Border.all(color: Colors.white12),
+                color: NeutralColors.card,
+                border: Border.all(color: NeutralColors.border),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: BlocBuilder<SeatCountCubit, SeatCountState>(

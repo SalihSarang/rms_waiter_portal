@@ -20,9 +20,7 @@ class GuestCountButton extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
-          color: isSelected
-              ? PrimaryColors.defaultColor
-              : const Color(0xFF1D222B),
+          color: isSelected ? PrimaryColors.defaultColor : NeutralColors.surface,
           borderRadius: BorderRadius.circular(15),
           boxShadow: isSelected
               ? [
@@ -30,7 +28,7 @@ class GuestCountButton extends StatelessWidget {
                     color: PrimaryColors.defaultColor.withValues(alpha: 0.4),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
-                  ),
+                  )
                 ]
               : [],
         ),
@@ -38,7 +36,7 @@ class GuestCountButton extends StatelessWidget {
         child: Text(
           count.toString(),
           style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey[400],
+            color: isSelected ? NeutralColors.white : NeutralColors.icon,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),

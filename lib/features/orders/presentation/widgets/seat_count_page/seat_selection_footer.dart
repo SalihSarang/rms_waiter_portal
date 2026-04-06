@@ -23,7 +23,7 @@ class SeatSelectionFooter extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.white10)),
+            border: Border(top: BorderSide(color: NeutralColors.border)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -32,13 +32,13 @@ class SeatSelectionFooter extends StatelessWidget {
                 children: [
                   const HugeIcon(
                     icon: HugeIcons.strokeRoundedUserGroup,
-                    color: Colors.grey,
+                    color: NeutralColors.icon,
                     size: 20,
                   ),
                   const SizedBox(width: 8),
                   Text(
                     '${state.selectedCount} of $capacity seats selected',
-                    style: const TextStyle(color: Colors.grey, fontSize: 13),
+                    style: const TextStyle(color: NeutralColors.icon, fontSize: 13),
                   ),
                 ],
               ),
@@ -64,7 +64,7 @@ class SeatSelectionFooter extends StatelessWidget {
                   child: const Text(
                     'Continue to Order',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: NeutralColors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),

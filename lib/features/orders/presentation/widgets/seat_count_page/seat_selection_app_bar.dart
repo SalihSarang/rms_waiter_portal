@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 
 class SeatSelectionAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String tableName;
@@ -14,12 +15,12 @@ class SeatSelectionAppBar extends StatelessWidget implements PreferredSizeWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: NeutralColors.transparent,
       elevation: 0,
       leading: IconButton(
         icon: const HugeIcon(
           icon: HugeIcons.strokeRoundedArrowLeft01,
-          color: Colors.white,
+          color: NeutralColors.white,
           size: 24,
         ),
         onPressed: () => Navigator.pop(context),
@@ -29,13 +30,13 @@ class SeatSelectionAppBar extends StatelessWidget implements PreferredSizeWidget
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFF16202D),
+              color: NeutralColors.surface,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               tableName,
               style: const TextStyle(
-                color: Colors.blue,
+                color: PrimaryColors.defaultColor,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),
@@ -44,7 +45,7 @@ class SeatSelectionAppBar extends StatelessWidget implements PreferredSizeWidget
           const SizedBox(width: 8),
           Text(
             '• Capacity:  $capacity seats',
-            style: const TextStyle(color: Colors.grey, fontSize: 14),
+            style: const TextStyle(color: NeutralColors.icon, fontSize: 14),
           ),
         ],
       ),

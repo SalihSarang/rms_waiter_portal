@@ -20,12 +20,12 @@ class SeatCountErrorBody extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'Invalid Table Capacity ($capacity)',
-            style: const TextStyle(color: Colors.white, fontSize: 18),
+            style: const TextStyle(color: NeutralColors.white, fontSize: 18),
           ),
           const SizedBox(height: 8),
           const Text(
             'Please contact a manager to check the capacity setup.',
-            style: TextStyle(color: Colors.grey, fontSize: 14),
+            style: TextStyle(color: NeutralColors.icon, fontSize: 14),
             textAlign: TextAlign.center,
           ),
         ],
