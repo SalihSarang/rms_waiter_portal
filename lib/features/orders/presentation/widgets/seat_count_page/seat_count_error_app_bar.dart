@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
-class SeatCountErrorAppBar extends StatelessWidget implements PreferredSizeWidget {
+/// [SeatCountErrorAppBar] is a custom AppBar used in the error state of the SeatCountPage.
+///
+/// It displays a back button and the title "Error" in white text against a transparent background.
+class SeatCountErrorAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const SeatCountErrorAppBar({super.key});
 
   @override

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
+/// [GuestCountButton] is a UI component used to display a selectable guest count.
+///
+/// It features an [AnimatedContainer] that visually changes (color, shadow)
+/// based on the [isSelected] state, providing haptic feedback through animation.
 class GuestCountButton extends StatelessWidget {
   final int count;
   final bool isSelected;
@@ -20,7 +24,9 @@ class GuestCountButton extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
-          color: isSelected ? PrimaryColors.defaultColor : NeutralColors.surface,
+          color: isSelected
+              ? PrimaryColors.defaultColor
+              : NeutralColors.surface,
           borderRadius: BorderRadius.circular(15),
           boxShadow: isSelected
               ? [
@@ -28,7 +34,7 @@ class GuestCountButton extends StatelessWidget {
                     color: PrimaryColors.defaultColor.withValues(alpha: 0.4),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
-                  )
+                  ),
                 ]
               : [],
         ),

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
+/// [SeatSelectionHeader] is a widget that displays the title and instructions
+/// for the seat selection screen.
+///
+/// It contains a main title "Select Number of Guests" and a subtitle
+/// "How many people are seated at this table?".
 class SeatSelectionHeader extends StatelessWidget {
   const SeatSelectionHeader({super.key});
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/order_filter/order_filter_cubit.dart';
+import 'package:waiter_portal/features/orders/presentation/bloc/order/order_bloc.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/orders/orders_bloc.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/orders/orders_event.dart';
 import 'package:waiter_portal/features/orders/presentation/pages/table_list_page.dart';
@@ -18,22 +19,32 @@ class OrdersPage extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => OrderFilterCubit()),
         BlocProvider(create: (context) => getIt<OrdersBloc>()..add(LoadOrders())),
+        BlocProvider(create: (context) => getIt<OrderBloc>()),
       ],
-      child: Scaffold(
-        backgroundColor: NeutralColors.background,
-        appBar: const OrdersAppBar(),
-        body: const OrdersPageBody(),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: PrimaryColors.defaultColor,
-          shape: const CircleBorder(),
-          child: const Icon(Icons.add, color: NeutralColors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TableListPage()),
-            );
-          },
-        ),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: NeutralColors.background,
+            appBar: const OrdersAppBar(),
+            body: const OrdersPageBody(),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: PrimaryColors.defaultColor,
+              shape: const CircleBorder(),
+              child: const Icon(Icons.add, color: NeutralColors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (innerContext) => BlocProvider.value(
+                      value: context.read<OrderBloc>(),
+                      child: const TableListPage(),
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

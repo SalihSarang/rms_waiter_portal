@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
-class SeatSelectionAppBar extends StatelessWidget implements PreferredSizeWidget {
+/// [SeatSelectionAppBar] is a custom AppBar used in the SeatCountPage.
+///
+/// It displays the table name and its capacity, along with a back button.
+/// The background is transparent and the elevation is set to 0.
+class SeatSelectionAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String tableName;
   final int capacity;
 

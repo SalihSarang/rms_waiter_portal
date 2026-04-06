@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
+/// [SeatCountErrorBody] is a widget displayed when the table capacity is invalid (<= 0).
+///
+/// It shows an error icon, the invalid capacity value, and instructions to contact a manager.
 class SeatCountErrorBody extends StatelessWidget {
   final int capacity;
 

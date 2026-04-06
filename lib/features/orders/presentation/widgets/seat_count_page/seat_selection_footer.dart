@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_state.dart';
+import 'package:waiter_portal/features/orders/presentation/bloc/order/order_bloc.dart';
+import 'package:waiter_portal/features/orders/presentation/bloc/order/order_event.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_state.dart';
 import '../../pages/menue_page.dart';
@@ -47,10 +51,28 @@ class SeatSelectionFooter extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    // Initialize the Order Model in OrderBloc
+                    final authState = context.read<AuthBloc>().state;
+                    String staffId = 'unknown_staff';
+                    if (authState is Authenticated) {
+                      staffId = authState.staff.id;
+                    }
+
+                    context.read<OrderBloc>().add(
+                          InitOrder(
+                            tableNumber: tableName,
+                            seatCount: state.selectedCount,
+                            staffId: staffId,
+                          ),
+                        );
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MenuePage(tableNumber: tableName),
+                        builder: (innerContext) => BlocProvider.value(
+                          value: context.read<OrderBloc>(),
+                          child: MenuePage(tableNumber: tableName),
+                        ),
                       ),
                     );
                   },
