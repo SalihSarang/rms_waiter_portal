@@ -5,6 +5,8 @@ import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_state.dart';
 import 'menue_page.dart';
+import '../widgets/seat_count_page/components/guest_count_button.dart';
+import '../widgets/seat_count_page/components/guest_type_button.dart';
 
 class SeatCountPage extends StatelessWidget {
   final String tableName;
@@ -84,14 +86,28 @@ class SeatCountPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildTypeButton(context, 'Couple', 2),
-                  _buildTypeButton(context, 'Family', 4),
-                  _buildTypeButton(context, 'Group', 6),
-                ],
-              ),
+              Builder(builder: (context) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GuestTypeButton(
+                      label: 'Couple',
+                      onTap: () =>
+                          context.read<SeatCountCubit>().selectCount(2),
+                    ),
+                    GuestTypeButton(
+                      label: 'Family',
+                      onTap: () =>
+                          context.read<SeatCountCubit>().selectCount(4),
+                    ),
+                    GuestTypeButton(
+                      label: 'Group',
+                      onTap: () =>
+                          context.read<SeatCountCubit>().selectCount(6),
+                    ),
+                  ],
+                );
+              }),
               const SizedBox(height: 24),
               Expanded(
                 child: Container(
@@ -114,7 +130,13 @@ class SeatCountPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final count = index + 1;
                           final isSelected = state.selectedCount == count;
-                          return _buildCountButton(context, count, isSelected);
+                          return GuestCountButton(
+                            count: count,
+                            isSelected: isSelected,
+                            onTap: () => context
+                                .read<SeatCountCubit>()
+                                .selectCount(count),
+                          );
                         },
                       );
                     },
@@ -182,68 +204,6 @@ class SeatCountPage extends StatelessWidget {
               ),
             );
           },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTypeButton(BuildContext context, String label, int count) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: BlocBuilder<SeatCountCubit, SeatCountState>(
-          builder: (context, state) {
-            return OutlinedButton(
-              onPressed: () {
-                context.read<SeatCountCubit>().selectCount(count);
-              },
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.white12),
-                backgroundColor: const Color(0xFF161B22),
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              child: Text(
-                label,
-                style: const TextStyle(color: Colors.white70, fontSize: 12),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCountButton(BuildContext context, int count, bool isSelected) {
-    return GestureDetector(
-      onTap: () {
-        context.read<SeatCountCubit>().selectCount(count);
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: isSelected ? PrimaryColors.defaultColor : const Color(0xFF1D222B),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: PrimaryColors.defaultColor.withValues(alpha: 0.4),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  )
-                ]
-              : [],
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          count.toString(),
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey[400],
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
         ),
       ),
     );
