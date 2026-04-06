@@ -4,6 +4,7 @@ import 'package:waiter_portal/core/di/auth_di.dart';
 import 'package:waiter_portal/core/di/menu_di.dart';
 import 'package:waiter_portal/core/di/tables_di.dart';
 import 'package:waiter_portal/core/di/cart_di.dart';
+import 'package:waiter_portal/core/di/orders_di.dart';
 
 final getIt = GetIt.instance;
 
@@ -24,4 +25,8 @@ void setupDI() {
 
   // Cart DI
   cartDI();
+
+  // Orders DI
+  ordersDI();
 }
+
