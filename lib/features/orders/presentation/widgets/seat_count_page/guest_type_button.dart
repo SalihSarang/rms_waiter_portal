@@ -4,11 +4,7 @@ class GuestTypeButton extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
 
-  const GuestTypeButton({
-    super.key,
-    required this.label,
-    required this.onTap,
-  });
+  const GuestTypeButton({super.key, required this.label, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
