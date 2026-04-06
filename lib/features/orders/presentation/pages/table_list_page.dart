@@ -9,7 +9,7 @@ import '../../../tables/presentation/bloc/table_view_state.dart';
 import '../widgets/table_list_page/grid_content.dart';
 import '../widgets/table_list_page/table_filter_row.dart';
 import '../widgets/table_list_page/table_list_app_bar.dart';
-import 'menue_page.dart';
+import 'seat_count_page.dart';
 
 import '../bloc/table_search/table_search_cubit.dart';
 
@@ -41,8 +41,10 @@ class TableListPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              MenuePage(tableNumber: table.name),
+                          builder: (context) => SeatCountPage(
+                            tableName: table.name,
+                            capacity: table.seats,
+                          ),
                         ),
                       );
                     },

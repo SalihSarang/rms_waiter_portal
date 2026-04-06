@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_state.dart';
+import 'menue_page.dart';
 
 class SeatCountPage extends StatelessWidget {
   final String tableName;
@@ -152,7 +153,13 @@ class SeatCountPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Action to continue
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                MenuePage(tableNumber: tableName),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: PrimaryColors.defaultColor,
