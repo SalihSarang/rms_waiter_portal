@@ -5,6 +5,7 @@ import 'package:waiter_portal/features/orders/domain/repositories/order_reposito
 import 'package:waiter_portal/features/orders/domain/usecases/get_orders.dart';
 import 'package:waiter_portal/features/orders/domain/usecases/update_order_status.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/orders/orders_bloc.dart';
+import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 
 void ordersDI() {
   // Data Sources
@@ -23,4 +24,5 @@ void ordersDI() {
 
   // Blocs
   getIt.registerFactory(() => OrdersBloc(getIt()));
+  getIt.registerFactory(() => SeatCountCubit());
 }
