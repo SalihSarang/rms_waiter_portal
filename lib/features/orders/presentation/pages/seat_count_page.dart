@@ -71,19 +71,19 @@ class SeatCountPage extends StatelessWidget {
                 'Select Number of\nGuests',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 32,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               const Text(
                 'How many people are seated at this table?',
                 style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 16,
+                  fontSize: 14,
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -92,7 +92,7 @@ class SeatCountPage extends StatelessWidget {
                   _buildTypeButton(context, 'Group', 6),
                 ],
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 24),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(15),
@@ -107,9 +107,9 @@ class SeatCountPage extends StatelessWidget {
                         itemCount: capacity,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          childAspectRatio: 1.2,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15,
+                          childAspectRatio: 1.3,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
                         ),
                         itemBuilder: (context, index) {
                           final count = index + 1;
@@ -144,11 +144,11 @@ class SeatCountPage extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         '${state.selectedCount} of $capacity seats selected',
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey, fontSize: 13),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 12),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -163,16 +163,16 @@ class SeatCountPage extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: PrimaryColors.defaultColor,
-                        padding: const EdgeInsets.symmetric(vertical: 18),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       child: const Text(
                         'Continue to Order',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -200,14 +200,14 @@ class SeatCountPage extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.white12),
                 backgroundColor: const Color(0xFF161B22),
-                padding: const EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
               child: Text(
                 label,
-                style: const TextStyle(color: Colors.white70, fontSize: 13),
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
               ),
             );
           },
@@ -241,7 +241,7 @@ class SeatCountPage extends StatelessWidget {
           count.toString(),
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.grey[400],
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
