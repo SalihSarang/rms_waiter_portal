@@ -12,7 +12,7 @@ class MenuLoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerScope(
       child: GridView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 180),
         physics:
             NeverScrollableScrollPhysics(), // Disable scroll during loading
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

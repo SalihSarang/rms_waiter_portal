@@ -17,7 +17,7 @@ class MenuItemsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerScope(
       child: GridView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 180),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // 2 items per row
           crossAxisSpacing: 16,

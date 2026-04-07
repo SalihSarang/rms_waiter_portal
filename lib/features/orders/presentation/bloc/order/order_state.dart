@@ -19,6 +19,10 @@ class OrderInProgress extends OrderState {
   List<Object?> get props => [order];
 }
 
+class OrderLoading extends OrderState {}
+
+class OrderSuccess extends OrderState {}
+
 class OrderError extends OrderState {
   final String message;
 

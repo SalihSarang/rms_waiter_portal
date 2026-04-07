@@ -25,6 +25,6 @@ void ordersDI() {
 
   // Blocs
   getIt.registerFactory(() => OrdersBloc(getIt()));
-  getIt.registerFactory(() => OrderBloc());
+  getIt.registerFactory(() => OrderBloc(getIt()));
   getIt.registerFactory(() => SeatCountCubit());
 }

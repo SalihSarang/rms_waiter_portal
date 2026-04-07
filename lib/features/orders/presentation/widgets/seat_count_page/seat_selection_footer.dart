@@ -42,7 +42,10 @@ class SeatSelectionFooter extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     '${state.selectedCount} of $capacity seats selected',
-                    style: const TextStyle(color: NeutralColors.icon, fontSize: 13),
+                    style: const TextStyle(
+                      color: NeutralColors.icon,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
@@ -59,20 +62,18 @@ class SeatSelectionFooter extends StatelessWidget {
                     }
 
                     context.read<OrderBloc>().add(
-                          InitOrder(
-                            tableNumber: tableName,
-                            seatCount: state.selectedCount,
-                            staffId: staffId,
-                          ),
-                        );
+                      InitOrder(
+                        tableNumber: tableName,
+                        seatCount: state.selectedCount,
+                        staffId: staffId,
+                      ),
+                    );
 
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (innerContext) => BlocProvider.value(
-                          value: context.read<OrderBloc>(),
-                          child: MenuePage(tableNumber: tableName),
-                        ),
+                        builder: (innerContext) =>
+                            MenuePage(tableNumber: tableName),
                       ),
                     );
                   },

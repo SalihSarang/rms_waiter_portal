@@ -12,7 +12,6 @@ import '../widgets/table_list_page/table_list_app_bar.dart';
 import 'seat_count_page.dart';
 
 import '../bloc/table_search/table_search_cubit.dart';
-import '../bloc/order/order_bloc.dart';
 
 class TableListPage extends StatelessWidget {
   const TableListPage({super.key});
@@ -42,12 +41,9 @@ class TableListPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (innerContext) => BlocProvider.value(
-                            value: context.read<OrderBloc>(),
-                            child: SeatCountPage(
-                              tableName: table.name,
-                              capacity: table.seats,
-                            ),
+                          builder: (innerContext) => SeatCountPage(
+                            tableName: table.name,
+                            capacity: table.seats,
                           ),
                         ),
                       );

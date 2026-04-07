@@ -29,6 +29,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         selectedPortion: existingItem.selectedPortion,
         selectedAddOns: existingItem.selectedAddOns,
         specialInstructions: existingItem.specialInstructions,
+        imageUrl: existingItem.imageUrl,
       );
     } else {
       currentItems.add(event.item);
@@ -57,6 +58,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           selectedPortion: item.selectedPortion,
           selectedAddOns: item.selectedAddOns,
           specialInstructions: item.specialInstructions,
+          imageUrl: item.imageUrl,
         );
       } else {
         currentItems.removeAt(index);
