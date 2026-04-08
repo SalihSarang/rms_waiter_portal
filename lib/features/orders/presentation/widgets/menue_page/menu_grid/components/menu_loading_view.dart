@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'menu_skeleton.dart';
+import 'package:waiter_portal/core/widgets/rms_shimmer.dart';
 
 /// [MenuLoadingView] displays a responsive grid of pulsing skeleton placeholders.
 ///

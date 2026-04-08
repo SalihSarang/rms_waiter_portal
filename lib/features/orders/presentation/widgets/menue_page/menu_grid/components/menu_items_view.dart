@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rms_shared_package/models/menu_models/food_model/food_model.dart';
 import 'menu_item_card.dart';
-import 'menu_skeleton.dart';
+import 'package:waiter_portal/core/widgets/rms_shimmer.dart';
 
 /// [MenuItemsView] displays a responsive grid of actual food items.
 ///

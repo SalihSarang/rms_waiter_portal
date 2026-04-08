@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
-import 'order_preview_item_components.dart';
+import 'package:waiter_portal/features/orders/presentation/widgets/order_preview/order_preview_item_components/order_item_details.dart';
+import 'package:waiter_portal/features/orders/presentation/widgets/order_preview/order_preview_item_components/order_item_header.dart';
+import 'package:waiter_portal/features/orders/presentation/widgets/order_preview/order_preview_item_components/order_item_image.dart';
+import 'package:waiter_portal/features/orders/presentation/widgets/order_preview/order_preview_item_components/order_item_special_instructions.dart';
 import 'order_quantity_controller.dart';
 
 /// [OrderPreviewItemTile] displays a single item in the order preview list.

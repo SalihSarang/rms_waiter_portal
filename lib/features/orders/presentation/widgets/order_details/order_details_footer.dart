@@ -10,13 +10,23 @@ class OrderDetailsFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Disable "Add More" if order is preparing or ready
-    final bool canAddMore = order.orderStatus == OrderStatus.pending;
+    // Both buttons disabled if order status is preparing
+    final bool isPreparing = order.orderStatus == OrderStatus.preparing;
+
+    // Send to Kitchen logic: only show when there are new/unsent items
+    final bool hasNewItems = order.orderedMenu.any(
+      (item) => !item.isSentToKitchen,
+    );
+    final bool showSendToKitchen = hasNewItems;
+    final bool canSendToKitchen = !isPreparing && hasNewItems;
+
+    // Add More logic: disabled if preparing
+    final bool canAddMore = !isPreparing;
 
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
-        color: NeutralColors.surface,
+        color: NeutralColors.appBarBackground,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
@@ -34,101 +44,52 @@ class OrderDetailsFooter extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Send to Kitchen Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: PrimaryColors.defaultColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+            if (showSendToKitchen)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: RmsButton(
+                  text: 'Send to Kitchen',
+                  icon: const Icon(
+                    Icons.send_rounded,
+                    color: NeutralColors.white,
+                    size: 20,
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.send_rounded, color: NeutralColors.white),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'Send to Kitchen',
-                      style: TextStyle(
-                        color: NeutralColors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    // Quantity Badge
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: NeutralColors.whiteAlpha20,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        '${order.orderedMenu.length}',
-                        style: const TextStyle(
-                          color: NeutralColors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
+                  onPressed: canSendToKitchen ? () {} : null,
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
+
             // Bottom Action Row
             Row(
               children: [
                 // Add More Button
                 Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: canAddMore ? () {} : null,
-                    icon: const Icon(Icons.add, size: 20),
-                    label: const Text('Add More'),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      side: BorderSide(
-                        color: canAddMore
-                            ? NeutralColors.border
-                            : NeutralColors.border.withValues(alpha: 0.3),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      foregroundColor: canAddMore
+                  child: RmsButton(
+                    text: 'Add More',
+                    icon: Icon(
+                      Icons.add,
+                      size: 20,
+                      color: canAddMore
                           ? NeutralColors.white
                           : NeutralColors.white.withValues(alpha: 0.3),
                     ),
+                    isOutlined: true,
+                    onPressed: canAddMore ? () {} : null,
                   ),
                 ),
                 const SizedBox(width: 12),
                 // Request Bill Button
                 Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () {},
+                  child: RmsButton(
+                    text: 'Request Bill',
                     icon: const HugeIcon(
                       icon: HugeIcons.strokeRoundedInvoice02,
-                      color: SemanticColors.info,
+                      color: StatusColors.purpleLight,
                       size: 20,
                     ),
-                    label: const Text(
-                      'Request Bill',
-                      style: TextStyle(color: SemanticColors.info),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      side: const BorderSide(color: SemanticColors.info),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                    isOutlined: true,
+                    textColor: StatusColors.purpleLight,
+                    borderColor: StatusColors.purpleLight,
+                    onPressed: () {},
                   ),
                 ),
               ],

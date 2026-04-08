@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'menu_skeleton.dart';
+import 'package:waiter_portal/core/widgets/rms_shimmer.dart';
 
 /// [CardImage] handles the network image with loading and error states for menu item cards.
 class CardImage extends StatelessWidget {
