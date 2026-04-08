@@ -16,9 +16,7 @@ class OrdersListView extends StatelessWidget {
       builder: (context, state) {
         if (state is OrdersLoading) {
           return const Center(
-            child: CircularProgressIndicator(
-              color: PrimaryColors.defaultColor,
-            ),
+            child: CircularProgressIndicator(color: PrimaryColors.defaultColor),
           );
         }
 
@@ -27,17 +25,24 @@ class OrdersListView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.error_outline,
-                    color: SemanticColors.error, size: 48),
+                const Icon(
+                  Icons.error_outline,
+                  color: SemanticColors.error,
+                  size: 48,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   'Failed to load orders',
-                  style: TextStyle(color: NeutralColors.white.withOpacity(0.7)),
+                  style: TextStyle(
+                    color: NeutralColors.white.withValues(alpha: 0.7),
+                  ),
                 ),
                 TextButton(
                   onPressed: () => context.read<OrdersBloc>().add(LoadOrders()),
-                  child: const Text('Retry',
-                      style: TextStyle(color: PrimaryColors.defaultColor)),
+                  child: const Text(
+                    'Retry',
+                    style: TextStyle(color: PrimaryColors.defaultColor),
+                  ),
                 ),
               ],
             ),
@@ -50,25 +55,28 @@ class OrdersListView extends StatelessWidget {
           final filteredOrders = selectedFilter == 'All'
               ? orders
               : orders
-                  .where(
-                    (order) =>
-                        order.orderStatus.name.toLowerCase() ==
-                        selectedFilter.replaceAll(' ', '').toLowerCase(),
-                  )
-                  .toList();
+                    .where(
+                      (order) =>
+                          order.orderStatus.name.toLowerCase() ==
+                          selectedFilter.replaceAll(' ', '').toLowerCase(),
+                    )
+                    .toList();
 
           if (filteredOrders.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.receipt_long_rounded,
-                      color: NeutralColors.white.withOpacity(0.2), size: 64),
+                  Icon(
+                    Icons.receipt_long_rounded,
+                    color: NeutralColors.white.withValues(alpha: 0.2),
+                    size: 64,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     'No orders found',
                     style: TextStyle(
-                      color: NeutralColors.white.withOpacity(0.5),
+                      color: NeutralColors.white.withValues(alpha: 0.5),
                       fontSize: 16,
                     ),
                   ),
@@ -78,8 +86,12 @@ class OrdersListView extends StatelessWidget {
           }
 
           return ListView.separated(
-            padding:
-                const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
+            padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+              bottom: 20,
+              top: 10,
+            ),
             itemCount: filteredOrders.length,
             separatorBuilder: (context, index) => const SizedBox(height: 16),
             itemBuilder: (context, index) {

@@ -5,6 +5,7 @@ import 'package:waiter_portal/features/orders/presentation/bloc/order_filter/ord
 import 'package:waiter_portal/features/orders/presentation/widgets/orders_page/components/orders_list_view.dart';
 import 'package:waiter_portal/features/orders/presentation/widgets/orders_page_body/components/dashboard_cards.dart';
 import 'package:waiter_portal/features/orders/presentation/widgets/orders_page_body/components/order_filter_row.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 
 class OrdersPageBody extends StatelessWidget {
   const OrdersPageBody({super.key});
@@ -46,7 +47,7 @@ class OrdersPageBody extends StatelessWidget {
                         ? 'Active Orders'
                         : state.selectedFilter,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: NeutralColors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -56,7 +57,7 @@ class OrdersPageBody extends StatelessWidget {
                     child: const Text(
                       'View All Order',
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: PrimaryColors.defaultColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

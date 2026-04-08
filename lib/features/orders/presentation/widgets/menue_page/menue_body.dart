@@ -9,6 +9,7 @@ import '../menue_page/category_filters/category_filters.dart';
 import '../menue_page/menu_grid/menu_grid.dart';
 import '../menue_page/menu_search_bar.dart';
 import '../../pages/food_details_page.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 
 /// [MenueBody] coordinates the searching, filtering, and grid display for the menu.
 class MenueBody extends StatelessWidget {
@@ -29,7 +30,7 @@ class MenueBody extends StatelessWidget {
           return Center(
             child: Text(
               'Error: ${state.message}',
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: NeutralColors.white),
             ),
           );
         }

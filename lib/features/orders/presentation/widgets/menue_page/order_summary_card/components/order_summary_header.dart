@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'order_item_count_badge.dart';
 import 'order_price_section.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 
 /// Builds the top row of the card containing summary info.
 class OrderSummaryHeader extends StatelessWidget {
@@ -24,7 +25,7 @@ class OrderSummaryHeader extends StatelessWidget {
         const Text(
           'Order Summary',
           style: TextStyle(
-            color: Colors.white,
+            color: NeutralColors.white,
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),

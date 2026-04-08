@@ -2,62 +2,84 @@ import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 
-class OrderActionButtons extends StatelessWidget {
-  final OrderStatus status;
+import '../../../../pages/order_details_page.dart';
 
-  const OrderActionButtons({super.key, required this.status});
+class OrderActionButtons extends StatelessWidget {
+  final OrderModel order;
+
+  const OrderActionButtons({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
+    final status = order.orderStatus;
     if (status == OrderStatus.pending) {
-      return const Row(
+      return Row(
         children: [
           Expanded(
             child: OrderActionButton(
               text: 'View Details',
               bgColor: NeutralColors.card,
               textColor: NeutralColors.white,
-            ),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: OrderActionButton(
-              text: 'Accept Order',
-              bgColor: StatusColors.pending,
-              textColor: NeutralColors.background,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderDetailsPage(order: order),
+                  ),
+                );
+              },
             ),
           ),
         ],
       );
     } else if (status == OrderStatus.preparing) {
-      return const Row(
+      return Row(
         children: [
           Expanded(
             child: OrderActionButton(
               text: 'View Details',
               bgColor: NeutralColors.card,
               textColor: NeutralColors.white,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderDetailsPage(order: order),
+                  ),
+                );
+              },
             ),
           ),
         ],
       );
     } else {
       // Ready
-      return const Row(
+      return Row(
         children: [
           Expanded(
             child: OrderActionButton(
               text: 'View Details',
               bgColor: NeutralColors.card,
               textColor: NeutralColors.white,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderDetailsPage(order: order),
+                  ),
+                );
+              },
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: OrderActionButton(
               text: 'Serve Now',
               bgColor: StatusColors.ready,
               textColor: NeutralColors.white,
+              onPressed: () {
+                // TODO: Implement serve now logic
+              },
             ),
           ),
         ],
@@ -70,18 +92,20 @@ class OrderActionButton extends StatelessWidget {
   final String text;
   final Color bgColor;
   final Color textColor;
+  final VoidCallback onPressed;
 
   const OrderActionButton({
     super.key,
     required this.text,
     required this.bgColor,
     required this.textColor,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: bgColor,
         padding: const EdgeInsets.symmetric(vertical: 14),

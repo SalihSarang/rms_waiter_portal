@@ -16,7 +16,7 @@ class ViewOrderButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: PrimaryColors.defaultColor,
-          foregroundColor: Colors.white,
+          foregroundColor: NeutralColors.white,
           padding: const EdgeInsets.symmetric(vertical: 8),
           elevation: 0,
           shape: RoundedRectangleBorder(
@@ -26,7 +26,11 @@ class ViewOrderButton extends StatelessWidget {
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.shopping_cart_outlined, color: Colors.white, size: 24),
+            Icon(
+              Icons.shopping_cart_outlined,
+              color: NeutralColors.white,
+              size: 24,
+            ),
             SizedBox(width: 12),
             Text(
               'VIEW ORDER',
