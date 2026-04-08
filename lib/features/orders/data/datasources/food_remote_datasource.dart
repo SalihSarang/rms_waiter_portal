@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
-import 'package:rms_shared_package/models/menu_models/food_model/food_model.dart';
 
 abstract class IFoodRemoteDataSource {
   Future<List<FoodModel>> getAllFoodItems();
+  Future<FoodModel?> getFoodById(String foodId);
 }
 
 class FoodRemoteDataSourceImpl
@@ -17,7 +17,11 @@ class FoodRemoteDataSourceImpl
       .collection(MenuDbConstants.foods)
       .withConverter<FoodModel>(
         fromFirestore: (snapshot, _) {
-          final data = snapshot.data()!;
+          final data = snapshot.data();
+          if (data == null) {
+            return FoodModel.empty(); // Should not happen with doc().get() if exists
+          }
+
           // Function to sanitize price in a list of maps
           List sanitizePrice(dynamic list) {
             if (list == null || list is! List) return list ?? [];
@@ -45,5 +49,13 @@ class FoodRemoteDataSourceImpl
       final snapshot = await _foodCollection.get();
       return snapshot.docs.map((doc) => doc.data()).toList();
     }, taskName: 'FoodRemoteDataSource_getAllFoodItems');
+  }
+
+  @override
+  Future<FoodModel?> getFoodById(String foodId) {
+    return performSafeCall(() async {
+      final snapshot = await _foodCollection.doc(foodId).get();
+      return snapshot.exists ? snapshot.data() : null;
+    }, taskName: 'FoodRemoteDataSource_getFoodById');
   }
 }

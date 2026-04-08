@@ -118,7 +118,7 @@ class OrderCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           // --- Action Buttons Section ---
-          OrderActionButtons(status: order.orderStatus),
+          OrderActionButtons(order: order),
         ],
       ),
     );

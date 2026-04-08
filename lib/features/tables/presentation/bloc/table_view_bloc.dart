@@ -11,9 +11,9 @@ class TableViewBloc extends Bloc<TableViewEvent, TableViewState> {
   TableViewBloc({
     required IHallRepository hallRepository,
     required ITableRepository tableRepository,
-  })  : _hallRepository = hallRepository,
-        _tableRepository = tableRepository,
-        super(const TableViewState()) {
+  }) : _hallRepository = hallRepository,
+       _tableRepository = tableRepository,
+       super(const TableViewState()) {
     on<TableViewInit>(_onInit);
     on<TableViewHallSelected>(_onHallSelected);
   }
@@ -25,19 +25,13 @@ class TableViewBloc extends Bloc<TableViewEvent, TableViewState> {
     emit(state.copyWith(isLoading: true, error: null));
     try {
       final halls = await _hallRepository.getHalls();
-      emit(state.copyWith(
-        halls: halls,
-        isLoading: false,
-      ));
+      emit(state.copyWith(halls: halls, isLoading: false));
 
       if (halls.isNotEmpty) {
         add(TableViewHallSelected(halls.first));
       }
     } catch (e) {
-      emit(state.copyWith(
-        isLoading: false,
-        error: e.toString(),
-      ));
+      emit(state.copyWith(isLoading: false, error: e.toString()));
     }
   }
 
@@ -53,15 +47,13 @@ class TableViewBloc extends Bloc<TableViewEvent, TableViewState> {
     emit(state.copyWith(isLoading: true, error: null));
     try {
       final tables = await _tableRepository.getTables(event.hall.id);
-      emit(state.copyWithSelectedHall(event.hall).copyWith(
-            tables: tables,
-            isLoading: false,
-          ));
+      emit(
+        state
+            .copyWithSelectedHall(event.hall)
+            .copyWith(tables: tables, isLoading: false),
+      );
     } catch (e) {
-      emit(state.copyWith(
-        isLoading: false,
-        error: e.toString(),
-      ));
+      emit(state.copyWith(isLoading: false, error: e.toString()));
     }
   }
 }

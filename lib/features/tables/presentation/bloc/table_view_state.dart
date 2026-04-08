@@ -44,11 +44,5 @@ class TableViewState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        halls,
-        selectedHall,
-        tables,
-        isLoading,
-        error,
-      ];
+  List<Object?> get props => [halls, selectedHall, tables, isLoading, error];
 }

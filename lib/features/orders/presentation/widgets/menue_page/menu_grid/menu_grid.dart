@@ -16,8 +16,14 @@ import 'components/menu_loading_view.dart';
 class MenuGrid extends StatelessWidget {
   final List<FoodModel> allFoods;
   final bool isLoading;
+  final ValueChanged<FoodModel>? onFoodTap;
 
-  const MenuGrid({super.key, required this.allFoods, this.isLoading = false});
+  const MenuGrid({
+    super.key,
+    required this.allFoods,
+    this.isLoading = false,
+    this.onFoodTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +54,7 @@ class MenuGrid extends StatelessWidget {
         }
 
         // LOADED STATE: Delegates to a grid view of filtered items.
-        return MenuItemsView(foods: filteredFoods);
+        return MenuItemsView(foods: filteredFoods, onFoodTap: onFoodTap);
       },
     );
   }

@@ -7,13 +7,17 @@ import 'package:waiter_portal/firebase_options.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/auth_gate.dart';
 import 'features/shift/presentation/bloc/shift_bloc.dart';
+import 'features/orders/presentation/bloc/cart/cart_bloc.dart';
+import 'features/orders/presentation/bloc/order/order_bloc.dart';
+import 'features/orders/presentation/bloc/orders/orders_bloc.dart';
+import 'features/orders/presentation/bloc/orders/orders_event.dart';
+import 'features/orders/presentation/bloc/menu/menu_bloc.dart';
+import 'features/orders/presentation/bloc/menu/menu_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setupDI();
-
   runApp(const MyApp());
 }
 
@@ -26,6 +30,14 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(create: (context) => getIt<AuthBloc>()),
         BlocProvider<ShiftBloc>(create: (context) => getIt<ShiftBloc>()),
+        BlocProvider<CartBloc>(create: (context) => getIt<CartBloc>()),
+        BlocProvider<OrderBloc>(create: (context) => getIt<OrderBloc>()),
+        BlocProvider<OrdersBloc>(
+          create: (context) => getIt<OrdersBloc>()..add(LoadOrders()),
+        ),
+        BlocProvider<MenuBloc>(
+          create: (context) => getIt<MenuBloc>()..add(FetchMenu()),
+        ),
       ],
       child: MaterialApp(
         title: 'Waiter Portal',

@@ -48,6 +48,8 @@ dependencies:
   package_info_plus: ^9.0.0
   get_it: ^9.2.0
   equatable: ^2.0.8
+  hugeicons: ^1.1.6
+  icons_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:

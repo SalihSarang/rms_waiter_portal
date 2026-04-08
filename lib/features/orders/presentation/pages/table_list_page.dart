@@ -7,18 +7,24 @@ import '../../../tables/presentation/bloc/table_view_bloc.dart';
 import '../../../tables/presentation/bloc/table_view_event.dart';
 import '../../../tables/presentation/bloc/table_view_state.dart';
 import '../widgets/table_list_page/grid_content.dart';
-import '../widgets/table_list_page/table_bottom_bar.dart';
 import '../widgets/table_list_page/table_filter_row.dart';
 import '../widgets/table_list_page/table_list_app_bar.dart';
-import 'menue_page.dart';
+import 'seat_count_page.dart';
+
+import '../bloc/table_search/table_search_cubit.dart';
 
 class TableListPage extends StatelessWidget {
   const TableListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<TableViewBloc>()..add(TableViewInit()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<TableViewBloc>()..add(TableViewInit()),
+        ),
+        BlocProvider(create: (context) => getIt<TableSearchCubit>()),
+      ],
       child: BlocBuilder<TableViewBloc, TableViewState>(
         builder: (context, state) {
           return Scaffold(
@@ -35,14 +41,15 @@ class TableListPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              MenuePage(tableNumber: table.name),
+                          builder: (innerContext) => SeatCountPage(
+                            tableName: table.name,
+                            capacity: table.seats,
+                          ),
                         ),
                       );
                     },
                   ),
                 ),
-                const TableBottomBar(),
               ],
             ),
           );

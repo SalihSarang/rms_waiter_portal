@@ -9,6 +9,7 @@ import 'package:waiter_portal/features/orders/domain/usecases/get_categories.dar
 import 'package:waiter_portal/features/orders/domain/usecases/get_food_items.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/menu/menu_bloc.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/menu_filter/menu_filter_cubit.dart';
+import 'package:waiter_portal/features/orders/presentation/bloc/table_search/table_search_cubit.dart';
 
 void menuDI() {
   // Data Sources
@@ -34,4 +35,5 @@ void menuDI() {
   // Blocs (Factory since they might be localized or reset)
   getIt.registerFactory(() => MenuBloc(getIt(), getIt()));
   getIt.registerFactory(() => MenuFilterCubit());
+  getIt.registerFactory(() => TableSearchCubit());
 }
