@@ -31,7 +31,7 @@ class TableWidgetUtils {
           TableColors.reservedText,
           SemanticColors.info.withValues(alpha: 0.2),
         );
-      case TableStatus.billRequested:
+      case TableStatus.served:
         return (
           TableColors.billRequestedFill,
           SemanticColors.warning,
@@ -70,11 +70,11 @@ class TableWidgetUtils {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         );
-      case TableStatus.billRequested:
+      case TableStatus.served:
         return const LinearGradient(
           colors: [
             TableColors.billRequestedGradientStart,
-            TableColors.billRequestedFill
+            TableColors.billRequestedFill,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -83,7 +83,7 @@ class TableWidgetUtils {
         return const LinearGradient(
           colors: [
             NeutralColors.cardGradientStart,
-            NeutralColors.cardGradientEnd
+            NeutralColors.cardGradientEnd,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,

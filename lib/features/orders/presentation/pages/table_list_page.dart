@@ -38,12 +38,25 @@ class TableListPage extends StatelessWidget {
                   child: GridContent(
                     state: state,
                     onTableTap: (table) {
+                      final availableSeats = table.seats - table.occupiedSeats;
+
+                      if (availableSeats <= 0) {
+                        RmsSnackbar.show(
+                          context,
+                          message:
+                              'Table ${table.name} is full. Choose another table or checkout current guests.',
+                          type: RmsSnackbarType.error,
+                        );
+                        return;
+                      }
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (innerContext) => SeatCountPage(
                             tableName: table.name,
-                            capacity: table.seats,
+                            tableId: table.id,
+                            availableSeats: availableSeats,
                           ),
                         ),
                       );

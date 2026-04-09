@@ -5,6 +5,7 @@ abstract class IOrderRemoteDataSource {
   Stream<List<OrderModel>> getOrders();
   Future<void> updateOrderStatus(String orderId, OrderStatus status);
   Future<void> createOrder(OrderModel order);
+  Future<void> updateTableOccupiedSeats(String tableId, int delta);
 }
 
 class OrderRemoteDataSourceImpl
@@ -45,6 +46,16 @@ class OrderRemoteDataSourceImpl
           .doc(order.id)
           .set(order.toJson()),
       taskName: 'CreateOrder',
+    );
+  }
+
+  @override
+  Future<void> updateTableOccupiedSeats(String tableId, int delta) async {
+    await performSafeCall(
+      () => _firestore.collection(TableDbConstants.tables).doc(tableId).update({
+        'occupiedSeats': FieldValue.increment(delta),
+      }),
+      taskName: 'UpdateTableOccupiedSeats',
     );
   }
 }

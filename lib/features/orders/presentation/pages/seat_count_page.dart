@@ -24,31 +24,27 @@ import '../widgets/seat_count_page/seat_count_error_body.dart';
 ///
 class SeatCountPage extends StatelessWidget {
   final String tableName;
-  final int capacity;
+  final String tableId;
+  final int availableSeats;
 
   const SeatCountPage({
     super.key,
     required this.tableName,
-    required this.capacity,
+    required this.tableId,
+    required this.availableSeats,
   });
 
   @override
   Widget build(BuildContext context) {
-    // If the table has a capacity of 0 or less, show the Error state widgets.
-    if (capacity <= 0) {
-      return Scaffold(
-        backgroundColor: NeutralColors.background,
-        appBar: const SeatCountErrorAppBar(),
-        body: SeatCountErrorBody(capacity: capacity),
-      );
-    }
-
     // Provides the [SeatCountCubit] to all child components.
     return BlocProvider(
       create: (context) => SeatCountCubit(),
       child: Scaffold(
         backgroundColor: NeutralColors.background,
-        appBar: SeatSelectionAppBar(tableName: tableName, capacity: capacity),
+        appBar: SeatSelectionAppBar(
+          tableName: tableName,
+          capacity: availableSeats,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -56,13 +52,14 @@ class SeatCountPage extends StatelessWidget {
             children: [
               const SeatSelectionHeader(),
               const SeatCountPresets(),
-              SeatCountGrid(capacity: capacity),
+              SeatCountGrid(capacity: availableSeats),
             ],
           ),
         ),
         bottomNavigationBar: SeatSelectionFooter(
-          capacity: capacity,
+          capacity: availableSeats,
           tableName: tableName,
+          tableId: tableId,
         ),
       ),
     );

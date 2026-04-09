@@ -22,6 +22,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     final newOrder = OrderModel(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       tableNumber: event.tableNumber,
+      tableId: event.tableId,
       staffId: event.staffId,
       orderedMenu: [],
       paymentStatus: PaymentStatus.pending,
@@ -63,6 +64,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       final updatedOrder = OrderModel(
         id: order.id,
         tableNumber: order.tableNumber,
+        tableId: order.tableId,
         staffId: order.staffId,
         orderedMenu: event.items,
         paymentStatus: order.paymentStatus,
@@ -75,6 +77,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
       try {
         await _orderRepository.createOrder(updatedOrder);
+        // Increment table occupancy
+        await _orderRepository.updateTableOccupiedSeats(
+          order.tableId,
+          order.seatCount,
+        );
         emit(OrderSuccess());
       } catch (e) {
         emit(OrderError(ErrorHandler.getFriendlyMessage(e)));

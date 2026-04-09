@@ -13,11 +13,13 @@ import '../../pages/menue_page.dart';
 class SeatSelectionFooter extends StatelessWidget {
   final int capacity;
   final String tableName;
+  final String tableId;
 
   const SeatSelectionFooter({
     super.key,
     required this.capacity,
     required this.tableName,
+    required this.tableId,
   });
 
   @override
@@ -64,6 +66,7 @@ class SeatSelectionFooter extends StatelessWidget {
                     context.read<OrderBloc>().add(
                       InitOrder(
                         tableNumber: tableName,
+                        tableId: tableId,
                         seatCount: state.selectedCount,
                         staffId: staffId,
                       ),
