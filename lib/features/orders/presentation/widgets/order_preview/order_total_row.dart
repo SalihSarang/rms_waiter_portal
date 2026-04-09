@@ -11,8 +11,7 @@ class OrderTotalRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subtotal = total;
-    final tax = subtotal * 0.08;
-    final finalTotal = subtotal + tax;
+    final finalTotal = subtotal;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -28,11 +27,7 @@ class OrderTotalRow extends StatelessWidget {
             value: '\$${subtotal.toStringAsFixed(2)}',
           ),
           const SizedBox(height: 12),
-          SummaryRow(
-            label: 'Tax',
-            value: '\$${tax.toStringAsFixed(2)}',
-            trailingLabel: const TaxBadge(),
-          ),
+
           const SummaryDivider(),
           TotalRow(
             label: 'Total Amount',
