@@ -32,7 +32,7 @@ class ProfileInfoColumn extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: NeutralColors.white,
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -42,7 +42,7 @@ class ProfileInfoColumn extends StatelessWidget {
             if (isActive) const ActiveStatusBadge(),
           ],
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 4),
         // TEXT: Role
         Text(
           role,

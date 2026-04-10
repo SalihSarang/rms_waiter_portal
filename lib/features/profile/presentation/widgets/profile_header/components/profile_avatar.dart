@@ -6,28 +6,20 @@ class ProfileAvatar extends StatelessWidget {
   final String? imageUrl;
   final bool isActive;
 
-  const ProfileAvatar({
-    super.key,
-    this.imageUrl,
-    this.isActive = true,
-  });
+  const ProfileAvatar({super.key, this.imageUrl, this.isActive = true});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         CircleAvatar(
-          radius: 45,
+          radius: 40,
           backgroundColor: NeutralColors.border,
           backgroundImage: imageUrl != null && imageUrl!.isNotEmpty
               ? NetworkImage(imageUrl!)
               : null,
           child: imageUrl == null || imageUrl!.isEmpty
-              ? const Icon(
-                  Icons.person,
-                  size: 45,
-                  color: NeutralColors.icon,
-                )
+              ? const Icon(Icons.person, size: 38, color: NeutralColors.icon)
               : null,
         ),
         // INDICATOR: Online/Active Badge
@@ -41,10 +33,7 @@ class ProfileAvatar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: StatusColors.ready,
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: NeutralColors.background,
-                  width: 3,
-                ),
+                border: Border.all(color: NeutralColors.background, width: 3),
               ),
             ),
           ),

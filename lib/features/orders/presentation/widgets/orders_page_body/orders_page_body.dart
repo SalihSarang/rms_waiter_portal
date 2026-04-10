@@ -6,6 +6,7 @@ import 'package:waiter_portal/features/orders/presentation/widgets/orders_page/c
 import 'package:waiter_portal/features/orders/presentation/widgets/orders_page_body/components/dashboard_cards.dart';
 import 'package:waiter_portal/features/orders/presentation/widgets/orders_page_body/components/order_filter_row.dart';
 import 'package:rms_design_system/rms_design_system.dart';
+import '../orders_page/components/shift_warning_banner.dart';
 
 class OrdersPageBody extends StatelessWidget {
   const OrdersPageBody({super.key});
@@ -25,6 +26,7 @@ class OrdersPageBody extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const ShiftWarningBanner(),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: IntrinsicHeight(child: DashboardCards()),

@@ -40,23 +40,23 @@ class ProfileContentScrollView extends StatelessWidget {
             imageUrl: staff.avatar.isNotEmpty ? staff.avatar : null,
             isActive: staff.isActive,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
 
           // STATS: Live shift duration and daily sales summary
           ProfileStatsRow(shiftTime: shiftDuration, todayOrders: todaySales),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
 
           // OPTIONS: Navigational menu items (Personal Settings/Support)
           const ProfilePersonalSection(),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
 
           // ACTIONS: Shift management and account logout
           ProfileActionSection(shiftState: shiftState, staffId: staff.id),
-          const SizedBox(height: 48),
+          const SizedBox(height: 30),
 
           // FOOTER: Application version information
           const ProfileVersionFooter(),
-          const SizedBox(height: 24),
+          // const SizedBox(height: 24),
         ],
       ),
     );
