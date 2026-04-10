@@ -90,9 +90,9 @@ class OrderDetailsAppBar extends StatelessWidget
                         ),
                       ],
                     ),
-                    const Text(
-                      'Waiter: John D', // Placeholder as per plan
-                      style: TextStyle(
+                    Text(
+                      'Waiter: ${order.staffName.isEmpty ? 'Unknown' : order.staffName}',
+                      style: const TextStyle(
                         color: NeutralColors.icon,
                         fontSize: 11,
                         fontWeight: FontWeight.w400,

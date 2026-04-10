@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../pages/order_preview_page.dart';
 
-/// [MenueNavigation] provides reusable navigation logic for the menu screen.
-mixin MenueNavigation {
+/// [MenuNavigation] provides reusable navigation logic for the menu screen.
+mixin MenuNavigation {
   void navigateToPreview(BuildContext context) {
     Navigator.push(
       context,

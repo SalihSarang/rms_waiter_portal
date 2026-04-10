@@ -24,12 +24,20 @@ class ProfilePersonalSection extends StatelessWidget {
         ProfileMenuItem(
           icon: Icons.person_outline,
           title: 'Edit Profile Information',
-          onTap: () {},
+          onTap: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Profile editing coming soon!')),
+            );
+          },
         ),
         ProfileMenuItem(
           icon: Icons.help_outline,
           title: 'Help & Support',
-          onTap: () {},
+          onTap: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Support section coming soon!')),
+            );
+          },
         ),
       ],
     );

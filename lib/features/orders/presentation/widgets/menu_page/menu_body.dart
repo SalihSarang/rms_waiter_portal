@@ -5,15 +5,15 @@ import 'package:rms_shared_package/models/menu_models/category_model/category_mo
 import '../../bloc/menu/menu_bloc.dart';
 import '../../bloc/menu/menu_state.dart';
 import '../../bloc/menu_filter/menu_filter_cubit.dart';
-import '../menue_page/category_filters/category_filters.dart';
-import '../menue_page/menu_grid/menu_grid.dart';
-import '../menue_page/menu_search_bar.dart';
+import '../menu_page/category_filters/category_filters.dart';
+import '../menu_page/menu_grid/menu_grid.dart';
+import '../menu_page/menu_search_bar.dart';
 import '../../pages/food_details_page.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
-/// [MenueBody] coordinates the searching, filtering, and grid display for the menu.
-class MenueBody extends StatelessWidget {
-  const MenueBody({super.key});
+/// [MenuBody] coordinates the searching, filtering, and grid display for the menu.
+class MenuBody extends StatelessWidget {
+  const MenuBody({super.key});
 
   @override
   Widget build(BuildContext context) {

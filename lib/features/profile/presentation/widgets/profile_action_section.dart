@@ -7,6 +7,7 @@ import '../../../shift/presentation/bloc/shift_bloc.dart';
 import '../../../shift/presentation/bloc/shift_event.dart';
 import '../../../shift/presentation/bloc/shift_state.dart';
 import 'profile_action_button.dart';
+import '../utils/profile_utils.dart';
 
 /// Action buttons for ending the shift or logging out.
 class ProfileActionSection extends StatelessWidget {
@@ -27,19 +28,32 @@ class ProfileActionSection extends StatelessWidget {
           // BUTTON: End Shift
           ProfileActionButton(
             icon: Icons.timer_off_outlined,
-            label: 'End Shift',
+            label:
+                'End Shift (${ProfileUtils.calculateDuration((shiftState as ShiftActive).startTime)})',
             backgroundColor: NeutralColors.surface,
             onTap: () {
               context.read<ShiftBloc>().add(EndShiftEvent(staffId));
             },
           ),
-          const SizedBox(height: 16),
+        ] else ...[
+          // BUTTON: Start Shift
+          ProfileActionButton(
+            icon: Icons.timer_outlined,
+            label: 'Start Shift',
+            backgroundColor: NeutralColors.surface,
+            onTap: () {
+              context.read<ShiftBloc>().add(StartShiftEvent(staffId));
+            },
+          ),
         ],
+        const SizedBox(height: 16),
 
-        // BUTTON: End Shift & Logout
+        // BUTTON: Logout (Ends shift if active)
         ProfileActionButton(
           icon: Icons.logout_rounded,
-          label: 'End Shift & Logout',
+          label: shiftState is ShiftActive
+              ? 'End Shift (${ProfileUtils.calculateDuration((shiftState as ShiftActive).startTime)}) & Logout'
+              : 'Logout',
           backgroundColor: SemanticColors.error,
           onTap: () {
             if (shiftState is ShiftActive) {

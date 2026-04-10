@@ -13,7 +13,7 @@ import '../widgets/seat_count_page/seat_count_error_body.dart';
 /// [SeatCountPage] is the interface used for selecting the number of guests.
 ///
 /// It acts as a mandatory transition between the [TableListPage] and
-/// the [MenuePage], ensuring the system captures the correct occupancy.
+/// the [MenuPage], ensuring the system captures the correct occupancy.
 ///
 ///Components used in this page:
 /// 1. [SeatSelectionHeader] - Page title and instructions.

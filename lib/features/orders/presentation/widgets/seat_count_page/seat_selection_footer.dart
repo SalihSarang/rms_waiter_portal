@@ -8,7 +8,7 @@ import 'package:waiter_portal/features/orders/presentation/bloc/order/order_bloc
 import 'package:waiter_portal/features/orders/presentation/bloc/order/order_event.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_state.dart';
-import '../../pages/menue_page.dart';
+import '../../pages/menu_page.dart';
 
 class SeatSelectionFooter extends StatelessWidget {
   final int capacity;
@@ -59,8 +59,10 @@ class SeatSelectionFooter extends StatelessWidget {
                     // Initialize the Order Model in OrderBloc
                     final authState = context.read<AuthBloc>().state;
                     String staffId = 'unknown_staff';
+                    String staffName = 'Unknown Waiter';
                     if (authState is Authenticated) {
                       staffId = authState.staff.id;
+                      staffName = authState.staff.name;
                     }
 
                     context.read<OrderBloc>().add(
@@ -69,6 +71,7 @@ class SeatSelectionFooter extends StatelessWidget {
                         tableId: tableId,
                         seatCount: state.selectedCount,
                         staffId: staffId,
+                        staffName: staffName,
                       ),
                     );
 
@@ -76,7 +79,7 @@ class SeatSelectionFooter extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (innerContext) =>
-                            MenuePage(tableNumber: tableName),
+                            MenuPage(tableNumber: tableName),
                       ),
                     );
                   },

@@ -30,13 +30,12 @@ class OrderDetailsItemTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 OrderItemHeader(
-                  name: '${item.name} x ${item.quantity} (${item.selectedPortion})',
+                  name:
+                      '${item.name} x ${item.quantity} (${item.selectedPortion?.name ?? 'Standard'})',
                   price: item.price * item.quantity,
                 ),
                 const SizedBox(height: 4),
-                OrderItemDetails(
-                  addOns: item.selectedAddOns,
-                ),
+                OrderItemDetails(addOns: item.selectedAddOns),
                 OrderItemSpecialInstructions(
                   instructions: item.specialInstructions,
                 ),

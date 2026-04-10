@@ -13,16 +13,24 @@ class InitOrder extends OrderEvent {
   final String tableId;
   final int seatCount;
   final String staffId;
+  final String staffName;
 
   const InitOrder({
     required this.tableNumber,
     required this.tableId,
     required this.seatCount,
     required this.staffId,
+    required this.staffName,
   });
 
   @override
-  List<Object?> get props => [tableNumber, tableId, seatCount, staffId];
+  List<Object?> get props => [
+    tableNumber,
+    tableId,
+    seatCount,
+    staffId,
+    staffName,
+  ];
 }
 
 class ResetOrder extends OrderEvent {}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/app_colors/neutral_colors.dart';
-import '../widgets/profile_body.dart';
+import '../widgets/profile_body/profile_body.dart';
+import '../widgets/profile_app_bar.dart';
 
 /// The main entry point for the Profile feature.
 /// Handles the basic navigation structure (Scaffold/AppBar) and delegates
@@ -12,19 +13,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeutralColors.background,
-      appBar: AppBar(
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            color: NeutralColors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: NeutralColors.background,
-        elevation: 0,
-      ),
+      appBar: const ProfileAppBar(),
       body: const ProfileBody(),
     );
   }

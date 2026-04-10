@@ -15,12 +15,12 @@ class OrderDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeutralColors.background,
+
       appBar: OrderDetailsAppBar(order: order),
       body: ShimmerScope(child: OrderDetailsBody(order: order)),
-      bottomNavigationBar:
-          order.orderStatus == OrderStatus.completed
-              ? null
-              : OrderDetailsFooter(order: order),
+      bottomNavigationBar: order.orderStatus == OrderStatus.completed
+          ? null
+          : OrderDetailsFooter(order: order),
     );
   }
 }
