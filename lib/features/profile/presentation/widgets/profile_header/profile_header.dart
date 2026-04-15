@@ -1,41 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../../auth/presentation/bloc/auth_state.dart';
+import '../../../../shift/presentation/bloc/shift_state.dart';
+import '../../../../shift/presentation/bloc/shift_bloc.dart';
+import '../../utils/profile_utils.dart';
 import 'components/profile_avatar.dart';
 import 'components/profile_info_column.dart';
 
-/// A header widget that displays user identifiers including their avatar,
-/// name, primary role, and the shift start time.
 class ProfileHeader extends StatelessWidget {
-  final String name;
-  final String role;
-  final String shiftStartTime;
-  final String? imageUrl;
-  final bool isActive;
-
-  const ProfileHeader({
-    super.key,
-    required this.name,
-    required this.role,
-    required this.shiftStartTime,
-    this.imageUrl,
-    this.isActive = true,
-  });
+  const ProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authState = context.watch<AuthBloc>().state;
+    if (authState is! Authenticated) return const SizedBox.shrink();
+
+    final staff = authState.staff;
+    final shiftState = context.watch<ShiftBloc>().state;
+
+    String shiftStartTime = '--:--';
+    if (shiftState is ShiftActive) {
+      shiftStartTime = ProfileUtils.formatTime(shiftState.startTime);
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // COMPONENT: User Avatar & Status Indicator
-        ProfileAvatar(imageUrl: imageUrl, isActive: isActive),
+        ProfileAvatar(
+          imageUrl: staff.avatar.isNotEmpty ? staff.avatar : null,
+          isActive: staff.isActive,
+        ),
         const SizedBox(width: 20),
-
-        // COMPONENT: User Information
         Expanded(
           child: ProfileInfoColumn(
-            name: name,
-            role: role,
+            name: staff.name,
+            role: ProfileUtils.formatRole(staff.role.name),
             shiftStartTime: shiftStartTime,
-            isActive: isActive,
+            isActive: staff.isActive,
           ),
         ),
       ],
