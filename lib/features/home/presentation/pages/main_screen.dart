@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/app_colors/neutral_colors.dart';
-import 'package:waiter_portal/features/alerts/presentation/pages/alerts_screen.dart';
-import 'package:waiter_portal/core/widgets/custom_bottom_nav_bar.dart';
-import 'package:waiter_portal/features/orders/presentation/pages/orders_page.dart';
-import 'package:waiter_portal/features/profile/presentation/pages/profile_screen.dart';
-import 'package:waiter_portal/features/tables/presentation/pages/tables_screen.dart';
+import 'package:waiter_portal/features/home/presentation/bloc/main_screen/main_screen_cubit.dart';
+import '../widgets/main_screen/main_screen_body.dart';
+import '../widgets/main_screen/main_bottom_nav_bar.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
-
-  final List<Widget> _screens = const [
-    OrdersPage(),
-    TablesScreen(),
-    AlertsScreen(),
-    ProfileScreen(),
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: NeutralColors.background,
-      body: IndexedStack(index: _currentIndex, children: _screens),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: _currentIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+    return BlocProvider(
+      create: (context) => MainScreenCubit(),
+      child: const Scaffold(
+        backgroundColor: NeutralColors.background,
+        body: MainScreenBody(),
+        bottomNavigationBar: MainBottomNavBar(),
       ),
     );
   }
