@@ -15,7 +15,11 @@ class ProfileStatsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final staffId = context.select((AuthBloc b) => (b.state is Authenticated) ? (b.state as Authenticated).staff.id : null);
+    final staffId = context.select(
+      (AuthBloc b) => (b.state is Authenticated)
+          ? (b.state as Authenticated).staff.id
+          : null,
+    );
     if (staffId == null) return const SizedBox.shrink();
 
     final shiftState = context.watch<ShiftBloc>().state;
@@ -27,7 +31,10 @@ class ProfileStatsRow extends StatelessWidget {
     final ordersState = context.watch<OrdersBloc>().state;
     String todaySales = '₹0';
     if (ordersState is OrdersLoaded) {
-      todaySales = ProfileUtils.calculateTodaySales(ordersState.orders, staffId);
+      todaySales = ProfileUtils.calculateTodaySales(
+        ordersState.orders,
+        staffId,
+      );
     }
 
     return Container(

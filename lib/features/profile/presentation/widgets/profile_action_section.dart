@@ -23,7 +23,8 @@ class ProfileActionSection extends StatelessWidget {
 
     String durationText = '';
     if (shiftState is ShiftActive) {
-      durationText = ' (${ProfileUtils.calculateDuration(shiftState.startTime)})';
+      durationText =
+          ' (${ProfileUtils.calculateDuration(shiftState.startTime)})';
     }
 
     return Column(
@@ -50,7 +51,9 @@ class ProfileActionSection extends StatelessWidget {
         const SizedBox(height: 16),
         ProfileActionButton(
           icon: Icons.logout_rounded,
-          label: shiftState is ShiftActive ? 'End Shift$durationText & Logout' : 'Logout',
+          label: shiftState is ShiftActive
+              ? 'End Shift$durationText & Logout'
+              : 'Logout',
           backgroundColor: SemanticColors.error,
           onTap: () {
             if (shiftState is ShiftActive) {
