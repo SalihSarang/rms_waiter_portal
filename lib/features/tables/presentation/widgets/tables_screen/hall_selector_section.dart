@@ -63,11 +63,13 @@ class HallSelectorSection extends StatelessWidget {
         return HallSelectorCard(
           hall: hall,
           onTap: () {
+            final bloc = context.read<TableViewBloc>();
+            bloc.add(TableViewHallSelected(hall));
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (_) => BlocProvider.value(
-                  value: context.read<TableViewBloc>(),
+                  value: bloc,
                   child: HallLayoutViewPage(hall: hall),
                 ),
               ),
