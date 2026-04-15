@@ -7,12 +7,12 @@ import '../../bloc/cart/cart_bloc.dart';
 import '../../bloc/cart/cart_event.dart';
 
 class AddToOrderButton extends StatelessWidget {
-  final bool hasSelectedPortion;
-
-  const AddToOrderButton({super.key, required this.hasSelectedPortion});
+  const AddToOrderButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final hasSelectedPortion =
+        context.watch<FoodDetailsCubit>().state.selectedPortion != null;
     return Expanded(
       child: ElevatedButton(
         onPressed: () {

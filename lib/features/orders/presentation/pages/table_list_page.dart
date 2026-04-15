@@ -5,11 +5,9 @@ import 'package:rms_design_system/rms_design_system.dart';
 import '../../../../core/di/injector.dart';
 import '../../../tables/presentation/bloc/table_view_bloc.dart';
 import '../../../tables/presentation/bloc/table_view_event.dart';
-import '../../../tables/presentation/bloc/table_view_state.dart';
 import '../widgets/table_list_page/grid_content.dart';
 import '../widgets/table_list_page/table_filter_row.dart';
 import '../widgets/table_list_page/table_list_app_bar.dart';
-import 'seat_count_page.dart';
 
 import '../bloc/table_search/table_search_cubit.dart';
 
@@ -25,48 +23,18 @@ class TableListPage extends StatelessWidget {
         ),
         BlocProvider(create: (context) => getIt<TableSearchCubit>()),
       ],
-      child: BlocBuilder<TableViewBloc, TableViewState>(
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: NeutralColors.background,
-            appBar: const TableListAppBar(),
-            body: Column(
-              children: [
-                TableFilterRow(state: state),
-                const Divider(color: NeutralColors.border, height: 1),
-                Expanded(
-                  child: GridContent(
-                    state: state,
-                    onTableTap: (table) {
-                      final availableSeats = table.seats - table.occupiedSeats;
-
-                      if (availableSeats <= 0) {
-                        RmsSnackbar.show(
-                          context,
-                          message:
-                              'Table ${table.name} is full. Choose another table or checkout current guests.',
-                          type: RmsSnackbarType.error,
-                        );
-                        return;
-                      }
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (innerContext) => SeatCountPage(
-                            tableName: table.name,
-                            tableId: table.id,
-                            availableSeats: availableSeats,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+      child: const Scaffold(
+        backgroundColor: NeutralColors.background,
+        appBar: TableListAppBar(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              TableFilterRow(),
+              Divider(color: NeutralColors.border, height: 1),
+              GridContent(),
+            ],
+          ),
+        ),
       ),
     );
   }

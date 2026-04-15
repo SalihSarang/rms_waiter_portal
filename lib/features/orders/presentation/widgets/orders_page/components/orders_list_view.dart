@@ -8,10 +8,19 @@ import 'list_view/orders_empty_view.dart';
 import 'list_view/orders_error_view.dart';
 import 'list_view/orders_loading_view.dart';
 
-class OrdersListView extends StatelessWidget {
-  final String selectedFilter;
+import '../../../../domain/enums/order_filter.dart';
 
-  const OrdersListView({super.key, required this.selectedFilter});
+class OrdersListView extends StatelessWidget {
+  final OrderFilter selectedFilter;
+  final ScrollPhysics? physics;
+  final bool shrinkWrap;
+
+  const OrdersListView({
+    super.key,
+    required this.selectedFilter,
+    this.physics,
+    this.shrinkWrap = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +38,8 @@ class OrdersListView extends StatelessWidget {
           if (filteredOrders.isEmpty) return const OrdersEmptyView();
 
           return ListView.separated(
+            physics: physics,
+            shrinkWrap: shrinkWrap,
             padding: const EdgeInsets.only(
               left: 10,
               right: 10,

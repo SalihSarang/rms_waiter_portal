@@ -1,14 +1,15 @@
 import 'package:equatable/equatable.dart';
+import '../../../domain/enums/order_filter.dart';
 
 class OrderFilterState extends Equatable {
-  final String selectedFilter;
+  final OrderFilter selectedFilter;
 
   const OrderFilterState({required this.selectedFilter});
 
   factory OrderFilterState.initial() =>
-      const OrderFilterState(selectedFilter: 'All');
+      const OrderFilterState(selectedFilter: OrderFilter.all);
 
-  OrderFilterState copyWith({String? selectedFilter}) {
+  OrderFilterState copyWith({OrderFilter? selectedFilter}) {
     return OrderFilterState(
       selectedFilter: selectedFilter ?? this.selectedFilter,
     );

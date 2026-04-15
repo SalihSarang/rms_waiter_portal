@@ -11,14 +11,9 @@ class OrderSummaryOverlay extends StatelessWidget with MenuNavigation {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: OrderSummaryCard(
-        tableNumber: tableNumber,
-        onViewOrder: () => navigateToPreview(context),
-      ),
+    return OrderSummaryCard(
+      tableNumber: tableNumber,
+      onViewOrder: () => navigateToPreview(context),
     );
   }
 }

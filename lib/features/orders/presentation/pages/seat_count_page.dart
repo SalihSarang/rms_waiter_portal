@@ -7,8 +7,6 @@ import '../widgets/seat_count_page/seat_selection_header.dart';
 import '../widgets/seat_count_page/seat_count_presets.dart';
 import '../widgets/seat_count_page/seat_count_grid.dart';
 import '../widgets/seat_count_page/seat_selection_footer.dart';
-import '../widgets/seat_count_page/seat_count_error_app_bar.dart';
-import '../widgets/seat_count_page/seat_count_error_body.dart';
 
 /// [SeatCountPage] is the interface used for selecting the number of guests.
 ///
@@ -20,7 +18,6 @@ import '../widgets/seat_count_page/seat_count_error_body.dart';
 /// 2. [SeatCountPresets] - Quick buttons (Couple, Family, Group).
 /// 3. [SeatCountGrid] - Numerical grid of [GuestCountButton].
 /// 4. [SeatSelectionFooter] - Bottom status and Continue button.
-/// 5. [SeatCountErrorAppBar] / [SeatCountErrorBody] - Fallback for invalid table setup.
 ///
 class SeatCountPage extends StatelessWidget {
   final String tableName;
@@ -45,8 +42,7 @@ class SeatCountPage extends StatelessWidget {
           tableName: tableName,
           capacity: availableSeats,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

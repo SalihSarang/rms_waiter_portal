@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:rms_shared_package/rms_shared_package.dart';
+
+import '../../bloc/food_details/food_details_cubit.dart';
 
 class FoodDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final FoodModel? food;
-
-  const FoodDetailsAppBar({super.key, this.food});
+  const FoodDetailsAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final food = context.watch<FoodDetailsCubit>().state.food;
     return AppBar(
       backgroundColor: NeutralColors.background,
       elevation: 0,

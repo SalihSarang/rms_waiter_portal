@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:rms_shared_package/rms_shared_package.dart';
-
-import '../../../../tables/presentation/bloc/table_view_state.dart';
-import 'table_card.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/table_search/table_search_cubit.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/table_search/table_search_state.dart';
+import '../../../../tables/presentation/bloc/table_view_bloc.dart';
+import '../../pages/seat_count_page.dart';
+import 'table_card.dart';
 
 class GridContent extends StatelessWidget {
-  final TableViewState state;
-  final ValueChanged<TableModel>? onTableTap;
-
-  const GridContent({super.key, required this.state, this.onTableTap});
+  const GridContent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<TableViewBloc>().state;
+
     if (state.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -52,6 +49,8 @@ class GridContent extends StatelessWidget {
         }
 
         return GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -64,7 +63,30 @@ class GridContent extends StatelessWidget {
             final table = filteredTables[index];
             return TableCard(
               table: table,
-              onTap: () => onTableTap?.call(table),
+              onTap: () {
+                final availableSeats = table.seats - table.occupiedSeats;
+
+                if (availableSeats <= 0) {
+                  RmsSnackbar.show(
+                    context,
+                    message:
+                        'Table ${table.name} is full. Choose another table or checkout current guests.',
+                    type: RmsSnackbarType.error,
+                  );
+                  return;
+                }
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (innerContext) => SeatCountPage(
+                      tableName: table.name,
+                      tableId: table.id,
+                      availableSeats: availableSeats,
+                    ),
+                  ),
+                );
+              },
             );
           },
         );

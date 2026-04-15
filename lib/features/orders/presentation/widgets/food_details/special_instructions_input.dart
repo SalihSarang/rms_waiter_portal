@@ -4,9 +4,7 @@ import 'package:rms_design_system/rms_design_system.dart';
 import '../../bloc/food_details/food_details_cubit.dart';
 
 class SpecialInstructionsInput extends StatelessWidget {
-  final String initialValue;
-
-  const SpecialInstructionsInput({super.key, required this.initialValue});
+  const SpecialInstructionsInput({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,17 +8,19 @@ import 'package:rms_design_system/rms_design_system.dart';
 ///
 /// The design uses a rounded [TextField] with a search icon prefix to
 /// match the app's clean aesthetics.
-class MenuSearchBar extends StatelessWidget {
-  final ValueChanged<String> onChanged;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bloc/menu_filter/menu_filter_cubit.dart';
 
-  const MenuSearchBar({super.key, required this.onChanged});
+class MenuSearchBar extends StatelessWidget {
+  const MenuSearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
-        onChanged: onChanged,
+        onChanged: (value) =>
+            context.read<MenuFilterCubit>().setSearchQuery(value),
         style: const TextStyle(color: NeutralColors.white),
         decoration: InputDecoration(
           hintText: 'Search food or ID...',

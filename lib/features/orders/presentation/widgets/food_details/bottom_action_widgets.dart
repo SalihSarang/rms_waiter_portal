@@ -5,17 +5,14 @@ import '../../bloc/food_details/food_details_cubit.dart';
 import 'food_details_actions.dart';
 
 class QuantitySelector extends StatelessWidget {
-  final int quantity;
-  final bool hasSelectedPortion;
-
-  const QuantitySelector({
-    super.key,
-    required this.quantity,
-    required this.hasSelectedPortion,
-  });
+  const QuantitySelector({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<FoodDetailsCubit>().state;
+    final quantity = state.quantity;
+    final hasSelectedPortion = state.selectedPortion != null;
+
     return Opacity(
       opacity: hasSelectedPortion ? 1.0 : 0.5,
       child: Container(

@@ -1,23 +1,27 @@
 import 'package:rms_shared_package/rms_shared_package.dart';
 
+import '../../../../../domain/enums/order_filter.dart';
+
 class OrderFilterHelper {
   static List<OrderModel> filterOrders(
     List<OrderModel> orders,
-    String selectedFilter,
+    OrderFilter selectedFilter,
   ) {
     return orders.where((order) {
-      if (selectedFilter == 'All') {
+      if (selectedFilter == OrderFilter.all) {
         return order.orderStatus != OrderStatus.completed;
       }
 
-      switch (selectedFilter.toLowerCase()) {
-        case 'preparing':
+      switch (selectedFilter) {
+        case OrderFilter.pending:
+          return order.orderStatus == OrderStatus.pending;
+        case OrderFilter.preparing:
           return order.orderStatus == OrderStatus.preparing;
-        case 'ready':
+        case OrderFilter.ready:
           return order.orderStatus == OrderStatus.ready;
-        case 'bill requested':
+        case OrderFilter.billRequested:
           return order.orderStatus == OrderStatus.served;
-        case 'completed':
+        case OrderFilter.completed:
           return order.orderStatus == OrderStatus.completed;
         default:
           return true;
