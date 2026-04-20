@@ -22,7 +22,7 @@ class MenuSkeleton extends StatelessWidget {
           Expanded(
             flex: 3,
             child: PulseContainer(
-              color: NeutralColors.white.withValues(alpha: 0.12),
+              color: TextColors.primary.withValues(alpha: 0.12),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -41,13 +41,13 @@ class MenuSkeleton extends StatelessWidget {
                   PulseContainer(
                     height: 12,
                     width: double.infinity,
-                    color: NeutralColors.white.withValues(alpha: 0.12),
+                    color: TextColors.primary.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
                   PulseContainer(
                     height: 16,
                     width: 60,
-                    color: NeutralColors.white.withValues(alpha: 0.12),
+                    color: TextColors.primary.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
                 ],

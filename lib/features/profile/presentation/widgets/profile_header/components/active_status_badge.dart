@@ -8,16 +8,11 @@ class ActiveStatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: StatusColors.ready.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-          color: StatusColors.ready.withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: StatusColors.ready.withValues(alpha: 0.2)),
       ),
       child: const Text(
         'ACTIVE',

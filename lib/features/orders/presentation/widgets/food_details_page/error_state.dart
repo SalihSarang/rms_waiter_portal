@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rms_design_system/app_colors/neutral_colors.dart';
-import 'package:rms_design_system/app_colors/semantic_colors.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 
 class ErrorView extends StatelessWidget {
   final String message;
@@ -25,7 +24,7 @@ class ErrorView extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: NeutralColors.white, fontSize: 16),
+              style: const TextStyle(color: TextColors.primary, fontSize: 16),
             ),
             const SizedBox(height: 24),
             ElevatedButton(

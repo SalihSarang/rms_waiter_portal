@@ -11,7 +11,7 @@ class TableCardTitle extends StatelessWidget {
     return Text(
       name,
       style: const TextStyle(
-        color: NeutralColors.white,
+        color: TextColors.primary,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),

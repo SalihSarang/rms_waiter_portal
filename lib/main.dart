@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:waiter_portal/core/di/injector.dart';
 import 'package:waiter_portal/firebase_options.dart';
 
-import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/auth_gate.dart';
 import 'features/shift/presentation/bloc/shift_bloc.dart';
 import 'features/orders/presentation/bloc/cart/cart_bloc.dart';

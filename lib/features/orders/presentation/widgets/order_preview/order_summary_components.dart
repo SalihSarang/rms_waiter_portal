@@ -37,7 +37,7 @@ class SummaryRow extends StatelessWidget {
         Text(
           value,
           style: const TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),

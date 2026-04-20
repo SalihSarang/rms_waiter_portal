@@ -15,14 +15,14 @@ class OrderButtonContent extends StatelessWidget {
       children: [
         const HugeIcon(
           icon: HugeIcons.strokeRoundedSent,
-          color: NeutralColors.white,
+          color: TextColors.primary,
           size: 20,
         ),
         const SizedBox(width: 8),
         const Text(
           'Send to Kitchen',
           style: TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),

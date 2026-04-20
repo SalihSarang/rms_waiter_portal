@@ -15,11 +15,11 @@ class ViewAllOrdersAppBar extends StatelessWidget
         style: TextStyle(
           fontWeight: FontWeight.w800,
           fontSize: 22,
-          color: NeutralColors.white,
+          color: TextColors.primary,
         ),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: NeutralColors.white),
+        icon: const Icon(Icons.arrow_back, color: TextColors.primary),
         onPressed: () => Navigator.pop(context),
       ),
     );

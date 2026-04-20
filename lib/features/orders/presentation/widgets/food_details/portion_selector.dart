@@ -28,7 +28,7 @@ class PortionSelector extends StatelessWidget {
             Text(
               'Portion Size',
               style: TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),

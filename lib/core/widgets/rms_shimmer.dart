@@ -88,7 +88,7 @@ class PulseContainer extends StatelessWidget {
     // Standardize highlight color using a subtle white overlay.
     final highlightColor =
         color?.withValues(alpha: 0.8) ??
-        NeutralColors.white.withValues(alpha: 0.05);
+        TextColors.primary.withValues(alpha: 0.05);
 
     final decoration = BoxDecoration(
       borderRadius: borderRadius ?? BorderRadius.circular(16),

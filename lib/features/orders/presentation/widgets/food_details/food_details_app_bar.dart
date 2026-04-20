@@ -16,7 +16,7 @@ class FoodDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(
           Icons.arrow_back_ios_new_rounded,
-          color: NeutralColors.white,
+          color: TextColors.primary,
           size: 20,
         ),
         onPressed: () => Navigator.pop(context),
@@ -24,7 +24,7 @@ class FoodDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         food?.name ?? 'Loading...',
         style: const TextStyle(
-          color: NeutralColors.white,
+          color: TextColors.primary,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),

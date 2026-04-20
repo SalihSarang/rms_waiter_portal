@@ -31,7 +31,7 @@ class OrderDetailsAppBar extends StatelessWidget
             onTap: () => Navigator.pop(context),
             child: const Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: NeutralColors.white,
+              color: TextColors.primary,
               size: 20,
             ),
           ),
@@ -49,7 +49,7 @@ class OrderDetailsAppBar extends StatelessWidget
                     const Text(
                       'Order Details',
                       style: TextStyle(
-                        color: NeutralColors.white,
+                        color: TextColors.primary,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),

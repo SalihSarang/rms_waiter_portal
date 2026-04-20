@@ -20,7 +20,7 @@ class OrderPriceSection extends StatelessWidget {
         Text(
           '\$${total.toStringAsFixed(2)}',
           style: const TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),

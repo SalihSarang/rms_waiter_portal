@@ -12,7 +12,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: const Text(
         'Profile',
         style: TextStyle(
-          color: NeutralColors.white,
+          color: TextColors.primary,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),

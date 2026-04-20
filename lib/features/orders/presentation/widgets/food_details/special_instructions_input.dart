@@ -14,7 +14,7 @@ class SpecialInstructionsInput extends StatelessWidget {
         const Text(
           'Special Instructions',
           style: TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -23,12 +23,12 @@ class SpecialInstructionsInput extends StatelessWidget {
         TextField(
           onChanged: (v) =>
               context.read<FoodDetailsCubit>().updateSpecialInstructions(v),
-          style: const TextStyle(color: NeutralColors.white, fontSize: 14),
+          style: const TextStyle(color: TextColors.primary, fontSize: 14),
           maxLines: 4,
           decoration: InputDecoration(
             hintText: 'Add notes for the kitchen (e.g. no onions)...',
             hintStyle: TextStyle(
-              color: NeutralColors.white.withValues(alpha: 0.3),
+              color: TextColors.primary.withValues(alpha: 0.3),
               fontSize: 14,
             ),
             filled: true,

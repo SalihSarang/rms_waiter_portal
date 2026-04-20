@@ -49,7 +49,7 @@ class TableWidgetUtils {
         return (
           NeutralColors.card,
           NeutralColors.border,
-          NeutralColors.white,
+          TextColors.primary,
           NeutralColors.border.withValues(alpha: 0.5),
         );
     }

@@ -20,7 +20,7 @@ class SeatSelectionHeader extends StatelessWidget {
           Text(
             'Select Number of\nGuests',
             style: TextStyle(
-              color: NeutralColors.white,
+              color: TextColors.primary,
               fontSize: 26,
               fontWeight: FontWeight.bold,
             ),

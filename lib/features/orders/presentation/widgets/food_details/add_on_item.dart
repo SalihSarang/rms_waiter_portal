@@ -32,7 +32,7 @@ class AddOnItem extends StatelessWidget {
             const SizedBox(width: 12),
             Text(
               addOn.name,
-              style: const TextStyle(color: NeutralColors.white, fontSize: 14),
+              style: const TextStyle(color: TextColors.primary, fontSize: 14),
             ),
             const Spacer(),
             Text(

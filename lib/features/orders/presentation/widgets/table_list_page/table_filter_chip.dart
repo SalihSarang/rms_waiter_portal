@@ -39,13 +39,13 @@ class TableFilterChip extends StatelessWidget {
               Icon(
                 icon,
                 size: 16,
-                color: isSelected ? NeutralColors.white : NeutralColors.icon,
+                color: isSelected ? TextColors.primary : NeutralColors.icon,
               ),
               const SizedBox(width: 8),
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? NeutralColors.white : NeutralColors.icon,
+                  color: isSelected ? TextColors.primary : NeutralColors.icon,
                   fontSize: 14,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                 ),

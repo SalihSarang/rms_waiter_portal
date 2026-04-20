@@ -13,7 +13,7 @@ class AddOrderFab extends StatelessWidget {
     return FloatingActionButton(
       backgroundColor: PrimaryColors.defaultColor,
       shape: const CircleBorder(),
-      child: const Icon(Icons.add, color: NeutralColors.white),
+      child: const Icon(Icons.add, color: TextColors.primary),
       onPressed: () {
         // Clear the cart before starting a new order flow
         context.read<CartBloc>().add(ClearCartEvent());

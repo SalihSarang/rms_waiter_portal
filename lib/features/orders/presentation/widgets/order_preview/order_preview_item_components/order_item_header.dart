@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rms_design_system/app_colors/neutral_colors.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 
 class OrderItemHeader extends StatelessWidget {
   final String name;
@@ -17,7 +17,7 @@ class OrderItemHeader extends StatelessWidget {
           child: Text(
             name,
             style: const TextStyle(
-              color: NeutralColors.white,
+              color: TextColors.primary,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -28,7 +28,7 @@ class OrderItemHeader extends StatelessWidget {
         Text(
           '\$${price.toStringAsFixed(2)}',
           style: const TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),

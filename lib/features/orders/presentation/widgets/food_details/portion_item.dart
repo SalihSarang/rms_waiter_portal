@@ -46,8 +46,8 @@ class PortionItem extends StatelessWidget {
                   portion.name,
                   style: TextStyle(
                     color: isSelected
-                        ? NeutralColors.white
-                        : NeutralColors.white.withValues(alpha: 0.8),
+                        ? TextColors.primary
+                        : TextColors.primary.withValues(alpha: 0.8),
                     fontSize: 16,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                   ),
@@ -56,7 +56,7 @@ class PortionItem extends StatelessWidget {
                 Text(
                   '\$${portion.price}',
                   style: const TextStyle(
-                    color: NeutralColors.white,
+                    color: TextColors.primary,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

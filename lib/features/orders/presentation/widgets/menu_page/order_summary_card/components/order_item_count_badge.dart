@@ -18,7 +18,7 @@ class OrderItemCountBadge extends StatelessWidget {
       child: Text(
         '$count',
         style: const TextStyle(
-          color: NeutralColors.white,
+          color: TextColors.primary,
           fontWeight: FontWeight.bold,
           fontSize: 14,
         ),

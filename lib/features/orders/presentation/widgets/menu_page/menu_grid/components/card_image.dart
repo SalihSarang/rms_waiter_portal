@@ -18,7 +18,7 @@ class CardImage extends StatelessWidget {
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return PulseContainer(
-            color: NeutralColors.white.withValues(alpha: 0.12),
+            color: TextColors.primary.withValues(alpha: 0.12),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(16),
               topRight: Radius.circular(16),

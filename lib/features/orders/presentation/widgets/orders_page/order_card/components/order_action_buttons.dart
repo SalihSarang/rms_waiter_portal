@@ -20,7 +20,7 @@ class OrderActionButtons extends StatelessWidget {
         child: OrderActionButton(
           text: 'View Details',
           bgColor: NeutralColors.card,
-          textColor: NeutralColors.white,
+          textColor: TextColors.primary,
           onPressed: () =>
               OrderActionsHandler.navigateToDetails(context, order),
         ),
@@ -36,7 +36,7 @@ class OrderActionButtons extends StatelessWidget {
             child: OrderActionButton(
               text: 'Serve Now',
               bgColor: StatusColors.ready,
-              textColor: NeutralColors.white,
+              textColor: TextColors.primary,
               onPressed: () =>
                   OrderActionsHandler.onServePressed(context, order),
             ),
@@ -51,7 +51,7 @@ class OrderActionButtons extends StatelessWidget {
             child: OrderActionButton(
               text: 'Checkout',
               bgColor: StatusColors.purpleLight,
-              textColor: NeutralColors.white,
+              textColor: TextColors.primary,
               onPressed: () =>
                   OrderActionsHandler.onCheckoutPressed(context, order),
             ),

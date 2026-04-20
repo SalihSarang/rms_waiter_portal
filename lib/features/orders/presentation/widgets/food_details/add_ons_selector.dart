@@ -23,7 +23,7 @@ class AddOnsSelector extends StatelessWidget {
         const Text(
           'Add-ons',
           style: TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),

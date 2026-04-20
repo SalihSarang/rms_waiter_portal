@@ -39,7 +39,7 @@ class _TableListAppBarState extends State<TableListAppBar> {
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: NeutralColors.white,
+              color: TextColors.primary,
               size: 20,
             ),
             onPressed: () => Navigator.pop(context),
@@ -49,7 +49,7 @@ class _TableListAppBarState extends State<TableListAppBar> {
                   controller: _searchController,
                   autofocus: true,
                   style: const TextStyle(
-                    color: NeutralColors.white,
+                    color: TextColors.primary,
                     fontSize: 16,
                   ),
                   decoration: const InputDecoration(
@@ -68,7 +68,7 @@ class _TableListAppBarState extends State<TableListAppBar> {
               : const Text(
                   'Select Table',
                   style: TextStyle(
-                    color: NeutralColors.white,
+                    color: TextColors.primary,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
@@ -78,7 +78,7 @@ class _TableListAppBarState extends State<TableListAppBar> {
             IconButton(
               icon: Icon(
                 state.isSearchVisible ? Icons.close : Icons.search,
-                color: NeutralColors.white,
+                color: TextColors.primary,
               ),
               onPressed: () {
                 if (state.isSearchVisible) {

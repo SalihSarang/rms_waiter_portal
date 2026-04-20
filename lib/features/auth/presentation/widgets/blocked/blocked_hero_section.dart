@@ -30,6 +30,7 @@ class BlockedHeroSection extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
+        SizedBox(height: 48),
       ],
     );
   }

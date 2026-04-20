@@ -34,7 +34,7 @@ class CategoryFilterChip extends StatelessWidget {
           border: Border.all(
             color: isSelected
                 ? NeutralColors.transparent
-                : NeutralColors.white.withValues(alpha: 0.1),
+                : TextColors.primary.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
@@ -42,7 +42,7 @@ class CategoryFilterChip extends StatelessWidget {
         child: Text(
           category.name,
           style: TextStyle(
-            color: isSelected ? NeutralColors.white : NeutralColors.icon,
+            color: isSelected ? TextColors.primary : NeutralColors.icon,
             fontSize: 14,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),

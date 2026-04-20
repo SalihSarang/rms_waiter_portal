@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../auth/presentation/bloc/auth_bloc.dart';
-import '../../../../auth/presentation/bloc/auth_state.dart';
-import '../../../../shift/presentation/bloc/shift_state.dart';
-import '../../../../shift/presentation/bloc/shift_bloc.dart';
+import '../../../../auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import '../../../../auth/presentation/bloc/auth_bloc/auth_state.dart';
 import '../../utils/profile_utils.dart';
 import 'components/profile_avatar.dart';
 import 'components/profile_info_column.dart';
@@ -17,13 +15,6 @@ class ProfileHeader extends StatelessWidget {
     if (authState is! Authenticated) return const SizedBox.shrink();
 
     final staff = authState.staff;
-    final shiftState = context.watch<ShiftBloc>().state;
-
-    String shiftStartTime = '--:--';
-    if (shiftState is ShiftActive) {
-      shiftStartTime = ProfileUtils.formatTime(shiftState.startTime);
-    }
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -36,7 +27,6 @@ class ProfileHeader extends StatelessWidget {
           child: ProfileInfoColumn(
             name: staff.name,
             role: ProfileUtils.formatRole(staff.role.name),
-            shiftStartTime: shiftStartTime,
             isActive: staff.isActive,
           ),
         ),

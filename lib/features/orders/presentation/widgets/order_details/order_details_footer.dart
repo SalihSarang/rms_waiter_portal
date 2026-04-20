@@ -51,7 +51,7 @@ class OrderDetailsFooter extends StatelessWidget {
                   text: 'Send to Kitchen',
                   icon: const Icon(
                     Icons.send_rounded,
-                    color: NeutralColors.white,
+                    color: TextColors.primary,
                     size: 20,
                   ),
                   onPressed: canSendToKitchen ? () {} : null,
@@ -69,8 +69,8 @@ class OrderDetailsFooter extends StatelessWidget {
                       Icons.add,
                       size: 20,
                       color: canAddMore
-                          ? NeutralColors.white
-                          : NeutralColors.white.withValues(alpha: 0.3),
+                          ? TextColors.primary
+                          : TextColors.primary.withValues(alpha: 0.3),
                     ),
                     isOutlined: true,
                     onPressed: canAddMore ? () {} : null,

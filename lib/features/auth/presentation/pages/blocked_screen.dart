@@ -18,9 +18,7 @@ class BlockedScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BlockedHeroSection(),
-              SizedBox(height: 48),
               BlockedHelpCard(),
-              SizedBox(height: 48),
               BlockedSignOutButton(),
             ],
           ),

@@ -5,10 +5,7 @@ import 'package:rms_shared_package/rms_shared_package.dart';
 class HallLayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
   final HallModel hall;
 
-  const HallLayoutAppBar({
-    super.key,
-    required this.hall,
-  });
+  const HallLayoutAppBar({super.key, required this.hall});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +14,7 @@ class HallLayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: false,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_rounded, color: NeutralColors.white),
+        icon: const Icon(Icons.arrow_back_rounded, color: TextColors.primary),
         onPressed: () => Navigator.of(context).pop(),
       ),
       title: Text(
@@ -25,7 +22,7 @@ class HallLayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: const TextStyle(
           fontWeight: FontWeight.w800,
           fontSize: 20,
-          color: NeutralColors.white,
+          color: TextColors.primary,
         ),
       ),
       actions: [
@@ -58,7 +55,7 @@ class HallLayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

@@ -33,7 +33,7 @@ class QuantitySelector extends StatelessWidget {
             Text(
               '$quantity',
               style: const TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),

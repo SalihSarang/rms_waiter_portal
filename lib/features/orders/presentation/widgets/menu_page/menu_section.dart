@@ -24,7 +24,7 @@ class MenuSection extends StatelessWidget {
             return Center(
               child: Text(
                 'Error: ${menuState.message}',
-                style: const TextStyle(color: NeutralColors.white),
+                style: const TextStyle(color: TextColors.primary),
               ),
             );
           }

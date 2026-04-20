@@ -29,7 +29,7 @@ class OrdersListSection extends StatelessWidget {
                     ? 'Active Orders'
                     : selectedFilter.displayName,
                 style: const TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),

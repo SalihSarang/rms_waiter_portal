@@ -32,7 +32,7 @@ class OrderFilterRow extends StatelessWidget {
               backgroundColor: NeutralColors.surface,
               selectedColor: PrimaryColors.defaultColor,
               labelStyle: TextStyle(
-                color: isSelected ? NeutralColors.white : NeutralColors.icon,
+                color: isSelected ? TextColors.primary : NeutralColors.icon,
                 fontSize: 14,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               ),

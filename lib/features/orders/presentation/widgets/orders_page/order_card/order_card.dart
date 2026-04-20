@@ -69,7 +69,7 @@ class OrderCard extends StatelessWidget {
               Text(
                 'Table ${order.tableNumber}',
                 style: const TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -87,7 +87,7 @@ class OrderCard extends StatelessWidget {
                 child: Text(
                   statusText,
                   style: const TextStyle(
-                    color: NeutralColors.white,
+                    color: TextColors.primary,
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                   ),

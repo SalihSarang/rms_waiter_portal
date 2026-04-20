@@ -44,7 +44,7 @@ class OrderQuantityController extends StatelessWidget {
             child: Text(
               '${item.quantity}',
               style: const TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),
@@ -64,7 +64,7 @@ class OrderQuantityController extends StatelessWidget {
               color: PrimaryColors.defaultColor,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.add, color: NeutralColors.white, size: 16),
+            child: const Icon(Icons.add, color: TextColors.primary, size: 16),
           ),
         ),
       ],

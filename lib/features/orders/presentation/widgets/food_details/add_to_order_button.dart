@@ -49,7 +49,7 @@ class AddToOrderButton extends StatelessWidget {
             const Text(
               'Add to Order',
               style: TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -58,7 +58,7 @@ class AddToOrderButton extends StatelessWidget {
               const Text(
                 'Select options',
                 style: TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
                 ),

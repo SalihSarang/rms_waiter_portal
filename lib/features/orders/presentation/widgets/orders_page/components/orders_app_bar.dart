@@ -13,7 +13,7 @@ class OrdersAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: const Text(
         'My Orders',
         style: TextStyle(
-          color: NeutralColors.white,
+          color: TextColors.primary,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -29,7 +29,7 @@ class OrdersAppBar extends StatelessWidget implements PreferredSizeWidget {
                 backgroundColor: NeutralColors.appBarBackground,
                 child: Icon(
                   Icons.person_outline,
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   size: 20,
                 ),
               ),

@@ -21,7 +21,7 @@ class MenuSearchBar extends StatelessWidget {
       child: TextField(
         onChanged: (value) =>
             context.read<MenuFilterCubit>().setSearchQuery(value),
-        style: const TextStyle(color: NeutralColors.white),
+        style: const TextStyle(color: TextColors.primary),
         decoration: InputDecoration(
           hintText: 'Search food or ID...',
           hintStyle: TextStyle(

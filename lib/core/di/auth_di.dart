@@ -7,9 +7,9 @@ import 'package:waiter_portal/features/auth/domain/repositories/auth_repository.
 import 'package:waiter_portal/features/auth/domain/usecases/check_auth_status.dart';
 import 'package:waiter_portal/features/auth/domain/usecases/sign_in_waiter.dart';
 import 'package:waiter_portal/features/auth/domain/usecases/sign_out_waiter.dart';
-import 'package:waiter_portal/features/auth/domain/usecases/update_last_active_usecase.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:waiter_portal/features/shift/presentation/bloc/shift_bloc.dart';
+import 'package:rms_shared_package/rms_shared_package.dart';
 
 void authDI() {
   // Firebase Auth
@@ -34,9 +34,17 @@ void authDI() {
   getIt.registerLazySingleton(() => SignInWaiter(getIt<AuthRepository>()));
   getIt.registerLazySingleton(() => SignOutWaiter(getIt<AuthRepository>()));
   getIt.registerLazySingleton(() => CheckAuthStatus(getIt<AuthRepository>()));
-  getIt.registerLazySingleton(
-    () => UpdateLastActiveUseCase(getIt<AuthRepository>()),
+  getIt.registerLazySingleton<ShiftRepository>(
+    () => FirestoreShiftRepository(firestore: getIt<FirebaseFirestore>()),
   );
+  getIt.registerLazySingleton(
+    () => GetCurrentShiftSession(getIt<ShiftRepository>()),
+  );
+  getIt.registerLazySingleton(() => GetShiftHistory(getIt<ShiftRepository>()));
+  getIt.registerLazySingleton(() => StartShift(getIt<ShiftRepository>()));
+  getIt.registerLazySingleton(() => PauseShift(getIt<ShiftRepository>()));
+  getIt.registerLazySingleton(() => ResumeShift(getIt<ShiftRepository>()));
+  getIt.registerLazySingleton(() => EndShift(getIt<ShiftRepository>()));
 
   // BLoC
   getIt.registerFactory<AuthBloc>(
@@ -48,6 +56,13 @@ void authDI() {
   );
 
   getIt.registerFactory<ShiftBloc>(
-    () => ShiftBloc(updateLastActiveUseCase: getIt()),
+    () => ShiftBloc(
+      getCurrentShiftSession: getIt<GetCurrentShiftSession>(),
+      getShiftHistory: getIt<GetShiftHistory>(),
+      startShift: getIt<StartShift>(),
+      pauseShift: getIt<PauseShift>(),
+      resumeShift: getIt<ResumeShift>(),
+      endShift: getIt<EndShift>(),
+    ),
   );
 }

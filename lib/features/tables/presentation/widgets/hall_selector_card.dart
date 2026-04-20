@@ -6,11 +6,7 @@ class HallSelectorCard extends StatelessWidget {
   final HallModel hall;
   final VoidCallback onTap;
 
-  const HallSelectorCard({
-    super.key,
-    required this.hall,
-    required this.onTap,
-  });
+  const HallSelectorCard({super.key, required this.hall, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +59,7 @@ class HallSelectorCard extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 15, // slightly smaller font
                 fontWeight: FontWeight.w700,
-                color: NeutralColors.white,
+                color: TextColors.primary,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -71,16 +67,12 @@ class HallSelectorCard extends StatelessWidget {
             const SizedBox(height: 2),
             const Text(
               'Tap to view layout',
-              style: TextStyle(
-                fontSize: 11,
-                color: NeutralColors.icon,
-              ),
+              style: TextStyle(fontSize: 11, color: NeutralColors.icon),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
-
       ),
     );
   }

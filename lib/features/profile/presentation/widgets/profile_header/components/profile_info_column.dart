@@ -6,14 +6,12 @@ import 'active_status_badge.dart';
 class ProfileInfoColumn extends StatelessWidget {
   final String name;
   final String role;
-  final String shiftStartTime;
   final bool isActive;
 
   const ProfileInfoColumn({
     super.key,
     required this.name,
     required this.role,
-    required this.shiftStartTime,
     this.isActive = true,
   });
 
@@ -31,7 +29,7 @@ class ProfileInfoColumn extends StatelessWidget {
                 name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -47,12 +45,6 @@ class ProfileInfoColumn extends StatelessWidget {
         Text(
           role,
           style: const TextStyle(color: NeutralColors.icon, fontSize: 14),
-        ),
-        const SizedBox(height: 6),
-        // TEXT: Shift Timing Info
-        Text(
-          'Shift started at $shiftStartTime',
-          style: const TextStyle(color: NeutralColors.icon, fontSize: 12),
         ),
       ],
     );

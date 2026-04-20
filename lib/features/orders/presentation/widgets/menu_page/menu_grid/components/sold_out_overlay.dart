@@ -20,7 +20,7 @@ class SoldOutOverlay extends StatelessWidget {
             child: const Text(
               'Sold Out',
               style: TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),

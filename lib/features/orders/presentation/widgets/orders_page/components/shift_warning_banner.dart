@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_state.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_state.dart';
 import 'package:waiter_portal/features/shift/presentation/bloc/shift_bloc.dart';
 import 'package:waiter_portal/features/shift/presentation/bloc/shift_event.dart';
 import 'package:waiter_portal/features/shift/presentation/bloc/shift_state.dart';
@@ -17,12 +17,15 @@ class ShiftWarningBanner extends StatelessWidget {
       builder: (context, authState) {
         if (authState is! Authenticated) return const SizedBox.shrink();
 
-        final staffId = authState.staff.id;
+        final staff = authState.staff;
 
         return BlocBuilder<ShiftBloc, ShiftState>(
           builder: (context, shiftState) {
-            // Only show banner if shift is not active
-            if (shiftState is ShiftActive) return const SizedBox.shrink();
+            final shiftData = shiftState.data;
+            if (shiftData?.canEnd ?? false) return const SizedBox.shrink();
+
+            const title = 'Shift Inactive';
+            const subtitle = 'Please start your shift to manage orders.';
 
             return Container(
               width: double.infinity,
@@ -50,20 +53,20 @@ class ShiftWarningBanner extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Shift Inactive',
+                        const Text(
+                          title,
                           style: TextStyle(
-                            color: NeutralColors.white,
+                            color: TextColors.primary,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          'Please start your shift to manage orders.',
+                        const Text(
+                          subtitle,
                           style: TextStyle(
                             color: NeutralColors.icon,
                             fontSize: 12,
@@ -74,11 +77,13 @@ class ShiftWarningBanner extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.read<ShiftBloc>().add(StartShiftEvent(staffId));
+                      if (shiftData?.canStart ?? true) {
+                        context.read<ShiftBloc>().add(StartShiftEvent(staff));
+                      }
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: SemanticColors.error,
-                      foregroundColor: NeutralColors.white,
+                      foregroundColor: TextColors.primary,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_state.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_state.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/order/order_bloc.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/order/order_event.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
@@ -93,7 +93,7 @@ class SeatSelectionFooter extends StatelessWidget {
                   child: const Text(
                     'Continue to Order',
                     style: TextStyle(
-                      color: NeutralColors.white,
+                      color: TextColors.primary,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),

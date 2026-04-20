@@ -36,7 +36,7 @@ class FoodDetailsContent extends StatelessWidget {
           return const Center(
             child: Text(
               'No food details available.',
-              style: TextStyle(color: NeutralColors.white),
+              style: TextStyle(color: TextColors.primary),
             ),
           );
         }

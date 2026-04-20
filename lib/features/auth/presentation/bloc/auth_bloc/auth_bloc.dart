@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_shared_package/models/staff_model/staff_model.dart';
-import '../../domain/usecases/check_auth_status.dart';
-import '../../domain/usecases/sign_in_waiter.dart';
-import '../../domain/usecases/sign_out_waiter.dart';
+import '../../../domain/usecases/check_auth_status.dart';
+import '../../../domain/usecases/sign_in_waiter.dart';
+import '../../../domain/usecases/sign_out_waiter.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
@@ -48,9 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _startUserMonitoring(user.id);
         emit(Authenticated(user));
       } else {
-        log(
-          'No active session found. Transitioning to unauthenticated state.',
-        );
+        log('No active session found. Transitioning to unauthenticated state.');
         emit(UnAuthenticated());
       }
     } catch (e) {
@@ -76,9 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _startUserMonitoring(user.id);
         emit(Authenticated(user));
       } else {
-        log(
-          'Sign-in failed: Invalid credentials or unauthorized access.',
-        );
+        log('Sign-in failed: Invalid credentials or unauthorized access.');
         emit(
           AuthError(
             'Failed to sign in. Please verify your credentials and try again.',
@@ -137,11 +133,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _startUserMonitoring(String uid) {
     _cancelUserMonitoring();
-    _userSubscription = _checkAuthStatus.repository.watchWaiterStatus(uid).listen(
-      (staff) {
-        add(AuthStatusChangedEvent(staff));
-      },
-    );
+    _userSubscription = _checkAuthStatus.repository
+        .watchWaiterStatus(uid)
+        .listen((staff) {
+          add(AuthStatusChangedEvent(staff));
+        });
   }
 
   void _cancelUserMonitoring() {

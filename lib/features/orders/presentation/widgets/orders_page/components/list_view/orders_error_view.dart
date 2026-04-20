@@ -21,7 +21,7 @@ class OrdersErrorView extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'Failed to load orders',
-            style: TextStyle(color: NeutralColors.white.withValues(alpha: 0.7)),
+            style: TextStyle(color: TextColors.primary.withValues(alpha: 0.7)),
           ),
           TextButton(
             onPressed: () => context.read<OrdersBloc>().add(LoadOrders()),

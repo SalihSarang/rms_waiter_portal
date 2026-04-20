@@ -30,7 +30,7 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () => Navigator.pop(context),
               icon: const Icon(
                 Icons.arrow_back_ios,
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 size: 18,
               ),
             ),
@@ -41,7 +41,7 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
                 const Text(
                   'New Order',
                   style: TextStyle(
-                    color: NeutralColors.white,
+                    color: TextColors.primary,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -49,7 +49,7 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Text(
                   'TABLE $tableNumber',
                   style: TextStyle(
-                    color: NeutralColors.white.withValues(alpha: 0.5),
+                    color: TextColors.primary.withValues(alpha: 0.5),
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
                   ),

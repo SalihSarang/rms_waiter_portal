@@ -31,13 +31,13 @@ class ProfileActionButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // ICON: Action Icon
-            Icon(icon, color: NeutralColors.white, size: 24),
+            Icon(icon, color: TextColors.primary, size: 24),
             const SizedBox(width: 12),
             // TEXT: Action Label
             Text(
               label,
               style: const TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
