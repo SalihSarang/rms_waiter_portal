@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
+import 'menu_app_bar_title.dart';
 
 /// [MenuAppBar] is a custom header widget for the Menu screen.
 ///
@@ -35,27 +36,7 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             // TITLE SECTION: Centered info about the current order context.
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'New Order',
-                  style: TextStyle(
-                    color: TextColors.primary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'TABLE $tableNumber',
-                  style: TextStyle(
-                    color: TextColors.primary.withValues(alpha: 0.5),
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
+            MenuAppBarTitle(tableNumber: tableNumber),
             // Empty sized box to keep title mathematically centered since we removed the QR scanner.
             const SizedBox(width: 48),
           ],

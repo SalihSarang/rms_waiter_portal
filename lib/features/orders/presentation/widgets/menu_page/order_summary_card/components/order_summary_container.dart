@@ -14,10 +14,7 @@ class OrderSummaryContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: NeutralColors.card,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          // Using withValues for modern Flutter color manipulation.
-          color: NeutralColors.border.withValues(alpha: 0.5),
-        ),
+        border: Border.all(color: NeutralColors.border.withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
             color: NeutralColors.blackAlpha40,

@@ -18,11 +18,7 @@ class ViewAllOrderPage extends StatelessWidget {
         appBar: ViewAllOrdersAppBar(),
         body: SingleChildScrollView(
           child: Column(
-            children: [
-              OrderFilterRow(),
-              SizedBox(height: 10),
-              OrdersListSection(showViewAll: false),
-            ],
+            children: [OrderFilterRow(), OrdersListSection(showViewAll: false)],
           ),
         ),
       ),

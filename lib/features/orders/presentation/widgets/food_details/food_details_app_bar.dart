@@ -21,14 +21,7 @@ class FoodDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         onPressed: () => Navigator.pop(context),
       ),
-      title: Text(
-        food?.name ?? 'Loading...',
-        style: const TextStyle(
-          color: TextColors.primary,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      title: RmsAppBarTitle(food?.name ?? 'Loading...'),
       centerTitle: true,
     );
   }

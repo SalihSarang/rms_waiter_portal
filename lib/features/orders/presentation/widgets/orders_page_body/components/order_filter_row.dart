@@ -13,42 +13,47 @@ class OrderFilterRow extends StatelessWidget {
       (OrderFilterCubit cubit) => cubit.state.selectedFilter,
     );
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: OrderFilter.values.map((filter) {
-          final isSelected = selectedFilter == filter;
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: ChoiceChip(
-              label: Text(filter.displayName),
-              selected: isSelected,
-              onSelected: (selected) {
-                if (selected) {
-                  context.read<OrderFilterCubit>().setFilter(filter);
-                }
-              },
-              backgroundColor: NeutralColors.surface,
-              selectedColor: PrimaryColors.defaultColor,
-              labelStyle: TextStyle(
-                color: isSelected ? TextColors.primary : NeutralColors.icon,
-                fontSize: 14,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-                side: BorderSide(
-                  color: isSelected
-                      ? PrimaryColors.defaultColor
-                      : NeutralColors.border,
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: OrderFilter.values.map((filter) {
+              final isSelected = selectedFilter == filter;
+              return Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: ChoiceChip(
+                  label: Text(filter.displayName),
+                  selected: isSelected,
+                  onSelected: (selected) {
+                    if (selected) {
+                      context.read<OrderFilterCubit>().setFilter(filter);
+                    }
+                  },
+                  backgroundColor: NeutralColors.surface,
+                  selectedColor: PrimaryColors.defaultColor,
+                  labelStyle: TextStyle(
+                    color: isSelected ? TextColors.primary : NeutralColors.icon,
+                    fontSize: 14,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(
+                      color: isSelected
+                          ? PrimaryColors.defaultColor
+                          : NeutralColors.border,
+                    ),
+                  ),
+                  showCheckmark: false,
                 ),
-              ),
-              showCheckmark: false,
-            ),
-          );
-        }).toList(),
-      ),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
     );
   }
 }

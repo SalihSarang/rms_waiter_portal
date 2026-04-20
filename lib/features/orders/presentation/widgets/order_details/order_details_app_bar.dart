@@ -46,14 +46,7 @@ class OrderDetailsAppBar extends StatelessWidget
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Order Details',
-                      style: TextStyle(
-                        color: TextColors.primary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    const RmsAppBarTitle('Order Details'),
                     Text(
                       '# ${order.id.toUpperCase()}',
                       style: const TextStyle(

@@ -9,14 +9,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
-        'Profile',
-        style: TextStyle(
-          color: TextColors.primary,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      title: const RmsAppBarTitle('Profile'),
       centerTitle: true,
       backgroundColor: NeutralColors.background,
       elevation: 0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/models/menu_models/category_model/category_model.dart';
+import 'package:waiter_portal/features/orders/presentation/utils/menu_utils.dart';
 
 /// [CategoryFilterChip] is a specialized interactive button for menu categories.
 ///
@@ -25,19 +26,7 @@ class CategoryFilterChip extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? SemanticColors
-                    .info // Highlight color for active filter
-              : NeutralColors.surface,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected
-                ? NeutralColors.transparent
-                : TextColors.primary.withValues(alpha: 0.1),
-            width: 1,
-          ),
-        ),
+        decoration: MenuUtils.getCategoryChipDecoration(isSelected: isSelected),
         alignment: Alignment.center,
         child: Text(
           category.name,

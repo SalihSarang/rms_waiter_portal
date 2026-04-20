@@ -10,7 +10,9 @@ class LoginBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.all(15),
-      child: Column(children: [LoginHeader(), LoginForm()]),
+      child: SingleChildScrollView(
+        child: Column(children: [LoginHeader(), LoginForm()]),
+      ),
     );
   }
 }
