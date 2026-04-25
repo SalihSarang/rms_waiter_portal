@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_state.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_event.dart';
 import 'package:waiter_portal/features/shift/presentation/bloc/shift_bloc.dart';
-import 'package:waiter_portal/features/shift/presentation/bloc/shift_event.dart';
 import 'package:waiter_portal/features/shift/presentation/bloc/shift_state.dart';
+import 'package:waiter_portal/core/utils/ui_utils.dart';
+import 'components/shift_toggle_content.dart';
 
 class ShiftToggleButton extends StatelessWidget {
   const ShiftToggleButton({super.key});
@@ -17,121 +16,14 @@ class ShiftToggleButton extends StatelessWidget {
       builder: (context, authState) {
         if (authState is! Authenticated) return const SizedBox.shrink();
 
-        final id = authState.staff.id;
-        final staff = authState.staff;
-
         return BlocConsumer<ShiftBloc, ShiftState>(
           listener: (context, state) {
             if (state is ShiftError) {
-              RmsSnackbar.show(
-                context,
-                message: state.message,
-                type: RmsSnackbarType.error,
-              );
+              UiUtils.showErrorSnackbar(context, state.message);
             }
           },
           builder: (context, state) {
-            final shiftData = state.data;
-            final isActive = shiftData?.canEnd ?? false;
-            final isLoading = state is ShiftLoading;
-
-            return Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: NeutralColors.surface,
-                      foregroundColor: TextColors.primary,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: NeutralColors.border),
-                      ),
-                    ),
-                    onPressed: isLoading
-                        ? null
-                        : () {
-                            if (isActive) {
-                              context.read<ShiftBloc>().add(EndShiftEvent(id));
-                            } else if (shiftData?.canStart ?? false) {
-                              context.read<ShiftBloc>().add(
-                                StartShiftEvent(staff),
-                              );
-                            } else {
-                              return;
-                            }
-                          },
-                    child: isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                TextColors.primary,
-                              ),
-                            ),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                isActive
-                                    ? Icons.logout_rounded
-                                    : Icons.login_rounded,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                isActive ? 'End Shift' : 'Start Shift',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: StatusColors.cancelled,
-                      foregroundColor: TextColors.primary,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (isActive) {
-                        context.read<ShiftBloc>().add(EndShiftEvent(id));
-                      }
-                      context.read<AuthBloc>().add(SignOutEvent());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.logout_rounded, size: 20),
-                        const SizedBox(width: 12),
-                        Text(
-                          isActive ? 'End Shift & Logout' : 'Logout',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
+            return ShiftToggleContent(state: state, authState: authState);
           },
         );
       },

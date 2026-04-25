@@ -44,3 +44,31 @@ class SubmitOrder extends OrderEvent {
   @override
   List<Object?> get props => [items, cartTotal];
 }
+
+class LoadOrder extends OrderEvent {
+  final OrderModel order;
+
+  const LoadOrder(this.order);
+
+  @override
+  List<Object?> get props => [order];
+}
+
+class SendToKitchen extends OrderEvent {
+  final OrderModel order;
+
+  const SendToKitchen(this.order);
+
+  @override
+  List<Object?> get props => [order];
+}
+
+class CancelOrder extends OrderEvent {
+  final OrderModel order;
+  final String? reason;
+
+  const CancelOrder({required this.order, this.reason});
+
+  @override
+  List<Object?> get props => [order, reason];
+}

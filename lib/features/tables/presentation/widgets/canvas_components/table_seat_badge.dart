@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
+import 'package:waiter_portal/core/utils/app_decorations.dart';
+import 'components/table_seat_badge_content.dart';
 
 class TableSeatBadge extends StatelessWidget {
   final TableModel table;
@@ -18,27 +19,11 @@ class TableSeatBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-      decoration: BoxDecoration(
-        color: isPreview
-            ? NeutralColors.border.withValues(alpha: 0.5)
-            : badgeBg,
-        borderRadius: BorderRadius.circular(10),
+      decoration: AppDecorations.seatBadgeDecoration(
+        isPreview: isPreview,
+        badgeBg: badgeBg,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.chair_rounded, size: 9, color: NeutralColors.icon),
-          const SizedBox(width: 3),
-          Text(
-            '${table.seats}',
-            style: const TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: NeutralColors.icon,
-            ),
-          ),
-        ],
-      ),
+      child: TableSeatBadgeContent(table: table),
     );
   }
 }
