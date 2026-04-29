@@ -22,13 +22,7 @@ class OrderDetailsFooter extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: OrderDetailsDecorations.footerDecoration,
-        child: OrderFooterContent(
-          order: order,
-          showSendToKitchen: logic.showSendToKitchen,
-          hasNewItems: logic.hasNewItems,
-          canSendToKitchen: logic.canSendToKitchen,
-          canAddMore: logic.canAddMore,
-        ),
+        child: OrderFooterContent(order: order, canAddMore: logic.canAddMore),
       ),
     );
   }

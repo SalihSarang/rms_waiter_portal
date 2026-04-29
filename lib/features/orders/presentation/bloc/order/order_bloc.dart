@@ -151,7 +151,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         staffName: order.staffName,
         orderedMenu: event.items,
         paymentStatus: order.paymentStatus,
-        orderStatus: order.orderStatus,
+        orderStatus: order.orderStatus == OrderStatus.served
+            ? OrderStatus.pending
+            : order.orderStatus,
         totalAmount: event.cartTotal,
         seatCount: order.seatCount,
         createdAt: order.createdAt,

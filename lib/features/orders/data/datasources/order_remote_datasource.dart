@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 
 abstract class IOrderRemoteDataSource {
@@ -17,14 +18,19 @@ class OrderRemoteDataSourceImpl
 
   @override
   Stream<List<OrderModel>> getOrders() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      return Stream.value([]);
+    }
     return _firestore
         .collection(OrderDbConstants.orders)
         .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
-          return snapshot.docs.map((doc) {
-            return OrderModel.fromJson(doc.data());
-          }).toList();
+          return snapshot.docs
+              .map((doc) => OrderModel.fromJson(doc.data()))
+              .where((order) => order.staffId == uid)
+              .toList();
         });
   }
 

@@ -44,21 +44,6 @@ class OrderActionButtons extends StatelessWidget {
         );
         break;
 
-      case OrderStatus.served:
-        buttons.add(const SizedBox(width: 12));
-        buttons.add(
-          Expanded(
-            child: OrderActionButton(
-              text: 'Checkout',
-              bgColor: StatusColors.purpleLight,
-              textColor: TextColors.primary,
-              onPressed: () =>
-                  OrderActionsHandler.onCheckoutPressed(context, order),
-            ),
-          ),
-        );
-        break;
-
       default:
         // No extra buttons for other statuses (pending, preparing, completed)
         break;

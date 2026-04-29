@@ -16,6 +16,28 @@ class OrderQuantityController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (item.isSentToKitchen) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.check_circle_outline,
+            size: 16,
+            color: SemanticColors.success,
+          ),
+          const SizedBox(width: 6),
+          Text(
+            '${item.quantity} Served',
+            style: TextStyle(
+              color: TextColors.primary.withValues(alpha: 0.6),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      );
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -27,8 +49,8 @@ class OrderQuantityController extends StatelessWidget {
           iconColor: NeutralColors.icon,
           onTap: () {
             context.read<CartBloc>().add(
-                  UpdateCartItemQuantityEvent(item, item.quantity - 1),
-                );
+              UpdateCartItemQuantityEvent(item, item.quantity - 1),
+            );
           },
         ),
 
@@ -42,8 +64,8 @@ class OrderQuantityController extends StatelessWidget {
           iconColor: TextColors.primary,
           onTap: () {
             context.read<CartBloc>().add(
-                  UpdateCartItemQuantityEvent(item, item.quantity + 1),
-                );
+              UpdateCartItemQuantityEvent(item, item.quantity + 1),
+            );
           },
         ),
       ],

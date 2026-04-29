@@ -6,9 +6,6 @@ import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_sta
 import 'package:waiter_portal/features/auth/presentation/pages/blocked_screen.dart';
 import 'package:waiter_portal/features/auth/presentation/pages/login_screen.dart';
 import 'package:waiter_portal/features/bottom_nav/presentation/pages/main_screen.dart';
-import 'package:waiter_portal/features/shift/presentation/bloc/shift_bloc.dart';
-import 'package:waiter_portal/features/shift/presentation/bloc/shift_event.dart';
-
 import '../widgets/auth_loading_view.dart';
 
 class AuthGate extends StatefulWidget {
@@ -27,27 +24,18 @@ class _AuthGateState extends State<AuthGate> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
         if (state is Authenticated) {
-          context.read<ShiftBloc>().add(LoadShiftEvent(state.staff));
-        } else {
-          context.read<ShiftBloc>().add(ClearShiftEvent());
+          return const BottomNav();
+        } else if (state is AuthBlocked) {
+          return const BlockedScreen();
+        } else if (state is AuthInitial || state is AuthChecking) {
+          return const AuthLoadingView();
         }
-      },
-      child: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          if (state is Authenticated) {
-            return const BottomNav();
-          } else if (state is AuthBlocked) {
-            return const BlockedScreen();
-          } else if (state is AuthInitial || state is AuthChecking) {
-            return const AuthLoadingView();
-          }
 
-          return const LoginScreen();
-        },
-      ),
+        return const LoginScreen();
+      },
     );
   }
 }
