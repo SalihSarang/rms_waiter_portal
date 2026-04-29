@@ -16,13 +16,11 @@ class OrderActionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isPreparing = order.orderStatus == OrderStatus.preparing;
-    final isServed = order.orderStatus == OrderStatus.served;
-    final hasNewItems = order.orderedMenu.any((item) => !item.isSentToKitchen);
-
-    final showAddMore = !isPreparing;
-    final showEditOrder = hasNewItems && !isPreparing && !isServed;
-    final showRequestBill = isServed;
+    final showAddMore = order.orderStatus == OrderStatus.pending ||
+        order.orderStatus == OrderStatus.served;
+    final showEditOrder = order.orderStatus == OrderStatus.pending ||
+        order.orderStatus == OrderStatus.served;
+    final showRequestBill = order.orderStatus == OrderStatus.served;
 
     final List<Widget> visibleButtons = [];
 

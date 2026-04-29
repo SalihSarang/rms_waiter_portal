@@ -10,8 +10,13 @@ import 'order_quantity_controller.dart';
 /// [OrderPreviewItemTile] displays a single item in the order preview list.
 class OrderPreviewItemTile extends StatelessWidget {
   final CartItemModel item;
+  final OrderStatus orderStatus;
 
-  const OrderPreviewItemTile({super.key, required this.item});
+  const OrderPreviewItemTile({
+    super.key,
+    required this.item,
+    required this.orderStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class OrderPreviewItemTile extends StatelessWidget {
                   instructions: item.specialInstructions,
                 ),
                 const SizedBox(height: 12),
-                OrderQuantityController(item: item),
+                OrderQuantityController(item: item, orderStatus: orderStatus),
               ],
             ),
           ),

@@ -18,6 +18,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     on<SendToKitchen>(_onSendToKitchen);
     on<CancelOrder>(_onCancelOrder);
     on<SubmitOrder>(_onSubmitOrder);
+    on<RequestBill>(_onRequestBill);
   }
 
   void _onInitOrder(InitOrder event, Emitter<OrderState> emit) {
@@ -151,9 +152,12 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         staffName: order.staffName,
         orderedMenu: event.items,
         paymentStatus: order.paymentStatus,
-        orderStatus: order.orderStatus == OrderStatus.served
-            ? OrderStatus.pending
-            : order.orderStatus,
+        orderStatus: event.items.isNotEmpty &&
+                event.items.every((item) => item.isPrepared)
+            ? OrderStatus.served
+            : (order.orderStatus == OrderStatus.served
+                ? OrderStatus.pending
+                : order.orderStatus),
         totalAmount: event.cartTotal,
         seatCount: order.seatCount,
         createdAt: order.createdAt,
@@ -171,6 +175,19 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       } catch (e) {
         emit(OrderError(ErrorHandler.getFriendlyMessage(e)));
       }
+    }
+  }
+
+  Future<void> _onRequestBill(
+    RequestBill event,
+    Emitter<OrderState> emit,
+  ) async {
+    emit(OrderLoading());
+    try {
+      await _orderRepository.requestBill(event.orderId);
+      emit(const OrderSuccess(message: 'Bill requested successfully!'));
+    } catch (e) {
+      emit(OrderError(ErrorHandler.getFriendlyMessage(e)));
     }
   }
 }

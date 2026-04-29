@@ -23,7 +23,8 @@ class OrderFooterContent extends StatelessWidget {
           OrderActionRow(order: order, canAddMore: canAddMore),
 
           // Cancel Order Button
-          if (order.orderStatus != OrderStatus.served)
+          if (order.orderStatus == OrderStatus.pending &&
+              !order.orderedMenu.any((item) => item.isPrepared))
             CancelOrderButton(order: order),
         ],
       ),

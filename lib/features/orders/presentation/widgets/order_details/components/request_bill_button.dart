@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
+import '../utils/order_details_actions.dart';
 
 class RequestBillButton extends StatelessWidget {
   final OrderModel order;
@@ -21,7 +22,8 @@ class RequestBillButton extends StatelessWidget {
         isOutlined: true,
         textColor: StatusColors.purpleLight,
         borderColor: StatusColors.purpleLight,
-        onPressed: () {},
+        onPressed: () =>
+            OrderDetailsActions.showRequestBillConfirmation(context, order),
       ),
     );
   }

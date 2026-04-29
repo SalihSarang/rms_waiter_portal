@@ -11,23 +11,32 @@ import 'components/quantity_display.dart';
 /// It provides (+) and (-) buttons that dispatch [UpdateCartItemQuantityEvent]s.
 class OrderQuantityController extends StatelessWidget {
   final CartItemModel item;
+  final OrderStatus orderStatus;
 
-  const OrderQuantityController({super.key, required this.item});
+  const OrderQuantityController({
+    super.key,
+    required this.item,
+    required this.orderStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (item.isSentToKitchen) {
+    final bool canEditItem = !item.isSentToKitchen ||
+        (orderStatus == OrderStatus.pending && !item.isPrepared);
+
+    if (!canEditItem) {
+      final String statusText = item.isPrepared ? 'Served' : 'Preparing';
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Icons.check_circle_outline,
+          Icon(
+            item.isPrepared ? Icons.check_circle_outline : Icons.hourglass_empty,
             size: 16,
-            color: SemanticColors.success,
+            color: item.isPrepared ? SemanticColors.success : SemanticColors.warning,
           ),
           const SizedBox(width: 6),
           Text(
-            '${item.quantity} Served',
+            '${item.quantity} $statusText',
             style: TextStyle(
               color: TextColors.primary.withValues(alpha: 0.6),
               fontSize: 14,

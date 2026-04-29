@@ -26,4 +26,9 @@ class OrderRepositoryImpl implements OrderRepository {
   Future<void> updateTableOccupiedSeats(String tableId, int delta) async {
     return await _remoteDataSource.updateTableOccupiedSeats(tableId, delta);
   }
+
+  @override
+  Future<void> requestBill(String orderId) async {
+    return await _remoteDataSource.requestBill(orderId);
+  }
 }

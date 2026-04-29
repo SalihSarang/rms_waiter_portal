@@ -72,3 +72,12 @@ class CancelOrder extends OrderEvent {
   @override
   List<Object?> get props => [order, reason];
 }
+
+class RequestBill extends OrderEvent {
+  final String orderId;
+
+  const RequestBill(this.orderId);
+
+  @override
+  List<Object?> get props => [orderId];
+}

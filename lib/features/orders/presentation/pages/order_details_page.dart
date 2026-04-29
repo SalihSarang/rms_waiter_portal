@@ -16,9 +16,11 @@ class OrderDetailsPage extends StatelessWidget {
       backgroundColor: NeutralColors.background,
       appBar: OrderDetailsAppBar(order: order),
       body: OrderDetailsView(order: order),
-      bottomNavigationBar: order.orderStatus == OrderStatus.completed
-          ? null
-          : OrderDetailsFooter(order: order),
+      bottomNavigationBar:
+          (order.orderStatus == OrderStatus.pending ||
+              order.orderStatus == OrderStatus.served)
+          ? OrderDetailsFooter(order: order)
+          : null,
     );
   }
 }

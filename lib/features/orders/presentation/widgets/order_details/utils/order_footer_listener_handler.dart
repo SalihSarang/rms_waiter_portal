@@ -10,7 +10,7 @@ class OrderFooterListenerHandler {
     if (state is OrderSuccess) {
       RmsSnackbar.show(
         context,
-        message: 'Order updated successfully!',
+        message: state.message ?? 'Order updated successfully!',
         type: RmsSnackbarType.success,
       );
       // Pop the order details page to show the updated status in the list

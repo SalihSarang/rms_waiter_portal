@@ -17,4 +17,16 @@ class OrderDetailsActions {
       },
     );
   }
+
+  static void showRequestBillConfirmation(
+      BuildContext context, OrderModel order) {
+    showOrderConfirmationDialog(
+      context,
+      title: 'Request Bill',
+      message: 'Are you sure you want to request the bill for this order?',
+      onConfirm: () {
+        context.read<OrderBloc>().add(RequestBill(order.id));
+      },
+    );
+  }
 }
