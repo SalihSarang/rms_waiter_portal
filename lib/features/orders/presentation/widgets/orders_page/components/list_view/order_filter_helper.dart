@@ -8,6 +8,9 @@ class OrderFilterHelper {
     OrderFilter selectedFilter,
   ) {
     return orders.where((order) {
+      // Never show cancelled orders
+      if (order.orderStatus == OrderStatus.cancelled) return false;
+
       if (selectedFilter == OrderFilter.all) {
         return order.orderStatus != OrderStatus.completed;
       }

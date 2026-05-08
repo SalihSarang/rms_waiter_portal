@@ -115,19 +115,17 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     emit(OrderLoading());
 
     try {
-      // FIXME: OrderStatus.cancelled is missing in rms_shared_package.
-      // Using completed as a temporary placeholder for cancel.
+      // Update order status to cancelled
       await _orderRepository.updateOrderStatus(
         event.order.id,
-        OrderStatus.completed,
+        OrderStatus.cancelled,
       );
-      // Wait, I'll use createOrder to be sure all fields are updated if I had more fields
-      // But updateOrderStatus is cleaner if we only change status.
 
-      // We should probably have a way to actually cancel.
-      // Since I don't know the exact status, I'll use a safer approach:
-      // I'll try OrderStatus.completed for now as a placeholder and see if I can find cancelled.
-      // Actually, I'll just use createOrder with a modified status.
+      // Decrement table occupancy (free up seats)
+      await _orderRepository.updateTableOccupiedSeats(
+        event.order.tableId,
+        -event.order.seatCount,
+      );
 
       emit(OrderSuccess());
     } catch (e) {
@@ -152,12 +150,13 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         staffName: order.staffName,
         orderedMenu: event.items,
         paymentStatus: order.paymentStatus,
-        orderStatus: event.items.isNotEmpty &&
+        orderStatus:
+            event.items.isNotEmpty &&
                 event.items.every((item) => item.isPrepared)
             ? OrderStatus.served
             : (order.orderStatus == OrderStatus.served
-                ? OrderStatus.pending
-                : order.orderStatus),
+                  ? OrderStatus.pending
+                  : order.orderStatus),
         totalAmount: event.cartTotal,
         seatCount: order.seatCount,
         createdAt: order.createdAt,

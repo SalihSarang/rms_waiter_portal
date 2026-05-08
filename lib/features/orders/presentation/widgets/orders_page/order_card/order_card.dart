@@ -49,6 +49,10 @@ class OrderCard extends StatelessWidget {
         statusColor = StatusColors.ready;
         statusText = 'COMPLETED';
         break;
+      case OrderStatus.cancelled:
+        statusColor = SemanticColors.error;
+        statusText = 'CANCELLED';
+        break;
     }
 
     return Container(
