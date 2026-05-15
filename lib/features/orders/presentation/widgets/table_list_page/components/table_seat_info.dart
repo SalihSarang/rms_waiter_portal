@@ -5,12 +5,14 @@ class TableSeatInfo extends StatelessWidget {
   final int availableSeats;
   final int totalSeats;
   final bool isOccupied;
+  final Color? statusColor;
 
   const TableSeatInfo({
     super.key,
     required this.availableSeats,
     required this.totalSeats,
     required this.isOccupied,
+    this.statusColor,
   });
 
   @override
@@ -33,9 +35,13 @@ class TableSeatInfo extends StatelessWidget {
           ],
         ),
         if (isOccupied)
-          const Icon(
+          Icon(
             Icons.restaurant_rounded,
-            color: SemanticColors.info,
+            color:
+                statusColor ??
+                (availableSeats == 0
+                    ? SemanticColors.error
+                    : SemanticColors.success),
             size: 16,
           ),
       ],

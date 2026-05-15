@@ -25,11 +25,11 @@ class TableCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: NeutralColors.surface,
+            color: statusData.color.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: statusData.color.withValues(alpha: 0.8),
-              width: 1.5,
+              color: statusData.color.withValues(alpha: 0.5),
+              width: 1.2,
             ),
           ),
           child: Column(
@@ -50,7 +50,8 @@ class TableCard extends StatelessWidget {
               TableSeatInfo(
                 availableSeats: table.seats - table.occupiedSeats,
                 totalSeats: table.seats,
-                isOccupied: table.status == TableStatus.occupied,
+                isOccupied: table.occupiedSeats > 0,
+                statusColor: statusData.color,
               ),
             ],
           ),

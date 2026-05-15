@@ -19,12 +19,9 @@ jobs:
       - name: Checkout Shared Packages
         uses: actions/checkout@v4
         with:
-          # IMPORTANT: Update this to your actual packages repository URL
-          repository: SalihSarang/rms_packages 
+          repository: https://github.com/SalihSarang/rms_packages.git 
           path: packages
-          # If the repo is private, you will need to use a Personal Access Token (PAT)
-          # token: ${{ secrets.PAT_TOKEN }}
-
+    
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:

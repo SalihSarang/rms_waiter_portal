@@ -11,7 +11,9 @@ import 'package:waiter_portal/features/auth/presentation/bloc/login_form/login_f
 import 'package:rms_design_system/rms_design_system.dart';
 
 class MockAuthBloc extends MockBloc<AuthEvent, AuthState> implements AuthBloc {}
-class MockLoginFormCubit extends MockCubit<LoginFormState> implements LoginFormCubit {}
+
+class MockLoginFormCubit extends MockCubit<LoginFormState>
+    implements LoginFormCubit {}
 
 void main() {
   late AuthBloc authBloc;
@@ -24,8 +26,12 @@ void main() {
     // Default mock behavior
     when(() => authBloc.state).thenReturn(AuthInitial());
     when(() => loginFormCubit.state).thenReturn(const LoginFormState());
-    when(() => loginFormCubit.emailController).thenReturn(TextEditingController());
-    when(() => loginFormCubit.passwordController).thenReturn(TextEditingController());
+    when(
+      () => loginFormCubit.emailController,
+    ).thenReturn(TextEditingController());
+    when(
+      () => loginFormCubit.passwordController,
+    ).thenReturn(TextEditingController());
     when(() => loginFormCubit.formKey).thenReturn(GlobalKey<FormState>());
   });
 
@@ -49,10 +55,12 @@ void main() {
     expect(find.byType(RmsButton), findsOneWidget);
   });
 
-  testWidgets('shows loading indicator when state is AuthLoading', (tester) async {
+  testWidgets('shows loading indicator when state is AuthLoading', (
+    tester,
+  ) async {
     when(() => authBloc.state).thenReturn(AuthLoading());
     await tester.pumpWidget(createWidgetUnderTest());
-    
+
     // Check if RmsButton is in loading state
     final button = tester.widget<RmsButton>(find.byType(RmsButton));
     expect(button.isLoading, isTrue);
