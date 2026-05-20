@@ -9,8 +9,6 @@ class TableStatusData {
   const TableStatusData({required this.color, required this.text});
 
   static TableStatusData getStatusData(TableModel table) {
-    final availableSeats = table.seats - table.occupiedSeats;
-
     // Special statuses take priority
     if (table.status == TableStatus.served) {
       return const TableStatusData(

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:rms_design_system/rms_design_system.dart';
 
 export 'add_to_order_button.dart';
-=======
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rms_design_system/rms_design_system.dart';
 import '../../bloc/food_details/food_details_cubit.dart';
->>>>>>> origin/main
 
 class QuantityActionButton extends StatelessWidget {
   final IconData icon;
@@ -27,8 +23,6 @@ class QuantityActionButton extends StatelessWidget {
     );
   }
 }
-<<<<<<< HEAD
-=======
 
 class AddToOrderButton extends StatelessWidget {
   final bool hasSelectedPortion;
@@ -77,4 +71,3 @@ class AddToOrderButton extends StatelessWidget {
     );
   }
 }
->>>>>>> origin/main
