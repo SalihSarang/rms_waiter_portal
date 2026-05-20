@@ -23,7 +23,11 @@ class TableCard extends StatelessWidget {
         statusText = 'BUSY';
         break;
       case TableStatus.billRequested:
+<<<<<<< HEAD
         statusColor = StatusColors.purpleLight; // Purple
+=======
+        statusColor = const Color(0xFFB388FF); // Purple
+>>>>>>> origin/main
         statusText = 'BILL';
         break;
       case TableStatus.reserved:
@@ -36,7 +40,11 @@ class TableCard extends StatelessWidget {
     }
 
     return Material(
+<<<<<<< HEAD
       color: NeutralColors.transparent,
+=======
+      color: Colors.transparent,
+>>>>>>> origin/main
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
@@ -67,10 +75,14 @@ class TableCard extends StatelessWidget {
                     ),
                   ),
                   Container(
+<<<<<<< HEAD
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
                       vertical: 4,
                     ),
+=======
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+>>>>>>> origin/main
                     decoration: BoxDecoration(
                       color: statusColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),

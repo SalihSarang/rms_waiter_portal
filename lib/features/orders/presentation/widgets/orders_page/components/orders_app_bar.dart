@@ -26,7 +26,11 @@ class OrdersAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               const CircleAvatar(
                 radius: 18,
+<<<<<<< HEAD
                 backgroundColor: NeutralColors.appBarBackground,
+=======
+                backgroundColor: Color(0xFF2C3140),
+>>>>>>> origin/main
                 child: Icon(
                   Icons.person_outline,
                   color: NeutralColors.white,
