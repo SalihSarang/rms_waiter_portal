@@ -7,12 +7,12 @@ import '../../bloc/cart/cart_bloc.dart';
 import '../../bloc/cart/cart_event.dart';
 
 class AddToOrderButton extends StatelessWidget {
-  final bool hasSelectedPortion;
-
-  const AddToOrderButton({super.key, required this.hasSelectedPortion});
+  const AddToOrderButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final hasSelectedPortion =
+        context.watch<FoodDetailsCubit>().state.selectedPortion != null;
     return Expanded(
       child: ElevatedButton(
         onPressed: () {
@@ -49,7 +49,7 @@ class AddToOrderButton extends StatelessWidget {
             const Text(
               'Add to Order',
               style: TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -58,7 +58,7 @@ class AddToOrderButton extends StatelessWidget {
               const Text(
                 'Select options',
                 style: TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
                 ),

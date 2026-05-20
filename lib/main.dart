@@ -4,15 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:waiter_portal/core/di/injector.dart';
 import 'package:waiter_portal/firebase_options.dart';
 
-import 'features/auth/presentation/bloc/auth_bloc.dart';
-import 'features/auth/presentation/pages/auth_gate.dart';
-import 'features/shift/presentation/bloc/shift_bloc.dart';
-import 'features/orders/presentation/bloc/cart/cart_bloc.dart';
-import 'features/orders/presentation/bloc/order/order_bloc.dart';
-import 'features/orders/presentation/bloc/orders/orders_bloc.dart';
-import 'features/orders/presentation/bloc/orders/orders_event.dart';
-import 'features/orders/presentation/bloc/menu/menu_bloc.dart';
-import 'features/orders/presentation/bloc/menu/menu_event.dart';
+import 'features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,32 +19,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthBloc>(create: (context) => getIt<AuthBloc>()),
-        BlocProvider<ShiftBloc>(create: (context) => getIt<ShiftBloc>()),
-        BlocProvider<CartBloc>(create: (context) => getIt<CartBloc>()),
-        BlocProvider<OrderBloc>(create: (context) => getIt<OrderBloc>()),
-        BlocProvider<OrdersBloc>(
-          create: (context) => getIt<OrdersBloc>()..add(LoadOrders()),
-        ),
-        BlocProvider<MenuBloc>(
-          create: (context) => getIt<MenuBloc>()..add(FetchMenu()),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Waiter Portal',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF4B8DF8),
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true,
-          fontFamily: 'Roboto',
-        ),
-        home: const AuthGate(),
-      ),
+    return BlocProvider<AuthBloc>(
+      create: (context) => getIt<AuthBloc>(),
+      child: const AppView(),
     );
   }
 }

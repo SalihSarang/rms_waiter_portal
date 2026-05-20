@@ -1,94 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waiter_portal/features/orders/presentation/bloc/order_filter/order_filter_cubit.dart';
+import '../../../../domain/enums/order_filter.dart';
 
 class OrderFilterRow extends StatelessWidget {
-  final String selectedFilter;
-  final ValueChanged<String> onFilterChanged;
-  final List<String> filters;
-
-  const OrderFilterRow({
-    super.key,
-    required this.selectedFilter,
-    required this.onFilterChanged,
-    required this.filters,
-  });
+  const OrderFilterRow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        children: filters.map((filter) {
-          final isSelected = selectedFilter == filter;
-          return Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: GestureDetector(
-              onTap: () => onFilterChanged(filter),
-              child: _buildFilterChip(
-                filter,
-                _getIconForFilter(filter),
-                isSelected: isSelected,
-              ),
-            ),
-          );
-        }).toList(),
-      ),
+    final selectedFilter = context.select(
+      (OrderFilterCubit cubit) => cubit.state.selectedFilter,
     );
-  }
 
-  IconData _getIconForFilter(String filter) {
-    switch (filter) {
-      case 'All':
-        return Icons.grid_view_rounded;
-      case 'Pending':
-        return Icons.pending_actions_rounded;
-      case 'Preparing':
-        return Icons.restaurant_rounded;
-      case 'Ready':
-        return Icons.done_all_rounded;
-      case 'Bill Requested':
-        return Icons.receipt_long_rounded;
-      case 'Served':
-        return Icons.check_circle_rounded;
-      default:
-        return Icons.filter_list_rounded;
-    }
-  }
-
-  Widget _buildFilterChip(
-    String label,
-    IconData icon, {
-    required bool isSelected,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: isSelected ? PrimaryColors.defaultColor : NeutralColors.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isSelected ? PrimaryColors.defaultColor : NeutralColors.border,
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: OrderFilter.values.map((filter) {
+              final isSelected = selectedFilter == filter;
+              return Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: ChoiceChip(
+                  label: Text(filter.displayName),
+                  selected: isSelected,
+                  onSelected: (selected) {
+                    if (selected) {
+                      context.read<OrderFilterCubit>().setFilter(filter);
+                    }
+                  },
+                  backgroundColor: NeutralColors.surface,
+                  selectedColor: PrimaryColors.defaultColor,
+                  labelStyle: TextStyle(
+                    color: isSelected ? TextColors.primary : NeutralColors.icon,
+                    fontSize: 14,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(
+                      color: isSelected
+                          ? PrimaryColors.defaultColor
+                          : NeutralColors.border,
+                    ),
+                  ),
+                  showCheckmark: false,
+                ),
+              );
+            }).toList(),
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            size: 16,
-            color: isSelected ? NeutralColors.white : NeutralColors.icon,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? NeutralColors.white : NeutralColors.icon,
-              fontSize: 14,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
+        const SizedBox(height: 10),
+      ],
     );
   }
 }

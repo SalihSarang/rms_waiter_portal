@@ -10,7 +10,7 @@ class OrderLoadingIndicator extends StatelessWidget {
       height: 20,
       width: 20,
       child: CircularProgressIndicator(
-        color: NeutralColors.white,
+        color: TextColors.primary,
         strokeWidth: 2,
       ),
     );

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMS Waiter Portal - App Landing & Privacy Policy</title>
+    <meta name="description" content="Official landing page and Privacy Policy for the RMS Waiter Portal application - the state-of-the-art mobile solution for restaurant waiting staff.">
+    
+    <!-- Google Fonts: Outfit (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern Premium Design Tokens */
+        :root {
+            --bg-dark: #090d16;
+            --bg-gradient: linear-gradient(135deg, #090d16 0%, #111827 50%, #1e1b4b 100%);
+            --color-primary: #4b8df8;
+            --color-primary-glow: rgba(75, 141, 248, 0.4);
+            --color-text-main: #f3f4f6;
+            --color-text-muted: #9ca3af;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --font-headings: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Basic Reset & Base Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--color-text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        a:hover {
+            color: #70a6ff;
+            text-shadow: 0 0 8px var(--color-primary-glow);
+        }
+
+        /* Container Limiters */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Hero Header Section --- */
+        header {
+            padding: 80px 0 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        /* App Icon Frame with Glow */
+        .app-icon-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 28px;
+            animation: floatIcon 6s ease-in-out infinite;
+        }
+
+        .app-icon {
+            width: 140px;
+            height: 140px;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--color-primary-glow);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            display: block;
+        }
+
+        .icon-shadow-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            border-radius: 32px;
+            background: var(--color-primary);
+            filter: blur(25px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        h1 {
+            font-family: var(--font-headings);
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            max-width: 650px;
+            margin: 0 auto 36px auto;
+            font-weight: 300;
+        }
+
+        /* Store Badges Capsules */
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .badge-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 14px 28px;
+            border-radius: 50px;
+            color: var(--color-text-main);
+            font-family: var(--font-headings);
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: var(--transition-smooth);
+        }
+
+        .badge-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: var(--transition-smooth);
+        }
+
+        .badge-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 25px rgba(75, 141, 248, 0.2), 0 0 12px var(--color-primary-glow);
+        }
+
+        .badge-btn.apkpure:hover {
+            border-color: #10b981; /* Emerald green theme for APKPure */
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2), 0 0 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* --- Features Section --- */
+        .features {
+            padding: 40px 0 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), #818cf8);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-headings);
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        /* --- Privacy Policy Section --- */
+        .privacy-section {
+            padding: 40px 0 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-headings);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+
+        /* Document-like Card for Privacy Content */
+        .privacy-document {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 48px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+        }
+
+        .privacy-scrollbox {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        /* Scrollbar styles for webkit browsers */
+        .privacy-scrollbox::-webkit-scrollbar {
+            width: 8px;
+        }
+        .privacy-scrollbox::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .privacy-scrollbox::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+        .privacy-scrollbox::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Typographic elements inside the document */
+        .doc-title {
+            font-family: var(--font-headings);
+            font-size: 2.25rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+        }
+
+        .doc-meta {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            margin-bottom: 32px;
+            font-family: var(--font-headings);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .doc-text h2 {
+            font-family: var(--font-headings);
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin: 36px 0 16px 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .doc-text h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background: var(--color-primary);
+            border-radius: 2px;
+        }
+
+        .doc-text h3 {
+            font-family: var(--font-headings);
+            font-size: 1.1rem;
+            color: #e5e7eb;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .doc-text p {
+            color: #d1d5db;
+            margin-bottom: 16px;
+            font-size: 0.975rem;
+            font-weight: 300;
+        }
+
+        .doc-text ul {
+            list-style: none;
+            margin: 16px 0 24px 20px;
+        }
+
+        .doc-text ul li {
+            position: relative;
+            color: #d1d5db;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .doc-text ul li::before {
+            content: "•";
+            color: var(--color-primary);
+            font-size: 1.25rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .doc-text hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 40px 0;
+        }
+
+        /* --- Footer Section --- */
+        footer {
+            padding: 60px 0 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(9, 13, 22, 0.6);
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        footer .developer {
+            color: #ffffff;
+            font-family: var(--font-headings);
+            font-weight: 600;
+        }
+
+        /* Keyframe Animations */
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            .privacy-document {
+                padding: 28px;
+            }
+            .doc-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container Wrap -->
+    <div class="container">
+        
+        <!-- Hero Header -->
+        <header id="home">
+            <div class="app-icon-wrapper">
+                <img src="./web_icon.png" alt="RMS Waiter Portal Logo" class="app-icon">
+                <div class="icon-shadow-glow"></div>
+            </div>
+            
+            <h1>RMS Waiter Portal</h1>
+            <p class="subtitle">A state-of-the-art Order Entry & Table Management System designed specifically for professional restaurant service staff.</p>
+            
+            <!-- Dynamic Badges -->
+            <div class="download-buttons">
+                <!-- Play Store capsule -->
+                <button class="badge-btn google-play" id="btn-playstore" onclick="window.open('#')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M17.5,12L12,6.5V11H7V13H12V17.5L17.5,12Z" />
+                    </svg>
+                    Google Play Store
+                </button>
+                
+                <!-- APKPure capsule -->
+                <button class="badge-btn apkpure" id="btn-apkpure" onclick="window.open('#')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2M13 17H11V15H13V17M13 13H11V7H13V13Z" />
+                    </svg>
+                    Download APK (APKPure)
+                </button>
+            </div>
+        </header>
+
+        <!-- Features Grid Section -->
+        <section class="features">
+            <div class="features-grid">
+                <!-- Card 1 -->
+                <div class="feature-card" id="feat-1">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Live Table Sync</h3>
+                    <p>Coordinate restaurant tables in real-time. Floor statuses update dynamically for all waiting and kitchen staff immediately.</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="feature-card" id="feat-2">
+                    <span class="feature-icon">📝</span>
+                    <h3>Instant Order Taking</h3>
+                    <p>Create and customize food orders directly at the table side, adding modifiers, shift codes, and special chef notes instantly.</p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="feature-card" id="feat-3">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Secure Operations</h3>
+                    <p>Powered by Firestore database frameworks, securing restaurant data with real-time backups and SSL-encrypted pipelines.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Policy Card Section -->
+        <section class="privacy-section" id="privacy">
+            <div class="section-header">
+                <h2>App Store & Play Store Compliance</h2>
+                <p>Natively hosted legal declaration documentation for the Application.</p>
+            </div>
+            
+            <div class="privacy-document">
+                <div class="privacy-scrollbox">
+                    <h2 class="doc-title">Privacy Policy</h2>
+                    <div class="doc-meta">Last Updated: May 20, 2026</div>
+                    
+                    <div class="doc-text">
+                        <p>This privacy policy governs your use of the software application <strong>RMS Waiter Portal</strong> ("Application") created by <strong>Salih Sarang</strong> (referred to as "we", "us", or "our").</p>
+                        <p>The Application is a Restaurant Management System (RMS) client tool designed specifically for restaurant waiting staff to manage tables, place customer orders, view shift status, and coordinate dining services.</p>
+                        
+                        <hr>
+                        
+                        <h2>1. Information We Collect</h2>
+                        
+                        <h3>A. Personal & Staff Information</h3>
+                        <p>To use this Application, your restaurant administrator assigns you a staff account. We collect:</p>
+                        <ul>
+                            <li><strong>Account Credentials</strong>: Email address and password (for secure authentication).</li>
+                            <li><strong>Staff Profile</strong>: Staff ID, name, role (Waiter), and shift records.</li>
+                        </ul>
+                        
+                        <h3>B. App Activity & Operational Data</h3>
+                        <p>The Application operates by syncing restaurant actions in real-time. We collect and process:</p>
+                        <ul>
+                            <li><strong>Table & Ordering Records</strong>: Table numbers, seated counts, selected food items, order additions, notes, and pricing totals.</li>
+                            <li><strong>Alert Notifications</strong>: Kitchen ready notifications and server call responses.</li>
+                        </ul>
+                        
+                        <h2>2. Device Permissions Required</h2>
+                        <p>To provide restaurant operations, the Application requires the following native device permission:</p>
+                        <ul>
+                            <li><strong>INTERNET Access</strong>: Required to establish a secure database socket connection with our servers (Firebase Firestore & Firebase Auth) to sync live table and kitchen orders.</li>
+                        </ul>
+                        <p>We do <strong>NOT</strong> request or access location trackers, cameras, contact sheets, call history, or native media storage logs.</p>
+                        
+                        <h2>3. Third-Party Services Used</h2>
+                        <p>The Application utilizes standard industry-leading backend services to guarantee data reliability and encryption. These third-party processors maintain their own privacy policies:</p>
+                        <ul>
+                            <li><strong>Firebase Authentication</strong>: For securely encrypting passwords and verifying logins.</li>
+                            <li><strong>Cloud Firestore</strong>: For hosting active table lists and kitchen orders.</li>
+                        </ul>
+                        
+                        <h2>4. Data Sharing & Third-Party Disclosure</h2>
+                        <p>We respect your privacy. We do <strong>not</strong> sell, rent, or trade your data or your restaurant's business records to marketing brokers or third-party advertisers. Your data is synced solely inside your organization to coordinate order preparations.</p>
+                        
+                        <h2>5. Security & Encryption</h2>
+                        <p>We are committed to safeguarding the confidentiality of your credentials. All network transmissions are strictly encrypted using Secure Sockets Layer (<strong>SSL/TLS</strong>) connections managed by Google Firebase.</p>
+                        
+                        <h2>6. Retention and Deletion</h2>
+                        <p>Your staff data and operational order logs are retained as long as your account is active in your restaurant's database. If you wish to delete your account or wipe your history, your restaurant administrator can remove your profile directly from the main Firebase console.</p>
+                        
+                        <h2>7. Children's Privacy</h2>
+                        <p>Our service is strictly intended for professional waiting staff and business personnel. We do not knowingly collect personal information from individuals under the age of 13.</p>
+                        
+                        <h2>8. Changes to This Privacy Policy</h2>
+                        <p>We may update our Privacy Policy from time to time. We recommend reviewing this page periodically for any changes.</p>
+                        
+                        <h2>9. Contact Us</h2>
+                        <p>If you have any questions regarding privacy while using the Application, please contact us:</p>
+                        <ul>
+                            <li><strong>Developer Name</strong>: Salih Sarang</li>
+                            <li><strong>Email</strong>: <a href="mailto:salihsarangk@gmail.com">salihsarangk@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer Area -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 RMS Waiter Portal. All rights reserved.</p>
+            <p>Created and Maintained by <span class="developer">Salih Sarang</span></p>
+        </div>
+    </footer>
+
+</body>
+</html>

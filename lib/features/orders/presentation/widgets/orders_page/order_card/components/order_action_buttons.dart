@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 
-<<<<<<< HEAD
-import '../../../../pages/order_details_page.dart';
+import 'order_action_button.dart';
+import 'order_actions_handler.dart';
 
 class OrderActionButtons extends StatelessWidget {
   final OrderModel order;
@@ -12,167 +12,43 @@ class OrderActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = order.orderStatus;
-    if (status == OrderStatus.pending) {
-      return Row(
-=======
-class OrderActionButtons extends StatelessWidget {
-  final OrderStatus status;
+    final List<Widget> buttons = [];
 
-  const OrderActionButtons({super.key, required this.status});
+    // All statuses have "View Details" button
+    buttons.add(
+      Expanded(
+        child: OrderActionButton(
+          text: 'View Details',
+          bgColor: NeutralColors.card,
+          textColor: TextColors.primary,
+          onPressed: () =>
+              OrderActionsHandler.navigateToDetails(context, order),
+        ),
+      ),
+    );
 
-  @override
-  Widget build(BuildContext context) {
-    if (status == OrderStatus.pending) {
-      return const Row(
->>>>>>> origin/main
-        children: [
-          Expanded(
-            child: OrderActionButton(
-              text: 'View Details',
-              bgColor: NeutralColors.card,
-              textColor: NeutralColors.white,
-<<<<<<< HEAD
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderDetailsPage(order: order),
-                  ),
-                );
-              },
-=======
-            ),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: OrderActionButton(
-              text: 'Accept Order',
-              bgColor: StatusColors.pending,
-              textColor: NeutralColors.background,
->>>>>>> origin/main
-            ),
-          ),
-        ],
-      );
-    } else if (status == OrderStatus.preparing) {
-<<<<<<< HEAD
-      return Row(
-=======
-      return const Row(
->>>>>>> origin/main
-        children: [
-          Expanded(
-            child: OrderActionButton(
-              text: 'View Details',
-              bgColor: NeutralColors.card,
-              textColor: NeutralColors.white,
-<<<<<<< HEAD
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderDetailsPage(order: order),
-                  ),
-                );
-              },
-=======
->>>>>>> origin/main
-            ),
-          ),
-        ],
-      );
-    } else {
-      // Ready
-<<<<<<< HEAD
-      return Row(
-=======
-      return const Row(
->>>>>>> origin/main
-        children: [
-          Expanded(
-            child: OrderActionButton(
-              text: 'View Details',
-              bgColor: NeutralColors.card,
-              textColor: NeutralColors.white,
-<<<<<<< HEAD
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderDetailsPage(order: order),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(width: 12),
-=======
-            ),
-          ),
-          SizedBox(width: 12),
->>>>>>> origin/main
+    // Add additional action buttons based on status
+    switch (order.orderStatus) {
+      case OrderStatus.ready:
+        buttons.add(const SizedBox(width: 12));
+        buttons.add(
           Expanded(
             child: OrderActionButton(
               text: 'Serve Now',
               bgColor: StatusColors.ready,
-              textColor: NeutralColors.white,
-<<<<<<< HEAD
-              onPressed: () {
-                // TODO: Implement serve now logic
-              },
-=======
->>>>>>> origin/main
+              textColor: TextColors.primary,
+              onPressed: () =>
+                  OrderActionsHandler.onServePressed(context, order),
             ),
           ),
-        ],
-      );
+        );
+        break;
+
+      default:
+        // No extra buttons for other statuses (pending, preparing, completed)
+        break;
     }
-  }
-}
 
-class OrderActionButton extends StatelessWidget {
-  final String text;
-  final Color bgColor;
-  final Color textColor;
-<<<<<<< HEAD
-  final VoidCallback onPressed;
-=======
->>>>>>> origin/main
-
-  const OrderActionButton({
-    super.key,
-    required this.text,
-    required this.bgColor,
-    required this.textColor,
-<<<<<<< HEAD
-    required this.onPressed,
-=======
->>>>>>> origin/main
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-<<<<<<< HEAD
-      onPressed: onPressed,
-=======
-      onPressed: () {},
->>>>>>> origin/main
-      style: ElevatedButton.styleFrom(
-        backgroundColor: bgColor,
-        padding: const EdgeInsets.symmetric(vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-        elevation: 0,
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: textColor,
-          fontWeight: FontWeight.w600,
-          fontSize: 14,
-        ),
-      ),
-    );
+    return Row(children: buttons);
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:rms_design_system/app_colors/neutral_colors.dart';
-import 'package:rms_design_system/app_colors/semantic_colors.dart';
+import 'package:rms_design_system/rms_design_system.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bloc/food_details/food_details_cubit.dart';
 
 class ErrorView extends StatelessWidget {
   final String message;
-  final VoidCallback onRetry;
 
-  const ErrorView({super.key, required this.message, required this.onRetry});
+  const ErrorView({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +26,12 @@ class ErrorView extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: NeutralColors.white, fontSize: 16),
+              style: const TextStyle(color: TextColors.primary, fontSize: 16),
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: onRetry,
+              onPressed: () =>
+                  context.read<FoodDetailsCubit>().fetchFoodDetails(),
               style: ElevatedButton.styleFrom(
                 backgroundColor: SemanticColors.info,
                 padding: const EdgeInsets.symmetric(

@@ -21,7 +21,14 @@ class OrderInProgress extends OrderState {
 
 class OrderLoading extends OrderState {}
 
-class OrderSuccess extends OrderState {}
+class OrderSuccess extends OrderState {
+  final String? message;
+
+  const OrderSuccess({this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
 
 class OrderError extends OrderState {
   final String message;

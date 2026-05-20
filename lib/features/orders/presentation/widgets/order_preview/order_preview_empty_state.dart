@@ -30,7 +30,7 @@ class OrderPreviewEmptyState extends StatelessWidget {
           const Text(
             'Your cart is empty',
             style: TextStyle(
-              color: NeutralColors.white,
+              color: TextColors.primary,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),

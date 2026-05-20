@@ -13,7 +13,7 @@ class AlertsScreen extends StatelessWidget {
         child: Text(
           'Alerts Screen',
           style: TextStyle(
-            color: TextColors.inverse,
+            color: TextColors.primary,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),

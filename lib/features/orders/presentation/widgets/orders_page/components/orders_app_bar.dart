@@ -10,14 +10,7 @@ class OrdersAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: NeutralColors.background,
       elevation: 0,
       centerTitle: true,
-      title: const Text(
-        'My Orders',
-        style: TextStyle(
-          color: NeutralColors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      title: const RmsAppBarTitle('My Orders'),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
@@ -33,7 +26,7 @@ class OrdersAppBar extends StatelessWidget implements PreferredSizeWidget {
 >>>>>>> origin/main
                 child: Icon(
                   Icons.person_outline,
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   size: 20,
                 ),
               ),

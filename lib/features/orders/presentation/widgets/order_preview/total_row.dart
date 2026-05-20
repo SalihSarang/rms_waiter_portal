@@ -15,7 +15,7 @@ class TotalRow extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),

@@ -4,11 +4,17 @@ import 'package:rms_shared_package/rms_shared_package.dart';
 
 import 'components/order_action_buttons.dart';
 
+/// A card widget that displays the details of a single [OrderModel].
+///
+/// It shows the table number, order status, order ID, item count, and time since
+/// the order was placed. It also includes action buttons for managing the order.
 class OrderCard extends StatelessWidget {
+  /// The order data to display.
   final OrderModel order;
 
   const OrderCard({super.key, required this.order});
 
+  /// Helper method to calculate the relative time string (e.g., "5 min ago").
   String _getTimeAgo(DateTime createdAt) {
     final diff = DateTime.now().difference(createdAt);
     if (diff.inDays > 0) return '${diff.inDays} days ago';
@@ -35,6 +41,18 @@ class OrderCard extends StatelessWidget {
         statusColor = StatusColors.ready;
         statusText = 'READY';
         break;
+      case OrderStatus.served:
+        statusColor = StatusColors.purpleLight;
+        statusText = 'SERVED';
+        break;
+      case OrderStatus.completed:
+        statusColor = StatusColors.ready;
+        statusText = 'COMPLETED';
+        break;
+      case OrderStatus.cancelled:
+        statusColor = SemanticColors.error;
+        statusText = 'CANCELLED';
+        break;
     }
 
     return Container(
@@ -55,7 +73,7 @@ class OrderCard extends StatelessWidget {
               Text(
                 'Table ${order.tableNumber}',
                 style: const TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -73,7 +91,7 @@ class OrderCard extends StatelessWidget {
                 child: Text(
                   statusText,
                   style: const TextStyle(
-                    color: NeutralColors.white,
+                    color: TextColors.primary,
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                   ),

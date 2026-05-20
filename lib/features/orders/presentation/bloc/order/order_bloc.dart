@@ -14,7 +14,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   OrderBloc(this._orderRepository) : super(OrderInitial()) {
     on<InitOrder>(_onInitOrder);
     on<ResetOrder>(_onResetOrder);
+    on<LoadOrder>(_onLoadOrder);
+    on<SendToKitchen>(_onSendToKitchen);
+    on<CancelOrder>(_onCancelOrder);
     on<SubmitOrder>(_onSubmitOrder);
+    on<RequestBill>(_onRequestBill);
   }
 
   void _onInitOrder(InitOrder event, Emitter<OrderState> emit) {
@@ -22,7 +26,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     final newOrder = OrderModel(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       tableNumber: event.tableNumber,
+      tableId: event.tableId,
       staffId: event.staffId,
+      staffName: event.staffName,
       orderedMenu: [],
       paymentStatus: PaymentStatus.pending,
       orderStatus: OrderStatus.pending,
@@ -51,6 +57,82 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     emit(OrderInitial());
   }
 
+  void _onLoadOrder(LoadOrder event, Emitter<OrderState> emit) {
+    emit(OrderInProgress(event.order));
+  }
+
+  Future<void> _onSendToKitchen(
+    SendToKitchen event,
+    Emitter<OrderState> emit,
+  ) async {
+    emit(OrderLoading());
+
+    // Mark all unsent items as sent
+    final updatedMenu = event.order.orderedMenu.map((item) {
+      if (!item.isSentToKitchen) {
+        return CartItemModel(
+          foodId: item.foodId,
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+          selectedPortion: item.selectedPortion,
+          selectedAddOns: item.selectedAddOns,
+          specialInstructions: item.specialInstructions,
+          imageUrl: item.imageUrl,
+          isSentToKitchen: true,
+        );
+      }
+      return item;
+    }).toList();
+
+    final updatedOrder = OrderModel(
+      id: event.order.id,
+      tableNumber: event.order.tableNumber,
+      tableId: event.order.tableId,
+      staffId: event.order.staffId,
+      staffName: event.order.staffName,
+      orderedMenu: updatedMenu,
+      paymentStatus: event.order.paymentStatus,
+      orderStatus: OrderStatus.preparing,
+      totalAmount: event.order.totalAmount,
+      seatCount: event.order.seatCount,
+      createdAt: event.order.createdAt,
+      updatedAt: DateTime.now(),
+    );
+
+    try {
+      await _orderRepository.createOrder(updatedOrder);
+      emit(OrderSuccess());
+    } catch (e) {
+      emit(OrderError(ErrorHandler.getFriendlyMessage(e)));
+    }
+  }
+
+  Future<void> _onCancelOrder(
+    CancelOrder event,
+    Emitter<OrderState> emit,
+  ) async {
+    emit(OrderLoading());
+
+    try {
+      // Update order status to cancelled
+      await _orderRepository.updateOrderStatus(
+        event.order.id,
+        OrderStatus.cancelled,
+      );
+
+      // Decrement table occupancy (free up seats)
+      await _orderRepository.updateTableOccupiedSeats(
+        event.order.tableId,
+        -event.order.seatCount,
+      );
+
+      emit(OrderSuccess());
+    } catch (e) {
+      emit(OrderError(ErrorHandler.getFriendlyMessage(e)));
+    }
+  }
+
   Future<void> _onSubmitOrder(
     SubmitOrder event,
     Emitter<OrderState> emit,
@@ -63,10 +145,18 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       final updatedOrder = OrderModel(
         id: order.id,
         tableNumber: order.tableNumber,
+        tableId: order.tableId,
         staffId: order.staffId,
+        staffName: order.staffName,
         orderedMenu: event.items,
         paymentStatus: order.paymentStatus,
-        orderStatus: order.orderStatus,
+        orderStatus:
+            event.items.isNotEmpty &&
+                event.items.every((item) => item.isPrepared)
+            ? OrderStatus.served
+            : (order.orderStatus == OrderStatus.served
+                  ? OrderStatus.pending
+                  : order.orderStatus),
         totalAmount: event.cartTotal,
         seatCount: order.seatCount,
         createdAt: order.createdAt,
@@ -75,10 +165,28 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
       try {
         await _orderRepository.createOrder(updatedOrder);
+        // Increment table occupancy
+        await _orderRepository.updateTableOccupiedSeats(
+          order.tableId,
+          order.seatCount,
+        );
         emit(OrderSuccess());
       } catch (e) {
         emit(OrderError(ErrorHandler.getFriendlyMessage(e)));
       }
+    }
+  }
+
+  Future<void> _onRequestBill(
+    RequestBill event,
+    Emitter<OrderState> emit,
+  ) async {
+    emit(OrderLoading());
+    try {
+      await _orderRepository.requestBill(event.orderId);
+      emit(const OrderSuccess(message: 'Bill requested successfully!'));
+    } catch (e) {
+      emit(OrderError(ErrorHandler.getFriendlyMessage(e)));
     }
   }
 }

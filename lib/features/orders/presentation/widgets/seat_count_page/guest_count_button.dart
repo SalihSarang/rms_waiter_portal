@@ -42,7 +42,7 @@ class GuestCountButton extends StatelessWidget {
         child: Text(
           count.toString(),
           style: TextStyle(
-            color: isSelected ? NeutralColors.white : NeutralColors.icon,
+            color: isSelected ? TextColors.primary : NeutralColors.icon,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),

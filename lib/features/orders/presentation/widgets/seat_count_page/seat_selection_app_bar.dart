@@ -25,7 +25,7 @@ class SeatSelectionAppBar extends StatelessWidget
       leading: IconButton(
         icon: const HugeIcon(
           icon: HugeIcons.strokeRoundedArrowLeft01,
-          color: NeutralColors.white,
+          color: TextColors.primary,
           size: 24,
         ),
         onPressed: () => Navigator.pop(context),

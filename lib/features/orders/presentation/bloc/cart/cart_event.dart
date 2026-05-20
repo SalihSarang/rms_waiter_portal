@@ -37,3 +37,12 @@ class RemoveCartItemEvent extends CartEvent {
 }
 
 class ClearCartEvent extends CartEvent {}
+
+class LoadCartItemsEvent extends CartEvent {
+  final List<CartItemModel> items;
+
+  const LoadCartItemsEvent(this.items);
+
+  @override
+  List<Object?> get props => [items];
+}

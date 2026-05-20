@@ -24,7 +24,7 @@ void ordersDI() {
   getIt.registerLazySingleton(() => UpdateOrderStatus(getIt()));
 
   // Blocs
-  getIt.registerFactory(() => OrdersBloc(getIt()));
+  getIt.registerFactory(() => OrdersBloc(getIt(), getIt(), getIt()));
   getIt.registerFactory(() => OrderBloc(getIt()));
   getIt.registerFactory(() => SeatCountCubit());
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
-class TablesScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
+class TablesScreenAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const TablesScreenAppBar({super.key});
 
   @override
@@ -14,7 +15,7 @@ class TablesScreenAppBar extends StatelessWidget implements PreferredSizeWidget 
         style: TextStyle(
           fontWeight: FontWeight.w800,
           fontSize: 22,
-          color: NeutralColors.white,
+          color: TextColors.primary,
         ),
       ),
       centerTitle: false,

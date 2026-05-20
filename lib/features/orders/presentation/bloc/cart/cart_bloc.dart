@@ -9,6 +9,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<UpdateCartItemQuantityEvent>(_onUpdateQuantity);
     on<RemoveCartItemEvent>(_onRemoveItem);
     on<ClearCartEvent>(_onClearCart);
+    on<LoadCartItemsEvent>(_onLoadItems);
   }
 
   void _onAddItem(AddCartItemEvent event, Emitter<CartState> emit) {
@@ -75,6 +76,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   void _onClearCart(ClearCartEvent event, Emitter<CartState> emit) {
     emit(const CartState());
+  }
+
+  void _onLoadItems(LoadCartItemsEvent event, Emitter<CartState> emit) {
+    emit(state.copyWith(items: event.items));
   }
 
   bool _isSameItem(CartItemModel item1, CartItemModel item2) {

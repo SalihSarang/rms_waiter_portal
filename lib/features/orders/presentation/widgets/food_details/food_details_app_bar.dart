@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:rms_shared_package/rms_shared_package.dart';
+
+import '../../bloc/food_details/food_details_cubit.dart';
 
 class FoodDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final FoodModel? food;
-
-  const FoodDetailsAppBar({super.key, this.food});
+  const FoodDetailsAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final food = context.watch<FoodDetailsCubit>().state.food;
     return AppBar(
       backgroundColor: NeutralColors.background,
       elevation: 0,
       leading: IconButton(
         icon: const Icon(
           Icons.arrow_back_ios_new_rounded,
-          color: NeutralColors.white,
+          color: TextColors.primary,
           size: 20,
         ),
         onPressed: () => Navigator.pop(context),
       ),
-      title: Text(
-        food?.name ?? 'Loading...',
-        style: const TextStyle(
-          color: NeutralColors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      title: RmsAppBarTitle(food?.name ?? 'Loading...'),
       centerTitle: true,
     );
   }
