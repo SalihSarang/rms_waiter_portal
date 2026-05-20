@@ -30,10 +30,7 @@ class TableStatusData {
       final occupancyRatio = table.occupiedSeats / table.seats;
 
       if (occupancyRatio > 0.5) {
-        return const TableStatusData(
-          color: StatusColors.pending,
-          text: 'BUSY',
-        );
+        return const TableStatusData(color: StatusColors.pending, text: 'BUSY');
       }
 
       return const TableStatusData(color: SemanticColors.warning, text: 'BUSY');

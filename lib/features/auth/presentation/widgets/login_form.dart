@@ -4,7 +4,6 @@ import '../bloc/login_form/login_form_cubit.dart';
 
 import 'login_form_components/login_email_field.dart';
 import 'login_form_components/login_password_field.dart';
-import 'login_form_components/login_forgot_password_button.dart';
 import 'login_form_components/login_submit_button.dart';
 
 class LoginForm extends StatelessWidget {
@@ -21,7 +20,7 @@ class LoginForm extends StatelessWidget {
         children: [
           LoginEmailField(),
           LoginPasswordField(),
-          LoginForgotPasswordButton(),
+          // LoginForgotPasswordButton(),
           LoginSubmitButton(),
         ],
       ),

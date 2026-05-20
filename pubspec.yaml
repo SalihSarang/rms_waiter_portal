@@ -31,11 +31,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  rms_shared_package: 
-    path: ../packages/rms_shared_package
+  rms_shared_package:
+    git:
+      url: https://github.com/SalihSarang/rms_packages.git
+      ref: main
+      path: rms_shared_package
 
-  rms_design_system: 
-    path: ../packages/rms_design_system_package
+  rms_design_system:
+    git:
+      url: https://github.com/SalihSarang/rms_packages.git
+      ref: main
+      path: rms_design_system_package
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -63,6 +69,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   bloc_test: ^10.0.0
   mocktail: ^1.0.5
+  flutter_launcher_icons: ^0.14.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,9 +83,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
