@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_event.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_state.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_event.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_state.dart';
 import 'package:waiter_portal/features/auth/presentation/pages/blocked_screen.dart';
 import 'package:waiter_portal/features/auth/presentation/pages/login_screen.dart';
-import 'package:waiter_portal/features/home/presentation/pages/main_screen.dart';
+import 'package:waiter_portal/features/bottom_nav/presentation/pages/main_screen.dart';
+import '../widgets/auth_loading_view.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -18,7 +19,6 @@ class _AuthGateState extends State<AuthGate> {
   @override
   void initState() {
     super.initState();
-    // Dispatch CheckAuthEvent when widget is first built to check persisted login
     context.read<AuthBloc>().add(CheckAuthEvent());
   }
 
@@ -27,13 +27,11 @@ class _AuthGateState extends State<AuthGate> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is Authenticated) {
-          return const MainScreen();
+          return const BottomNav();
         } else if (state is AuthBlocked) {
           return const BlockedScreen();
         } else if (state is AuthInitial || state is AuthChecking) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+          return const AuthLoadingView();
         }
 
         return const LoginScreen();

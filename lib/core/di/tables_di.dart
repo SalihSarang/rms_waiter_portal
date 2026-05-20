@@ -15,10 +15,14 @@ void tablesDI() {
 
   // Repositories
   getIt.registerLazySingleton<IHallRepository>(
-    () => HallRepositoryImpl(remoteDataSource: getIt<ITableViewRemoteDataSource>()),
+    () => HallRepositoryImpl(
+      remoteDataSource: getIt<ITableViewRemoteDataSource>(),
+    ),
   );
   getIt.registerLazySingleton<ITableRepository>(
-    () => TableRepositoryImpl(remoteDataSource: getIt<ITableViewRemoteDataSource>()),
+    () => TableRepositoryImpl(
+      remoteDataSource: getIt<ITableViewRemoteDataSource>(),
+    ),
   );
 
   // Bloc

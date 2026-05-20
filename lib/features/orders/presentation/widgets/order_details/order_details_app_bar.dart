@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
+import 'components/order_details_info_column.dart';
 
 class OrderDetailsAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -31,78 +32,13 @@ class OrderDetailsAppBar extends StatelessWidget
             onTap: () => Navigator.pop(context),
             child: const Icon(
               Icons.arrow_back_ios_new_rounded,
-              color: NeutralColors.white,
+              color: TextColors.primary,
               size: 20,
             ),
           ),
           const SizedBox(width: 20),
           // Metadata Column
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Top Row: Title & ID
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Order Details',
-                      style: TextStyle(
-                        color: NeutralColors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '# ${order.id.toUpperCase()}',
-                      style: const TextStyle(
-                        color: NeutralColors.icon,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                // Bottom Row: Table & Waiter
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Text(
-                          'Table',
-                          style: TextStyle(
-                            color: SemanticColors.info,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          order.tableNumber,
-                          style: const TextStyle(
-                            color: SemanticColors.info,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Text(
-                      'Waiter: John D', // Placeholder as per plan
-                      style: TextStyle(
-                        color: NeutralColors.icon,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          OrderDetailsInfoColumn(order: order),
         ],
       ),
     );

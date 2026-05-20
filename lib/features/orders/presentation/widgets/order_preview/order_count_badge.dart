@@ -11,13 +11,13 @@ class OrderCountBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: NeutralColors.white.withAlpha(51),
+        color: TextColors.primary.withAlpha(51),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
         '$count',
         style: const TextStyle(
-          color: NeutralColors.white,
+          color: TextColors.primary,
           fontSize: 12,
           fontWeight: FontWeight.bold,
         ),

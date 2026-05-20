@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:waiter_portal/features/auth/presentation/bloc/auth_state.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_state.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/order/order_bloc.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/order/order_event.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_cubit.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/seat_count/seat_count_state.dart';
-import '../../pages/menue_page.dart';
+import '../../pages/menu_page.dart';
 
 class SeatSelectionFooter extends StatelessWidget {
   final int capacity;
   final String tableName;
+  final String tableId;
 
   const SeatSelectionFooter({
     super.key,
     required this.capacity,
     required this.tableName,
+    required this.tableId,
   });
 
   @override
@@ -57,15 +59,19 @@ class SeatSelectionFooter extends StatelessWidget {
                     // Initialize the Order Model in OrderBloc
                     final authState = context.read<AuthBloc>().state;
                     String staffId = 'unknown_staff';
+                    String staffName = 'Unknown Waiter';
                     if (authState is Authenticated) {
                       staffId = authState.staff.id;
+                      staffName = authState.staff.name;
                     }
 
                     context.read<OrderBloc>().add(
                       InitOrder(
                         tableNumber: tableName,
+                        tableId: tableId,
                         seatCount: state.selectedCount,
                         staffId: staffId,
+                        staffName: staffName,
                       ),
                     );
 
@@ -73,7 +79,7 @@ class SeatSelectionFooter extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (innerContext) =>
-                            MenuePage(tableNumber: tableName),
+                            MenuPage(tableNumber: tableName),
                       ),
                     );
                   },
@@ -87,7 +93,7 @@ class SeatSelectionFooter extends StatelessWidget {
                   child: const Text(
                     'Continue to Order',
                     style: TextStyle(
-                      color: NeutralColors.white,
+                      color: TextColors.primary,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),

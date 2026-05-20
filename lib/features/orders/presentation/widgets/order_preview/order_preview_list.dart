@@ -5,8 +5,13 @@ import 'order_preview_item_tile.dart';
 /// [OrderPreviewList] handles the display of a list of cart items.
 class OrderPreviewList extends StatelessWidget {
   final List<CartItemModel> items;
+  final OrderStatus orderStatus;
 
-  const OrderPreviewList({super.key, required this.items});
+  const OrderPreviewList({
+    super.key,
+    required this.items,
+    required this.orderStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class OrderPreviewList extends StatelessWidget {
       separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
         final item = items[index];
-        return OrderPreviewItemTile(item: item);
+        return OrderPreviewItemTile(item: item, orderStatus: orderStatus);
       },
     );
   }

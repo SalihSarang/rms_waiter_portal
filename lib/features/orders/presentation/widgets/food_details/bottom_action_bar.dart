@@ -4,14 +4,7 @@ import 'bottom_action_widgets.dart';
 import 'food_details_actions.dart';
 
 class BottomActionBar extends StatelessWidget {
-  final int quantity;
-  final bool hasSelectedPortion;
-
-  const BottomActionBar({
-    super.key,
-    required this.quantity,
-    required this.hasSelectedPortion,
-  });
+  const BottomActionBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +14,8 @@ class BottomActionBar extends StatelessWidget {
         color: NeutralColors.background,
         border: Border(top: BorderSide(color: NeutralColors.border, width: 1)),
       ),
-      child: Row(
-        children: [
-          QuantitySelector(
-            quantity: quantity,
-            hasSelectedPortion: hasSelectedPortion,
-          ),
-          const SizedBox(width: 16),
-          AddToOrderButton(hasSelectedPortion: hasSelectedPortion),
-        ],
+      child: const Row(
+        children: [QuantitySelector(), SizedBox(width: 16), AddToOrderButton()],
       ),
     );
   }

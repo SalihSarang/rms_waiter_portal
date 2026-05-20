@@ -16,44 +16,47 @@ class SeatCountGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(height: 24),
-        Container(
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: NeutralColors.card,
-            border: Border.all(color: NeutralColors.border),
-            borderRadius: BorderRadius.circular(20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: NeutralColors.card,
+              border: Border.all(color: NeutralColors.border),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: BlocBuilder<SeatCountCubit, SeatCountState>(
+              builder: (context, state) {
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: capacity,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 1.3,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemBuilder: (context, index) {
+                    final count = index + 1;
+                    final isSelected = state.selectedCount == count;
+                    return GuestCountButton(
+                      count: count,
+                      isSelected: isSelected,
+                      onTap: () =>
+                          context.read<SeatCountCubit>().selectCount(count),
+                    );
+                  },
+                );
+              },
+            ),
           ),
-          child: BlocBuilder<SeatCountCubit, SeatCountState>(
-            builder: (context, state) {
-              return GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: capacity,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1.3,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                ),
-                itemBuilder: (context, index) {
-                  final count = index + 1;
-                  final isSelected = state.selectedCount == count;
-                  return GuestCountButton(
-                    count: count,
-                    isSelected: isSelected,
-                    onTap: () =>
-                        context.read<SeatCountCubit>().selectCount(count),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

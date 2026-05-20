@@ -5,8 +5,8 @@ import 'package:waiter_portal/core/di/injector.dart';
 
 import '../bloc/table_view_bloc.dart';
 import '../bloc/table_view_event.dart';
+import '../widgets/tables_screen/hall_selector_section.dart';
 import '../widgets/tables_screen/tables_screen_app_bar.dart';
-import '../widgets/tables_screen/tables_screen_body.dart';
 
 class TablesScreen extends StatelessWidget {
   const TablesScreen({super.key});
@@ -18,7 +18,9 @@ class TablesScreen extends StatelessWidget {
       child: const Scaffold(
         backgroundColor: NeutralColors.background,
         appBar: TablesScreenAppBar(),
-        body: TablesScreenBody(),
+        body: SingleChildScrollView(
+          child: Column(children: [HallSelectorSection()]),
+        ),
       ),
     );
   }

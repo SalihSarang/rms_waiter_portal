@@ -1,92 +1,46 @@
 import 'package:flutter/material.dart';
 <<<<<<< HEAD
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/orders/orders_bloc.dart';
-import 'package:waiter_portal/features/orders/presentation/bloc/orders/orders_event.dart';
 import 'package:waiter_portal/features/orders/presentation/bloc/orders/orders_state.dart';
 import '../order_card/order_card.dart';
+import 'list_view/order_filter_helper.dart';
+import 'list_view/orders_empty_view.dart';
+import 'list_view/orders_error_view.dart';
+import 'list_view/orders_loading_view.dart';
+
+import '../../../../domain/enums/order_filter.dart';
 
 class OrdersListView extends StatelessWidget {
-  final String selectedFilter;
-  const OrdersListView({super.key, required this.selectedFilter});
+  final OrderFilter selectedFilter;
+  final ScrollPhysics? physics;
+  final bool shrinkWrap;
+
+  const OrdersListView({
+    super.key,
+    required this.selectedFilter,
+    this.physics,
+    this.shrinkWrap = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersBloc, OrdersState>(
       builder: (context, state) {
-        if (state is OrdersLoading) {
-          return const Center(
-            child: CircularProgressIndicator(color: PrimaryColors.defaultColor),
-          );
-        }
-
-        if (state is OrdersError) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.error_outline,
-                  color: SemanticColors.error,
-                  size: 48,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Failed to load orders',
-                  style: TextStyle(
-                    color: NeutralColors.white.withValues(alpha: 0.7),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => context.read<OrdersBloc>().add(LoadOrders()),
-                  child: const Text(
-                    'Retry',
-                    style: TextStyle(color: PrimaryColors.defaultColor),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
+        if (state is OrdersLoading) return const OrdersLoadingView();
+        if (state is OrdersError) return const OrdersErrorView();
 
         if (state is OrdersLoaded) {
-          final orders = state.orders;
+          final filteredOrders = OrderFilterHelper.filterOrders(
+            state.orders,
+            selectedFilter,
+          );
 
-          final filteredOrders = selectedFilter == 'All'
-              ? orders
-              : orders
-                    .where(
-                      (order) =>
-                          order.orderStatus.name.toLowerCase() ==
-                          selectedFilter.replaceAll(' ', '').toLowerCase(),
-                    )
-                    .toList();
-
-          if (filteredOrders.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.receipt_long_rounded,
-                    color: NeutralColors.white.withValues(alpha: 0.2),
-                    size: 64,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'No orders found',
-                    style: TextStyle(
-                      color: NeutralColors.white.withValues(alpha: 0.5),
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }
+          if (filteredOrders.isEmpty) return const OrdersEmptyView();
 
           return ListView.separated(
+            physics: physics,
+            shrinkWrap: shrinkWrap,
             padding: const EdgeInsets.only(
               left: 10,
               right: 10,

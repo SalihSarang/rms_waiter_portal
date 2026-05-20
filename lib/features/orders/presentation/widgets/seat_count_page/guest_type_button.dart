@@ -27,7 +27,7 @@ class GuestTypeButton extends StatelessWidget {
           ),
           child: Text(
             label,
-            style: const TextStyle(color: NeutralColors.white, fontSize: 12),
+            style: const TextStyle(color: TextColors.primary, fontSize: 12),
           ),
         ),
       ),

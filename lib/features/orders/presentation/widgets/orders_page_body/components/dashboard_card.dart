@@ -21,7 +21,7 @@ class DashboardCard extends StatelessWidget {
         color: NeutralColors.card,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: NeutralColors.white.withValues(alpha: 0.05),
+          color: TextColors.primary.withValues(alpha: 0.05),
           width: 1,
         ),
       ),
@@ -47,7 +47,7 @@ class DashboardCard extends StatelessWidget {
               Text(
                 value,
                 style: const TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),

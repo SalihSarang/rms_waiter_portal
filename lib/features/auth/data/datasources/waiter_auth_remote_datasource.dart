@@ -54,9 +54,7 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
         );
       }
 
-      log(
-        'Authentication successful. Session established for: ${waiter.name}',
-      );
+      log('Authentication successful. Session established for: ${waiter.name}');
       return waiter;
     } catch (e) {
       log('Authentication sequence encountered an error: $e');
@@ -122,11 +120,11 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
         .doc(uid)
         .snapshots()
         .map((docSnapshot) {
-      if (!docSnapshot.exists || docSnapshot.data() == null) {
-        return null;
-      }
-      return StaffModel.fromMap(docSnapshot.data()!, docSnapshot.id);
-    });
+          if (!docSnapshot.exists || docSnapshot.data() == null) {
+            return null;
+          }
+          return StaffModel.fromMap(docSnapshot.data()!, docSnapshot.id);
+        });
   }
 
   @override
@@ -138,9 +136,7 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
         'lastActive': time.millisecondsSinceEpoch,
       });
 
-      log(
-        'Activity beat successfully recorded at: ${time.toIso8601String()}',
-      );
+      log('Activity beat successfully recorded at: ${time.toIso8601String()}');
     } catch (e) {
       log('Failed to record activity beat for UID: $uid. Error: $e');
       rethrow;

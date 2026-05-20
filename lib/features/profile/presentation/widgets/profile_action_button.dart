@@ -22,22 +22,22 @@ class ProfileActionButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // ICON: Action Icon
-            Icon(icon, color: NeutralColors.white, size: 24),
+            Icon(icon, color: TextColors.primary, size: 24),
             const SizedBox(width: 12),
             // TEXT: Action Label
             Text(
               label,
               style: const TextStyle(
-                color: NeutralColors.white,
+                color: TextColors.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),

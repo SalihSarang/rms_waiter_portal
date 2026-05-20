@@ -19,9 +19,9 @@ class ProfileStatsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: NeutralColors.background.withValues(alpha: 0.5),
+        color: NeutralColors.surface,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -49,8 +49,8 @@ class ProfileStatsCard extends StatelessWidget {
           Text(
             value,
             style: const TextStyle(
-              color: NeutralColors.white,
-              fontSize: 22,
+              color: TextColors.primary,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),

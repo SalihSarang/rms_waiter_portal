@@ -20,10 +20,10 @@ class ProfileMenuItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: NeutralColors.surface,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           children: [
@@ -42,7 +42,7 @@ class ProfileMenuItem extends StatelessWidget {
               child: Text(
                 title,
                 style: const TextStyle(
-                  color: NeutralColors.white,
+                  color: TextColors.primary,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),

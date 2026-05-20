@@ -4,68 +4,78 @@ import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 import '../../bloc/cart/cart_bloc.dart';
 import '../../bloc/cart/cart_event.dart';
+import 'components/quantity_action_button.dart';
+import 'components/quantity_display.dart';
 
-/// [OrderQuantityController] is a UI component for adjusting item quantities in the cart.
+/// [OrderQuantityController] is a widget used in the order preview list to manage item quantities.
 /// It provides (+) and (-) buttons that dispatch [UpdateCartItemQuantityEvent]s.
 class OrderQuantityController extends StatelessWidget {
   final CartItemModel item;
+  final OrderStatus orderStatus;
 
-  const OrderQuantityController({super.key, required this.item});
+  const OrderQuantityController({
+    super.key,
+    required this.item,
+    required this.orderStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final bool canEditItem = !item.isSentToKitchen ||
+        (orderStatus == OrderStatus.pending && !item.isPrepared);
+
+    if (!canEditItem) {
+      final String statusText = item.isPrepared ? 'Served' : 'Preparing';
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            item.isPrepared ? Icons.check_circle_outline : Icons.hourglass_empty,
+            size: 16,
+            color: item.isPrepared ? SemanticColors.success : SemanticColors.warning,
+          ),
+          const SizedBox(width: 6),
+          Text(
+            '${item.quantity} $statusText',
+            style: TextStyle(
+              color: TextColors.primary.withValues(alpha: 0.6),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      );
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GestureDetector(
+        // Decrease Button
+        QuantityActionButton(
+          icon: Icons.remove,
+          backgroundColor: NeutralColors.border,
+          iconColor: NeutralColors.icon,
           onTap: () {
             context.read<CartBloc>().add(
               UpdateCartItemQuantityEvent(item, item.quantity - 1),
             );
           },
-          child: Container(
-            width: 28,
-            height: 28,
-            decoration: const BoxDecoration(
-              color: NeutralColors.border,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.remove,
-              color: NeutralColors.icon,
-              size: 16,
-            ),
-          ),
         ),
-        SizedBox(
-          width: 32,
-          child: Center(
-            child: Text(
-              '${item.quantity}',
-              style: const TextStyle(
-                color: NeutralColors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        GestureDetector(
+
+        // Quantity Display
+        QuantityDisplay(quantity: item.quantity),
+
+        // Increase Button
+        QuantityActionButton(
+          icon: Icons.add,
+          backgroundColor: PrimaryColors.defaultColor,
+          iconColor: TextColors.primary,
           onTap: () {
             context.read<CartBloc>().add(
               UpdateCartItemQuantityEvent(item, item.quantity + 1),
             );
           },
-          child: Container(
-            width: 28,
-            height: 28,
-            decoration: const BoxDecoration(
-              color: PrimaryColors.defaultColor,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.add, color: NeutralColors.white, size: 16),
-          ),
         ),
       ],
     );

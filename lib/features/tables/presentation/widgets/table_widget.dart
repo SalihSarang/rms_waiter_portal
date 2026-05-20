@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 
+import 'canvas_components/table_seat_badge.dart';
 import 'utils/table_widget_utils.dart';
 
 class TableWidget extends StatelessWidget {
@@ -61,33 +62,10 @@ class TableWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 5),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-                decoration: BoxDecoration(
-                  color: isPreview
-                      ? NeutralColors.border.withValues(alpha: 0.5)
-                      : badgeBg,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.chair_rounded,
-                      size: 9,
-                      color: NeutralColors.icon,
-                    ),
-                    const SizedBox(width: 3),
-                    Text(
-                      '${table.seats}',
-                      style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        color: NeutralColors.icon,
-                      ),
-                    ),
-                  ],
-                ),
+              TableSeatBadge(
+                table: table,
+                isPreview: isPreview,
+                badgeBg: badgeBg,
               ),
             ],
           ),

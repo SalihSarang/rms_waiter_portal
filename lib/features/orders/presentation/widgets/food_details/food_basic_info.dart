@@ -19,7 +19,7 @@ class FoodBasicInfo extends StatelessWidget {
         Text(
           name,
           style: const TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),

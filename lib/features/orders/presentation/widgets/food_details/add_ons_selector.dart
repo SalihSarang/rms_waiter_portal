@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:rms_shared_package/rms_shared_package.dart';
 import '../../bloc/food_details/food_details_cubit.dart';
+import 'add_on_item.dart';
 
 class AddOnsSelector extends StatelessWidget {
-  final List<AddOnsModel> addOns;
-  final List<AddOnsModel> selectedAddOns;
-
-  const AddOnsSelector({
-    super.key,
-    required this.addOns,
-    required this.selectedAddOns,
-  });
+  const AddOnsSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (addOns.isEmpty) return const SizedBox.shrink();
+    final state = context.watch<FoodDetailsCubit>().state;
+    final food = state.food;
+
+    if (food == null || food.addOns.isEmpty) return const SizedBox.shrink();
+
+    final addOns = food.addOns;
+    final selectedAddOns = state.selectedAddOns;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +23,7 @@ class AddOnsSelector extends StatelessWidget {
         const Text(
           'Add-ons',
           style: TextStyle(
-            color: NeutralColors.white,
+            color: TextColors.primary,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -39,7 +38,7 @@ class AddOnsSelector extends StatelessWidget {
           child: Column(
             children: addOns.map((addOn) {
               final isSelected = selectedAddOns.contains(addOn);
-              return _AddOnItem(
+              return AddOnItem(
                 addOn: addOn,
                 isSelected: isSelected,
                 onTap: () =>
@@ -49,49 +48,6 @@ class AddOnsSelector extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _AddOnItem extends StatelessWidget {
-  final AddOnsModel addOn;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _AddOnItem({
-    required this.addOn,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          children: [
-            Icon(
-              isSelected
-                  ? Icons.check_box_rounded
-                  : Icons.check_box_outline_blank_rounded,
-              color: isSelected ? SemanticColors.info : NeutralColors.icon,
-              size: 20,
-            ),
-            const SizedBox(width: 12),
-            Text(
-              addOn.name,
-              style: const TextStyle(color: NeutralColors.white, fontSize: 14),
-            ),
-            const Spacer(),
-            Text(
-              '+\$${addOn.price}',
-              style: const TextStyle(color: NeutralColors.icon, fontSize: 14),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
