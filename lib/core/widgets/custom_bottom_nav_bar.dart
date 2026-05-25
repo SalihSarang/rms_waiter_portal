@@ -18,7 +18,6 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // CONTAINER: Main floating bar background with rounded corners and shadow
       height: 60,
       margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -39,8 +38,7 @@ class CustomBottomNavBar extends StatelessWidget {
         children: [
           _buildNavItem(0, Icons.assignment_outlined, 'Orders'),
           _buildNavItem(1, Icons.grid_view_outlined, 'Tables'),
-          _buildNavItem(2, Icons.notifications_none_outlined, 'Alerts'),
-          _buildNavItem(3, Icons.person_outline, 'Profile'),
+          _buildNavItem(2, Icons.person_outline, 'Profile'),
         ],
       ),
     );
@@ -56,18 +54,17 @@ class CustomBottomNavBar extends StatelessWidget {
       onTap: () => onItemSelected(index),
       behavior: HitTestBehavior.opaque,
       child: Column(
-        // COLUMN: Nav item visual stack (Icon + Text)
         mainAxisSize: MainAxisSize.min,
         children: [
           // ICON: Navigation visual indicator
-          Icon(icon, color: color, size: 18),
+          Icon(icon, color: color, size: 20),
           const SizedBox(height: 4),
           // TEXT: Navigation label
           Text(
             label,
             style: TextStyle(
               color: color,
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
             ),
           ),
