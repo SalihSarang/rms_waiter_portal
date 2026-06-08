@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:rms_design_system/rms_design_system.dart';
-import '../../bloc/food_details/food_details_cubit.dart';
 import 'bottom_action_widgets.dart';
 import 'food_details_actions.dart';
 
@@ -10,8 +9,8 @@ class BottomActionBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasSelectedPortion =
-        context.watch<FoodDetailsCubit>().state.selectedPortion != null;
+    // final hasSelectedPortion =
+    //     context.watch<FoodDetailsCubit>().state.selectedPortion != null;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -23,7 +22,7 @@ class BottomActionBar extends StatelessWidget {
         children: [
           const QuantitySelector(),
           const SizedBox(width: 16),
-          AddToOrderButton(hasSelectedPortion: hasSelectedPortion),
+          const AddToOrderButton(),
         ],
       ),
     );
