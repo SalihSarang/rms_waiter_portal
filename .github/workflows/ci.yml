@@ -19,7 +19,7 @@ jobs:
       - name: Checkout Shared Packages
         uses: actions/checkout@v4
         with:
-          repository: https://github.com/SalihSarang/rms_packages.git 
+          repository: SalihSarang/rms_packages
           path: packages
     
       - name: Setup Flutter
@@ -41,24 +41,3 @@ jobs:
         working-directory: waiter_portal
         run: flutter test
 
-      - name: Build Android App Bundle (AAB)
-        working-directory: waiter_portal
-        run: flutter build appbundle --release --no-tree-shake-icons
-
-      - name: Build Android APK
-        working-directory: waiter_portal
-        run: flutter build apk --release --split-per-abi
-
-      - name: Upload Play Store App Bundle (AAB)
-        uses: actions/upload-artifact@v4
-        with:
-          name: waiter-portal-release-aab
-          path: waiter_portal/build/app/outputs/bundle/release/app-release.aab
-          if-no-files-found: error
-
-      - name: Upload APKPure APKs
-        uses: actions/upload-artifact@v4
-        with:
-          name: waiter-portal-release-apks
-          path: waiter_portal/build/app/outputs/flutter-apk/app-*.apk
-          if-no-files-found: error
