@@ -15,12 +15,12 @@ class LoginForm extends StatelessWidget {
 
     return Form(
       key: cubit.formKey,
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           LoginEmailField(),
           LoginPasswordField(),
-          // LoginForgotPasswordButton(),
+          const SizedBox(height: 16),
           LoginSubmitButton(),
         ],
       ),
