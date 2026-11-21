@@ -28,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     // Registering event handlers to define the reactive behavior of the authentication system.
     on<CheckAuthEvent>(_onCheckAuthEvent);
     on<SignInEvent>(_onSignInEvent);
+    on<DemoSignInEvent>(_onDemoSignInEvent);
     on<SignOutEvent>(_onSignOutEvent);
     on<AuthStatusChangedEvent>(_onAuthStatusChangedEvent);
   }
@@ -85,6 +86,37 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       log('Sign-in process encountered a critical error: $e');
 
       // Sanitizing error messages to ensure they are user-friendly yet informative.
+      String errorMessage = e.toString();
+      if (errorMessage.startsWith('Exception: ')) {
+        errorMessage = errorMessage.replaceFirst('Exception: ', '');
+      }
+      emit(AuthError(errorMessage));
+    }
+  }
+
+  Future<void> _onDemoSignInEvent(
+    DemoSignInEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      log('Initiating demo sign-in process for waiter (session: ${event.sessionCode})');
+      final user = await _signInWaiter.demoSignIn(sessionCode: event.sessionCode);
+
+      if (user != null) {
+        log('Demo sign-in successful. Welcome, ${user.name}.');
+        _startUserMonitoring(user.id);
+        emit(Authenticated(user));
+      } else {
+        log('Demo sign-in failed.');
+        emit(
+          AuthError(
+            'Failed to sign in as demo waiter. Please try again.',
+          ),
+        );
+      }
+    } catch (e) {
+      log('Demo sign-in error: $e');
       String errorMessage = e.toString();
       if (errorMessage.startsWith('Exception: ')) {
         errorMessage = errorMessage.replaceFirst('Exception: ', '');

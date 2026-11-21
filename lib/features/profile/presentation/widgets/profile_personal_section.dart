@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
+import '../../../../core/services/rms_image_cache_manager.dart';
 import '../../../auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_bloc/auth_state.dart';
 import 'profile_menu_item.dart';
@@ -67,6 +68,13 @@ class ProfilePersonalSection extends StatelessWidget {
               },
             ),
             ProfileMenuItem(
+              icon: Icons.cleaning_services_outlined,
+              title: 'Clear Menu Image Cache',
+              onTap: () {
+                _showClearCacheDialog(context);
+              },
+            ),
+            ProfileMenuItem(
               icon: Icons.help_outline,
               title: 'Help & Support',
               onTap: () {
@@ -78,6 +86,57 @@ class ProfilePersonalSection extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  /// Displays a confirmation dialog before clearing local cached menu images.
+  void _showClearCacheDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: NeutralColors.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: NeutralColors.border),
+        ),
+        title: const Text(
+          'Clear Menu Cache',
+          style: TextStyle(
+            color: NeutralColors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: const Text(
+          'This will clear all locally saved menu photos from this device. '
+          'Photos will be downloaded fresh the next time you browse the menu.',
+          style: TextStyle(color: NeutralColors.icon, fontSize: 13.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Cancel', style: TextStyle(color: NeutralColors.icon)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(dialogContext).pop();
+              await RmsImageCacheManager.clearCache();
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Menu image cache cleared successfully.'),
+                    backgroundColor: SemanticColors.success,
+                  ),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: PrimaryColors.defaultColor,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Clear Now'),
+          ),
+        ],
+      ),
     );
   }
 }

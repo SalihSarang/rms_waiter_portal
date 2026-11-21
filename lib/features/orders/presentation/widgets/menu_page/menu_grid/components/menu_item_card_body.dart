@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rms_shared_package/models/menu_models/food_model/food_model.dart';
+import 'package:rms_shared_package/rms_shared_package.dart';
+import 'card_interaction_layer.dart';
 import 'menu_item_image_section.dart';
 import 'menu_item_info_section.dart';
-import 'card_interaction_layer.dart';
 
 class MenuItemCardBody extends StatelessWidget {
   final FoodModel food;
@@ -25,7 +25,11 @@ class MenuItemCardBody extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MenuItemImageSection(imageUrl: food.imageUrl, isSoldOut: isSoldOut),
+            MenuItemImageSection(
+              imageUrl: food.imageUrl,
+              foodName: food.name,
+              isSoldOut: isSoldOut,
+            ),
             MenuItemInfoSection(name: food.name, price: price),
           ],
         ),
