@@ -7,8 +7,13 @@ import 'food_details_image.dart';
 /// with rounded corners and a gradient overlay for better text readability.
 class FoodImageHeader extends StatelessWidget {
   final String? imageUrl;
+  final String? foodName;
 
-  const FoodImageHeader({super.key, required this.imageUrl});
+  const FoodImageHeader({
+    super.key,
+    required this.imageUrl,
+    this.foodName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class FoodImageHeader extends StatelessWidget {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: FoodDetailsImage(imageUrl: imageUrl),
+              child: FoodDetailsImage(imageUrl: imageUrl, foodName: foodName),
             ),
           ),
           Positioned.fill(

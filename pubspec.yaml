@@ -32,16 +32,10 @@ dependencies:
     sdk: flutter
 
   rms_shared_package:
-    git:
-      url: https://github.com/SalihSarang/rms_packages.git
-      ref: main
-      path: rms_shared_package
+    path: ../rms_packages/rms_shared_package
 
   rms_design_system:
-    git:
-      url: https://github.com/SalihSarang/rms_packages.git
-      ref: main
-      path: rms_design_system_package
+    path: ../rms_packages/rms_design_system_package
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -51,11 +45,13 @@ dependencies:
   firebase_auth: ^5.7.0
   cloud_firestore: ^5.6.12
   firebase_core: ^3.15.2
-  package_info_plus: ^9.0.0
+  package_info_plus: ^10.2.2
   get_it: ^9.2.0
   equatable: ^2.0.8
   hugeicons: ^1.1.6
   icons_plus: ^5.0.0
+  cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +66,10 @@ dev_dependencies:
   bloc_test: ^10.0.0
   mocktail: ^1.0.5
   flutter_launcher_icons: ^0.14.3
+
+dependency_overrides:
+  # Pin to 1.2.1+ to avoid the retracted jni: 1.2.0 ClassNotFoundException bug on Android
+  jni: ^1.2.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

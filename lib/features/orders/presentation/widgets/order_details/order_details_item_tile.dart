@@ -21,7 +21,7 @@ class OrderDetailsItemTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          OrderItemImage(imageUrl: item.imageUrl),
+          OrderItemImage(imageUrl: item.imageUrl, foodName: item.name),
           const SizedBox(width: 16),
           OrderDetailsItemContent(item: item),
         ],

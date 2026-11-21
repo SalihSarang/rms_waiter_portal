@@ -20,6 +20,7 @@ class ProfileHeader extends StatelessWidget {
       children: [
         ProfileAvatar(
           imageUrl: staff.avatar.isNotEmpty ? staff.avatar : null,
+          name: staff.name,
           isActive: staff.isActive,
         ),
         const SizedBox(width: 20),

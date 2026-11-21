@@ -14,7 +14,7 @@ class TableViewRemoteDataSourceImpl
   TableViewRemoteDataSourceImpl(this._firestore);
 
   CollectionReference<HallModel> get _hallsCollection => _firestore
-      .collection(TableDbConstants.halls)
+      .rmsCollection(TableDbConstants.halls)
       .withConverter<HallModel>(
         fromFirestore: (snapshot, _) =>
             HallModel.fromMap(snapshot.data()!, snapshot.id),
@@ -22,7 +22,7 @@ class TableViewRemoteDataSourceImpl
       );
 
   CollectionReference<TableModel> get _tablesCollection => _firestore
-      .collection(TableDbConstants.tables)
+      .rmsCollection(TableDbConstants.tables)
       .withConverter<TableModel>(
         fromFirestore: (snapshot, _) =>
             TableModel.fromMap(snapshot.data()!, snapshot.id),
