@@ -20,7 +20,7 @@ class FoodDetailsBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 10),
-          FoodImageHeader(imageUrl: food.imageUrl),
+          FoodImageHeader(imageUrl: food.imageUrl, foodName: food.name),
           const SizedBox(height: 24),
           FoodBasicInfo(name: food.name, description: food.description),
           const SizedBox(height: 24),

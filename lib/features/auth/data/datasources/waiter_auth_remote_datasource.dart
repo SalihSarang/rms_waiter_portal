@@ -1,33 +1,19 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rms_shared_package/constants/db_constants.dart';
-import 'package:rms_shared_package/models/staff_model/staff_model.dart';
-import 'package:rms_shared_package/enums/enums.dart';
+import 'package:rms_shared_package/rms_shared_package.dart';
 
 /// Abstract definition for the Waiter Authentication Data Source.
-/// This contract defines the essential operations for managing waiter sessions
-/// and retrieving their profile information from the remote backend.
 abstract class WaiterAuthRemoteDataSource {
-  /// Facilitates the sign-in process for a waiter using their email and password.
   Future<StaffModel?> signIn(String email, String password);
-
-  /// Terminate the current waiter's session and clear local authentication state.
+  Future<StaffModel?> signInAsDemoWaiter({String? sessionCode});
   Future<void> signOut();
-
-  /// Retrieves the current authenticated waiter's profile details.
   Future<StaffModel?> getCurrentWaiter();
-
-  /// Watches the current authenticated waiter's profile for real-time changes.
   Stream<StaffModel?> watchWaiterStatus(String uid);
-
-  /// Updates the 'lastActive' timestamp for a specific waiter in the database.
   Future<void> updateLastActiveStatus(String uid, DateTime time);
 }
 
 /// Implementation of WaiterAuthRemoteDataSource using Firebase Services.
-/// This class orchestrates communication with Firebase Auth for session management
-/// and Cloud Firestore for staff profile synchronization.
 class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
@@ -39,15 +25,15 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
     try {
       log('Initiating authentication sequence for waiter: $email');
 
-      // Perform the core authentication with Firebase.
+      if (DemoConfig.isDemoEmail(email)) {
+        return await signInAsDemoWaiter();
+      }
+
       await auth.signInWithEmailAndPassword(email: email, password: password);
 
-      // Post-authentication: Verify if the user holds a valid waiter profile.
       final waiter = await getCurrentWaiter();
       if (waiter == null) {
-        log(
-          'Security check failed: Authenticated user lacks a valid or active waiter profile. Revoking session.',
-        );
+        log('Security check failed: Authenticated user lacks a valid or active waiter profile.');
         await auth.signOut();
         throw Exception(
           'User is not an authorized waiter or the account has been suspended.',
@@ -63,8 +49,30 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
   }
 
   @override
+  Future<StaffModel?> signInAsDemoWaiter({String? sessionCode}) async {
+    try {
+      log('Signing in as Demo Waiter (session: $sessionCode)');
+      await DemoAuthBootstrapService.signInOrBootstrapStaffDemo(
+        DemoConfig.waiter,
+        sessionCode: sessionCode,
+        auth: auth,
+        firestore: firestore,
+      );
+      final waiter = await getCurrentWaiter();
+      if (waiter == null) {
+        throw Exception('Failed to synchronize demo waiter profile.');
+      }
+      return waiter;
+    } catch (e) {
+      log('Demo Waiter sign-in error: $e');
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> signOut() async {
     log('Gracefully terminating the current waiter session.');
+    await DemoSessionManager.clearSession();
     await auth.signOut();
   }
 
@@ -79,33 +87,24 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
 
     log('Synchronizing profile data for UID: ${user.uid}');
     final docSnapshot = await firestore
-        .collection(StaffDbConstants.staff)
+        .rmsCollection(StaffDbConstants.staff)
         .doc(user.uid)
         .get();
 
-    // Validate the existence of the staff profile in the database.
     if (!docSnapshot.exists || docSnapshot.data() == null) {
-      log(
-        'Data integrity error: No profile document found for UID: ${user.uid}',
-      );
+      log('Data integrity error: No profile document found for UID: ${user.uid}');
       return null;
     }
 
     final staff = StaffModel.fromMap(docSnapshot.data()!, docSnapshot.id);
 
-    // Business Logic: Strictly enforce the 'waiter' role for this portal.
     if (staff.role != UserRole.waiter) {
-      log(
-        'Authorization denied: User role ${staff.role.name} is not permitted here.',
-      );
+      log('Authorization denied: User role ${staff.role.name} is not permitted here.');
       return null;
     }
 
-    // Business Logic: Deny access if the waiter's account is marked as inactive.
     if (!staff.isActive) {
-      log(
-        'Access restricted: The waiter account for ${staff.name} is currently inactive.',
-      );
+      log('Access restricted: The waiter account for ${staff.name} is currently inactive.');
       return null;
     }
 
@@ -116,7 +115,7 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
   @override
   Stream<StaffModel?> watchWaiterStatus(String uid) {
     return firestore
-        .collection(StaffDbConstants.staff)
+        .rmsCollection(StaffDbConstants.staff)
         .doc(uid)
         .snapshots()
         .map((docSnapshot) {
@@ -132,7 +131,7 @@ class WaiterAuthRemoteDataSourceImpl implements WaiterAuthRemoteDataSource {
     try {
       log('Recording activity beat for UID: $uid');
 
-      await firestore.collection(StaffDbConstants.staff).doc(uid).update({
+      await firestore.rmsCollection(StaffDbConstants.staff).doc(uid).update({
         'lastActive': time.millisecondsSinceEpoch,
       });
 

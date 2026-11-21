@@ -24,7 +24,7 @@ class OrderRemoteDataSourceImpl
       return Stream.value([]);
     }
     return _firestore
-        .collection(OrderDbConstants.orders)
+        .rmsCollection(OrderDbConstants.orders)
         .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
@@ -38,7 +38,7 @@ class OrderRemoteDataSourceImpl
   @override
   Future<void> updateOrderStatus(String orderId, OrderStatus status) async {
     await performSafeCall(
-      () => _firestore.collection(OrderDbConstants.orders).doc(orderId).update({
+      () => _firestore.rmsCollection(OrderDbConstants.orders).doc(orderId).update({
         'orderStatus': status.name,
       }),
       taskName: 'UpdateOrderStatus',
@@ -48,7 +48,7 @@ class OrderRemoteDataSourceImpl
   @override
   Future<void> requestBill(String orderId) async {
     await performSafeCall(
-      () => _firestore.collection(OrderDbConstants.orders).doc(orderId).update({
+      () => _firestore.rmsCollection(OrderDbConstants.orders).doc(orderId).update({
         'orderStatus': 'billRequested',
         'updatedAt': FieldValue.serverTimestamp(),
       }),
@@ -62,7 +62,7 @@ class OrderRemoteDataSourceImpl
       () async {
         final batch = _firestore.batch();
         
-        final orderRef = _firestore.collection(OrderDbConstants.orders).doc(order.id);
+        final orderRef = _firestore.rmsCollection(OrderDbConstants.orders).doc(order.id);
         
         final orderData = order.toJson();
         orderData['orderedMenu'] = order.orderedMenu.map((item) {
@@ -92,7 +92,7 @@ class OrderRemoteDataSourceImpl
   @override
   Future<void> updateTableOccupiedSeats(String tableId, int delta) async {
     await performSafeCall(
-      () => _firestore.collection(TableDbConstants.tables).doc(tableId).update({
+      () => _firestore.rmsCollection(TableDbConstants.tables).doc(tableId).update({
         'occupiedSeats': FieldValue.increment(delta),
       }),
       taskName: 'UpdateTableOccupiedSeats',

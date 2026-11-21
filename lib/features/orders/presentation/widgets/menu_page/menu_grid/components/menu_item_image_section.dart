@@ -4,11 +4,13 @@ import 'sold_out_overlay.dart';
 
 class MenuItemImageSection extends StatelessWidget {
   final String imageUrl;
+  final String? foodName;
   final bool isSoldOut;
 
   const MenuItemImageSection({
     super.key,
     required this.imageUrl,
+    this.foodName,
     required this.isSoldOut,
   });
 
@@ -18,7 +20,7 @@ class MenuItemImageSection extends StatelessWidget {
       flex: 3,
       child: Stack(
         children: [
-          CardImage(imageUrl: imageUrl),
+          CardImage(imageUrl: imageUrl, foodName: foodName),
           if (isSoldOut) const SoldOutOverlay(),
         ],
       ),

@@ -13,7 +13,7 @@ class CategoryRemoteDataSourceImpl
   CategoryRemoteDataSourceImpl(this._firestore);
 
   CollectionReference<CategoryModel> get _categoryCollection => _firestore
-      .collection(MenuDbConstants.categories)
+      .rmsCollection(MenuDbConstants.categories)
       .withConverter<CategoryModel>(
         fromFirestore: (snapshot, _) =>
             CategoryModel.fromMap(snapshot.data()!..['id'] = snapshot.id),

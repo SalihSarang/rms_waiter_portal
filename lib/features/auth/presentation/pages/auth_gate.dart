@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rms_design_system/rms_design_system.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_event.dart';
 import 'package:waiter_portal/features/auth/presentation/bloc/auth_bloc/auth_state.dart';
@@ -27,7 +28,12 @@ class _AuthGateState extends State<AuthGate> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is Authenticated) {
-          return const BottomNav();
+          return RmsDemoBannerWrapper(
+            onExit: () {
+              context.read<AuthBloc>().add(SignOutEvent());
+            },
+            child: const BottomNav(),
+          );
         } else if (state is AuthBlocked) {
           return const BlockedScreen();
         } else if (state is AuthInitial || state is AuthChecking) {

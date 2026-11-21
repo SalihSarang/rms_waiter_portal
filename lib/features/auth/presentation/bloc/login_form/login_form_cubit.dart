@@ -28,6 +28,11 @@ class LoginFormCubit extends Cubit<LoginFormState> {
     emit(state.copyWith(isPasswordVisible: !state.isPasswordVisible));
   }
 
+  void fillCredentials(String email, String password) {
+    emailController.text = email;
+    passwordController.text = password;
+  }
+
   @override
   Future<void> close() {
     emailController.dispose();

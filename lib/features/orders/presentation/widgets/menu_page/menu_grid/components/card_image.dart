@@ -1,31 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
-import 'package:waiter_portal/core/widgets/rms_shimmer.dart';
+import 'package:rms_shared_package/config/demo_config.dart';
+import 'package:waiter_portal/core/widgets/rms_cached_image.dart';
 
-/// [CardImage] handles the network image with loading and error states for menu item cards.
+/// CardImage renders a menu item's image using multi-tier caching.
+///
+/// Images are persistently cached to disk to allow offline table service,
+/// and downsampled in memory to 400x300 pixels to prevent Out-Of-Memory
+/// crashes during rapid grid scrolling on handheld devices.
 class CardImage extends StatelessWidget {
+  /// The remote URL for the menu item's photography.
   final String imageUrl;
 
-  const CardImage({super.key, required this.imageUrl});
+  /// Optional name of the food item, used for photo fallback.
+  final String? foodName;
+
+  const CardImage({
+    super.key,
+    required this.imageUrl,
+    this.foodName,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // If the custom uploaded imageUrl is missing, provide a high-quality dish photo fallback
+    // based on the dish name so waitstaff always have visual cues.
+    final displayUrl = imageUrl.trim().isNotEmpty
+        ? imageUrl.trim()
+        : DemoConfig.getDemoFoodImageUrl(foodName ?? '');
+
     return Positioned.fill(
-      child: Image.network(
-        imageUrl,
+      child: RmsCachedImage(
+        imageUrl: displayUrl,
         fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return PulseContainer(
-            color: TextColors.primary.withValues(alpha: 0.12),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
-          );
-        },
-        errorBuilder: (context, error, stackTrace) => const Center(
+        // Downsample the decoded bitmap in memory.
+        // Menu grid cards display at roughly 200x150 dp; decoding at 400x300 px
+        // provides retina clarity while saving ~75% memory compared to source photos.
+        memCacheWidth: 400,
+        memCacheHeight: 300,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+        errorWidget: const Center(
           child: HugeIcon(
             icon: HugeIcons.strokeRoundedImage01,
             color: NeutralColors.icon,

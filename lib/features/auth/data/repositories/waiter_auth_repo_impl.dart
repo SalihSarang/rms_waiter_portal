@@ -37,6 +37,11 @@ class WaiterAuthRepoImpl implements AuthRepository {
   }
 
   @override
+  Future<StaffModel?> signInAsDemoWaiter({String? sessionCode}) async {
+    return await remoteDataSource.signInAsDemoWaiter(sessionCode: sessionCode);
+  }
+
+  @override
   Future<void> signOut() async {
     try {
       // Coordinates the global sign-out procedure to invalidate the current session.
