@@ -1,0 +1,135 @@
+name: Waiter Portal CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # =========================================================================
+  # Job 1: Quality Gate (Static Analysis, Formatting, and Unit/Widget Tests)
+  # =========================================================================
+  quality-gate:
+    name: Code Analysis and Automated Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Waiter Portal
+        uses: actions/checkout@v4
+        with:
+          path: waiter_portal
+
+      - name: Checkout Shared Packages
+        uses: actions/checkout@v4
+        with:
+          repository: SalihSarang/rms_packages
+          path: rms_packages
+          ref: ${{ github.ref_name == 'dev' && 'dev' || 'main' }}
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Flutter and Dart Environment
+        run: flutter --version
+
+      - name: Install Dependencies in Shared Packages
+        run: |
+          cd rms_packages/rms_shared_package && flutter pub get
+          cd ../rms_design_system_package && flutter pub get
+
+      - name: Install Dependencies in Waiter Portal
+        working-directory: waiter_portal
+        run: flutter pub get
+
+      - name: Static Code Analysis
+        working-directory: waiter_portal
+        run: flutter analyze
+
+      - name: Execute Unit and Widget Tests
+        working-directory: waiter_portal
+        run: flutter test --coverage
+
+  # =========================================================================
+  # Job 2: Continuous Delivery (Build and Distribute Android APK)
+  # =========================================================================
+  build-and-deliver:
+    name: Build and Archive Release APK
+    needs: quality-gate
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout Waiter Portal
+        uses: actions/checkout@v4
+        with:
+          path: waiter_portal
+
+      - name: Checkout Shared Packages
+        uses: actions/checkout@v4
+        with:
+          repository: SalihSarang/rms_packages
+          path: rms_packages
+          ref: ${{ github.ref_name == 'dev' && 'dev' || 'main' }}
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: |
+          cd rms_packages/rms_shared_package && flutter pub get
+          cd ../rms_design_system_package && flutter pub get
+          cd ../../waiter_portal && flutter pub get
+
+      - name: Build Android Release APK
+        working-directory: waiter_portal
+        run: flutter build apk --release --build-number=${{ github.run_number }}
+
+      - name: Archive Android Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: waiter-portal-${{ github.ref_name }}-build-${{ github.run_number }}
+          path: waiter_portal/build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish GitHub Release (Main Branch Only)
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: waiter_portal/build/app/outputs/flutter-apk/app-release.apk
+          tag_name: v1.0.${{ github.run_number }}
+          name: Waiter Portal Release v1.0.${{ github.run_number }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
