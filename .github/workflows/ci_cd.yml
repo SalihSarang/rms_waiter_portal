@@ -20,6 +20,7 @@ concurrency:
 jobs:
   # =========================================================================
   # Job 1: Quality Gate (Static Analysis, Formatting, and Unit/Widget Tests)
+  # Runs on every push and PR targeting dev or main.
   # =========================================================================
   quality-gate:
     name: Code Analysis and Automated Tests
@@ -74,11 +75,13 @@ jobs:
 
   # =========================================================================
   # Job 2: Continuous Delivery (Build and Distribute Android APK)
+  # Runs ONLY on push / merge to the main branch.
+  # Automatically increments version name and build number based on run number.
   # =========================================================================
   build-and-deliver:
     name: Build and Archive Release APK
     needs: quality-gate
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -93,7 +96,7 @@ jobs:
         with:
           repository: SalihSarang/rms_packages
           path: rms_packages
-          ref: ${{ github.ref_name == 'dev' && 'dev' || 'main' }}
+          ref: main
 
       - name: Setup Java 17
         uses: actions/setup-java@v5
@@ -114,29 +117,27 @@ jobs:
           cd ../rms_design_system_package && flutter pub get
           cd ../../waiter_portal && flutter pub get
 
-      - name: Ensure Gradle Executable
-        working-directory: waiter_portal/android
-        run: chmod +x gradlew
-
-      - name: Build Android Release APK
+      - name: Build Android Release APK with Auto-Versioning
         working-directory: waiter_portal
-        run: flutter build apk --release --build-number=${{ github.run_number }}
+        run: |
+          flutter build apk --release \
+            --build-name="1.0.${{ github.run_number }}" \
+            --build-number=${{ github.run_number }}
 
       - name: Archive Android Release APK
         uses: actions/upload-artifact@v4
         with:
-          name: waiter-portal-${{ github.ref_name }}-build-${{ github.run_number }}
+          name: waiter-portal-v1.0.${{ github.run_number }}
           path: waiter_portal/build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
 
-      - name: Publish GitHub Release (Main Branch Only)
-        if: github.ref == 'refs/heads/main'
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: waiter_portal/build/app/outputs/flutter-apk/app-release.apk
           tag_name: v1.0.${{ github.run_number }}
-          name: Waiter Portal Release v1.0.${{ github.run_number }}
+          name: Waiter Portal v1.0.${{ github.run_number }}
           draft: false
           prerelease: false
           generate_release_notes: true
