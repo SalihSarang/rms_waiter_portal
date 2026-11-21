@@ -1,4 +1,4 @@
-package com.rms.waiter_portal
+package com.rms.waiterportal
 
 import io.flutter.embedding.android.FlutterActivity
 
