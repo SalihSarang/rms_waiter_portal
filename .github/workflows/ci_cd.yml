@@ -117,6 +117,25 @@ jobs:
           cd ../rms_design_system_package && flutter pub get
           cd ../../waiter_portal && flutter pub get
 
+      - name: Configure Production Signing Keystore
+        working-directory: waiter_portal/android
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 --decode > app/upload-keystore.jks
+            echo "storeFile=upload-keystore.jks" > key.properties
+            echo "storePassword=$KEYSTORE_PASSWORD" >> key.properties
+            echo "keyAlias=$KEY_ALIAS" >> key.properties
+            echo "keyPassword=$KEY_PASSWORD" >> key.properties
+            echo "Production key.properties and app/upload-keystore.jks configured successfully."
+          else
+            echo "Warning: KEYSTORE_BASE64 secret not found. Falling back to debug signing."
+          fi
+
       - name: Build Android Release APK with Auto-Versioning
         working-directory: waiter_portal
         run: |
