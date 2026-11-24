@@ -28,17 +28,8 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: Checkout Waiter Portal
+      - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          path: waiter_portal
-
-      - name: Checkout Shared Packages
-        uses: actions/checkout@v4
-        with:
-          repository: SalihSarang/rms_packages
-          path: rms_packages
-          ref: ${{ github.ref_name == 'dev' && 'dev' || 'main' }}
 
       - name: Setup Java 17
         uses: actions/setup-java@v5
@@ -56,21 +47,13 @@ jobs:
       - name: Verify Flutter and Dart Environment
         run: flutter --version
 
-      - name: Install Dependencies in Shared Packages
-        run: |
-          cd rms_packages/rms_shared_package && flutter pub get
-          cd ../rms_design_system_package && flutter pub get
-
-      - name: Install Dependencies in Waiter Portal
-        working-directory: waiter_portal
+      - name: Install Dependencies
         run: flutter pub get
 
       - name: Static Code Analysis
-        working-directory: waiter_portal
         run: flutter analyze --no-fatal-infos
 
       - name: Execute Unit and Widget Tests
-        working-directory: waiter_portal
         run: flutter test --coverage
 
   # =========================================================================
@@ -86,17 +69,8 @@ jobs:
     timeout-minutes: 25
 
     steps:
-      - name: Checkout Waiter Portal
+      - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          path: waiter_portal
-
-      - name: Checkout Shared Packages
-        uses: actions/checkout@v4
-        with:
-          repository: SalihSarang/rms_packages
-          path: rms_packages
-          ref: main
 
       - name: Setup Java 17
         uses: actions/setup-java@v5
@@ -112,13 +86,9 @@ jobs:
           cache: true
 
       - name: Install Dependencies
-        run: |
-          cd rms_packages/rms_shared_package && flutter pub get
-          cd ../rms_design_system_package && flutter pub get
-          cd ../../waiter_portal && flutter pub get
+        run: flutter pub get
 
       - name: Configure Production Signing Keystore
-        working-directory: waiter_portal/android
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'waiter123' }}
@@ -126,35 +96,35 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'waiter123' }}
         run: |
           if [ -n "$KEYSTORE_BASE64" ]; then
-            echo "$KEYSTORE_BASE64" | base64 --decode > app/upload-keystore.jks
-            echo "storeFile=upload-keystore.jks" > key.properties
-            echo "storePassword=$KEYSTORE_PASSWORD" >> key.properties
-            echo "keyAlias=$KEY_ALIAS" >> key.properties
-            echo "keyPassword=$KEY_PASSWORD" >> key.properties
-            echo "Production key.properties and app/upload-keystore.jks configured successfully."
+            echo "$KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
+            echo "storeFile=upload-keystore.jks" > android/key.properties
+            echo "storePassword=$KEYSTORE_PASSWORD" >> android/key.properties
+            echo "keyAlias=$KEY_ALIAS" >> android/key.properties
+            echo "keyPassword=$KEY_PASSWORD" >> android/key.properties
+            echo "Production key.properties and android/app/upload-keystore.jks configured successfully."
           else
             echo "Warning: KEYSTORE_BASE64 secret not found. Falling back to debug signing."
           fi
 
       - name: Build Android Release APK with Auto-Versioning
-        working-directory: waiter_portal
         run: |
           flutter build apk --release \
             --build-name="1.0.${{ github.run_number }}" \
-            --build-number=${{ github.run_number }}
+            --build-number=${{ github.run_number }} \
+            --android-skip-build-dependency-validation
 
       - name: Archive Android Release APK
         uses: actions/upload-artifact@v4
         with:
           name: waiter-portal-v1.0.${{ github.run_number }}
-          path: waiter_portal/build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
           retention-days: 30
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: waiter_portal/build/app/outputs/flutter-apk/app-release.apk
+          files: build/app/outputs/flutter-apk/app-release.apk
           tag_name: v1.0.${{ github.run_number }}
           name: Waiter Portal v1.0.${{ github.run_number }}
           draft: false
