@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 import '../../order_preview/order_preview_item_components/order_item_header.dart';
 import '../../order_preview/order_preview_item_components/order_item_details.dart';
@@ -22,9 +22,7 @@ class OrderDetailsItemContent extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           OrderItemDetails(addOns: item.selectedAddOns),
-          OrderItemSpecialInstructions(
-            instructions: item.specialInstructions,
-          ),
+          OrderItemSpecialInstructions(instructions: item.specialInstructions),
         ],
       ),
     );

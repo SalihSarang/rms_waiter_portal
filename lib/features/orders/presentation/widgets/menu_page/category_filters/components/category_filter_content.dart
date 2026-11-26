@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_shared_package/models/menu_models/category_model/category_model.dart';
 import '../../../../bloc/menu_filter/menu_filter_cubit.dart';
@@ -15,12 +15,7 @@ class CategoryFilterContent extends StatelessWidget {
     return BlocBuilder<MenuFilterCubit, MenuFilterState>(
       builder: (context, state) {
         final allCategories = [
-          CategoryModel(
-            id: 'All',
-            name: 'All',
-            sortOrder: -1,
-            isActive: true,
-          ),
+          CategoryModel(id: 'All', name: 'All', sortOrder: -1, isActive: true),
           ...categories,
         ];
 

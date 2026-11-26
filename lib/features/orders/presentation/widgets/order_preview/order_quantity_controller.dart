@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
@@ -21,7 +21,8 @@ class OrderQuantityController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool canEditItem = !item.isSentToKitchen ||
+    final bool canEditItem =
+        !item.isSentToKitchen ||
         (orderStatus == OrderStatus.pending && !item.isPrepared);
 
     if (!canEditItem) {
@@ -30,9 +31,13 @@ class OrderQuantityController extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            item.isPrepared ? Icons.check_circle_outline : Icons.hourglass_empty,
+            item.isPrepared
+                ? Icons.check_circle_outline
+                : Icons.hourglass_empty,
             size: 16,
-            color: item.isPrepared ? SemanticColors.success : SemanticColors.warning,
+            color: item.isPrepared
+                ? SemanticColors.success
+                : SemanticColors.warning,
           ),
           const SizedBox(width: 6),
           Text(

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/models/menu_models/food_model/food_model.dart';
 import '../food_details/food_image_header.dart';

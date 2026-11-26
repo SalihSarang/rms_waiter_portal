@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'order_item_count_badge.dart';
 import 'order_price_section.dart';
 import 'package:rms_design_system/rms_design_system.dart';

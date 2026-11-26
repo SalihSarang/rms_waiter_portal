@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
 /// Provides the premium background decoration and padding for the order summary card.

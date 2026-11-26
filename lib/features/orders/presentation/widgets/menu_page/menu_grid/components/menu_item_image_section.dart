@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'card_image.dart';
 import 'sold_out_overlay.dart';
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Label for the logout button, optionally indicating that the shift will also be ended.
 class ShiftLogoutLabel extends StatelessWidget {

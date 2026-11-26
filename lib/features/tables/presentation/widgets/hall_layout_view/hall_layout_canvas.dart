@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:waiter_portal/features/orders/presentation/pages/menu_page.dart';
 import '../table_view_canvas.dart';
 

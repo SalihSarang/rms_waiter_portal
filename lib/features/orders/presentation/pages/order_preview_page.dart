@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
@@ -30,14 +30,10 @@ class OrderPreviewPage extends StatelessWidget {
           // Compare add-ons
           if (originalItem.selectedAddOns.length ==
               currentItem.selectedAddOns.length) {
-            final names1 = originalItem.selectedAddOns
-                .map((e) => e.name)
-                .toList()
-              ..sort();
-            final names2 = currentItem.selectedAddOns
-                .map((e) => e.name)
-                .toList()
-              ..sort();
+            final names1 =
+                originalItem.selectedAddOns.map((e) => e.name).toList()..sort();
+            final names2 =
+                currentItem.selectedAddOns.map((e) => e.name).toList()..sort();
             bool addOnsMatch = true;
             for (int i = 0; i < names1.length; i++) {
               if (names1[i] != names2[i]) {
@@ -63,8 +59,9 @@ class OrderPreviewPage extends StatelessWidget {
     final cartState = context.watch<CartBloc>().state;
     final orderState = context.watch<OrderBloc>().state;
 
-    final List<CartItemModel> originalItems =
-        orderState is OrderInProgress ? orderState.order.orderedMenu : [];
+    final List<CartItemModel> originalItems = orderState is OrderInProgress
+        ? orderState.order.orderedMenu
+        : [];
 
     final isModified = _isCartModified(originalItems, cartState.items);
 
@@ -73,8 +70,9 @@ class OrderPreviewPage extends StatelessWidget {
         backgroundColor: NeutralColors.background,
         appBar: const OrderPreviewAppBar(),
         body: OrderPreviewBody(isEmpty: isEmpty),
-        bottomNavigationBar:
-            (isEmpty || !isModified) ? null : const OrderPreviewFooter(),
+        bottomNavigationBar: (isEmpty || !isModified)
+            ? null
+            : const OrderPreviewFooter(),
       ),
     );
   }

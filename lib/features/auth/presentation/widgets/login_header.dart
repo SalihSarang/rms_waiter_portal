@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'login_header_components/login_logo.dart';
 import 'login_header_components/login_title_section.dart';
@@ -8,11 +8,6 @@ class LoginHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        LoginLogo(),
-        LoginTitleSection(),
-      ],
-    );
+    return const Column(children: [LoginLogo(), LoginTitleSection()]);
   }
 }

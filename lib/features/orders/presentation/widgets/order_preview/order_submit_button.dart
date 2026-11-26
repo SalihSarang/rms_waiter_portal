@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 import '../../bloc/cart/cart_state.dart';
@@ -29,14 +29,10 @@ class OrderSubmitButton extends StatelessWidget {
           // Compare add-ons
           if (originalItem.selectedAddOns.length ==
               currentItem.selectedAddOns.length) {
-            final names1 = originalItem.selectedAddOns
-                .map((e) => e.name)
-                .toList()
-              ..sort();
-            final names2 = currentItem.selectedAddOns
-                .map((e) => e.name)
-                .toList()
-              ..sort();
+            final names1 =
+                originalItem.selectedAddOns.map((e) => e.name).toList()..sort();
+            final names2 =
+                currentItem.selectedAddOns.map((e) => e.name).toList()..sort();
             bool addOnsMatch = true;
             for (int i = 0; i < names1.length; i++) {
               if (names1[i] != names2[i]) {
@@ -62,8 +58,9 @@ class OrderSubmitButton extends StatelessWidget {
       builder: (context, state) {
         final isLoading = state is OrderLoading;
 
-        final List<CartItemModel> originalItems =
-            state is OrderInProgress ? state.order.orderedMenu : [];
+        final List<CartItemModel> originalItems = state is OrderInProgress
+            ? state.order.orderedMenu
+            : [];
 
         final isModified = _isCartModified(originalItems, cartState.items);
 

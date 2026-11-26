@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '../widgets/profile_authenticated_view.dart';
 
 class ProfileScreen extends StatelessWidget {

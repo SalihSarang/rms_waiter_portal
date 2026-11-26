@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'hall_layout_canvas.dart';
 import 'hall_layout_loading_indicator.dart';
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'menu_search_bar.dart';
 import 'category_filters/category_filters.dart';
 import 'menu_body.dart';

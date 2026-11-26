@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 
 class OrderPreviewWaiterInfo extends StatelessWidget {
@@ -32,18 +32,12 @@ class OrderPreviewWaiterInfo extends StatelessWidget {
             children: [
               const Text(
                 'Waiter:',
-                style: TextStyle(
-                  color: NeutralColors.icon,
-                  fontSize: 10,
-                ),
+                style: TextStyle(color: NeutralColors.icon, fontSize: 10),
               ),
               const SizedBox(width: 4),
               Text(
                 waiterName,
-                style: const TextStyle(
-                  color: NeutralColors.icon,
-                  fontSize: 10,
-                ),
+                style: const TextStyle(color: NeutralColors.icon, fontSize: 10),
               ),
             ],
           ),

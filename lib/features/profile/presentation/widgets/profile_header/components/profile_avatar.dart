@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/config/demo_config.dart';
 import 'package:rms_shared_package/services/demo_session_manager.dart';
@@ -37,7 +37,8 @@ class ProfileAvatar extends StatelessWidget {
         ? imageUrl!.trim()
         : (DemoSessionManager.isDemoMode ? DemoConfig.defaultWaiterAvatar : '');
 
-    final hasValidScheme = rawUrl.isNotEmpty &&
+    final hasValidScheme =
+        rawUrl.isNotEmpty &&
         (rawUrl.startsWith('http://') || rawUrl.startsWith('https://'));
 
     // Optimize remote CDN image URL for bandwidth efficiency.
@@ -70,15 +71,19 @@ class ProfileAvatar extends StatelessWidget {
           onBackgroundImageError: hasValidScheme ? (_, _) {} : null,
           child: !hasValidScheme
               ? (initialLetter != null
-                  ? Text(
-                      initialLetter,
-                      style: TextStyle(
-                        color: PrimaryColors.defaultColor,
-                        fontSize: fontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  : Icon(Icons.person, size: iconSize, color: NeutralColors.icon))
+                    ? Text(
+                        initialLetter,
+                        style: TextStyle(
+                          color: PrimaryColors.defaultColor,
+                          fontSize: fontSize,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : Icon(
+                        Icons.person,
+                        size: iconSize,
+                        color: NeutralColors.icon,
+                      ))
               : null,
         ),
         // Active shift badge indicator.

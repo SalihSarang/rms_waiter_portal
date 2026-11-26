@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'food_details_image.dart';
 
@@ -9,11 +9,7 @@ class FoodImageHeader extends StatelessWidget {
   final String? imageUrl;
   final String? foodName;
 
-  const FoodImageHeader({
-    super.key,
-    required this.imageUrl,
-    this.foodName,
-  });
+  const FoodImageHeader({super.key, required this.imageUrl, this.foodName});
 
   @override
   Widget build(BuildContext context) {

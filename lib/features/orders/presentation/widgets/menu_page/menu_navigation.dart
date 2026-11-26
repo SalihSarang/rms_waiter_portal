@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '../../pages/order_preview_page.dart';
 
 /// [MenuNavigation] provides reusable navigation logic for the menu screen.

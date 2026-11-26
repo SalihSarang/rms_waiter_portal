@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import '../../../../core/services/rms_image_cache_manager.dart';
@@ -114,7 +114,10 @@ class ProfilePersonalSection extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Cancel', style: TextStyle(color: NeutralColors.icon)),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: NeutralColors.icon),
+            ),
           ),
           ElevatedButton(
             onPressed: () async {

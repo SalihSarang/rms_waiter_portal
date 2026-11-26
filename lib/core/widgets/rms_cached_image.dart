@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '../services/rms_image_cache_manager.dart';
 import 'rms_shimmer.dart';
 
@@ -60,17 +60,19 @@ class RmsCachedImage extends StatelessWidget {
     // Fast-path validation: If URL is null, empty, or lacks an HTTP scheme,
     // render the error or placeholder fallback without querying cache or network.
     final validUrl = imageUrl?.trim();
-    final hasValidScheme = validUrl != null &&
+    final hasValidScheme =
+        validUrl != null &&
         validUrl.isNotEmpty &&
         (validUrl.startsWith('http://') || validUrl.startsWith('https://'));
 
     if (!hasValidScheme) {
-      return _buildContainer(
-        child: errorWidget ?? _buildDefaultError(),
-      );
+      return _buildContainer(child: errorWidget ?? _buildDefaultError());
     }
 
-    final optimizedUrl = optimizeUrl(validUrl, targetWidth: memCacheWidth ?? 400);
+    final optimizedUrl = optimizeUrl(
+      validUrl,
+      targetWidth: memCacheWidth ?? 400,
+    );
 
     // Build the cached network image connected to the isolated cache manager.
     final imageWidget = CachedNetworkImage(
@@ -89,8 +91,7 @@ class RmsCachedImage extends StatelessWidget {
             height: height,
             borderRadius: borderRadius ?? BorderRadius.zero,
           ),
-      errorWidget: (context, url, error) =>
-          errorWidget ?? _buildDefaultError(),
+      errorWidget: (context, url, error) => errorWidget ?? _buildDefaultError(),
     );
 
     return _buildContainer(child: imageWidget);
@@ -135,18 +136,10 @@ class RmsCachedImage extends StatelessWidget {
     if (borderRadius != null) {
       return ClipRRect(
         borderRadius: borderRadius!,
-        child: SizedBox(
-          width: width,
-          height: height,
-          child: child,
-        ),
+        child: SizedBox(width: width, height: height, child: child),
       );
     }
-    return SizedBox(
-      width: width,
-      height: height,
-      child: child,
-    );
+    return SizedBox(width: width, height: height, child: child);
   }
 
   /// Default fallback error representation when no custom error widget is supplied.
@@ -162,4 +155,3 @@ class RmsCachedImage extends StatelessWidget {
     );
   }
 }
-

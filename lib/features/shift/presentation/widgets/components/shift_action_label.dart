@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Label for the main shift action button, toggling between Start and End shift.
 class ShiftActionLabel extends StatelessWidget {

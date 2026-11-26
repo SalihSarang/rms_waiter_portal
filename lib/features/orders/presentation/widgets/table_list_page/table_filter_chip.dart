@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '../../utils/table_utils.dart';
 import 'table_filter_chip_content.dart';
 

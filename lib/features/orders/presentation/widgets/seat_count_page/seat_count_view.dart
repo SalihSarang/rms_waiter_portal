@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'seat_selection_header.dart';
 import 'seat_count_presets.dart';
 import 'seat_count_grid.dart';

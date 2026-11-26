@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_shared_package/config/demo_config.dart';
 import 'package:waiter_portal/core/widgets/rms_cached_image.dart';
 import 'food_image_placeholder.dart';
@@ -14,11 +14,7 @@ class FoodDetailsImage extends StatelessWidget {
   /// Optional name of the food item, used for photo fallback.
   final String? foodName;
 
-  const FoodDetailsImage({
-    super.key,
-    required this.imageUrl,
-    this.foodName,
-  });
+  const FoodDetailsImage({super.key, required this.imageUrl, this.foodName});
 
   @override
   Widget build(BuildContext context) {

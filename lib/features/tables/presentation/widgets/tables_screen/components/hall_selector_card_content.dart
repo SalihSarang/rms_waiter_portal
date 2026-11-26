@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 import 'hall_selector_card_header.dart';
 import 'hall_selector_card_info.dart';

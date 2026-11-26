@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import '../../../bloc/table_search/table_search_cubit.dart';
@@ -13,10 +13,7 @@ class TableSearchField extends StatelessWidget {
     return TextField(
       controller: controller,
       autofocus: true,
-      style: const TextStyle(
-        color: TextColors.primary,
-        fontSize: 16,
-      ),
+      style: const TextStyle(color: TextColors.primary, fontSize: 16),
       decoration: const InputDecoration(
         hintText: 'Search tables...',
         hintStyle: TextStyle(

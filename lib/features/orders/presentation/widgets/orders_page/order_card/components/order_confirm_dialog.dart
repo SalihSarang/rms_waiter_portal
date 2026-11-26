@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_design_system/widgets/rms_alert_dialog.dart';
 
 /// Displays a standardized confirmation dialog using the RMS design system.

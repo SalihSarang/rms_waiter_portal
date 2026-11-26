@@ -59,6 +59,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
 
+  material_ui: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

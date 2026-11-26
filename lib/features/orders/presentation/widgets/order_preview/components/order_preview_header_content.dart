@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import '../../../../../auth/presentation/bloc/auth_bloc/auth_state.dart';
@@ -19,8 +19,9 @@ class OrderPreviewHeaderContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        final waiterName =
-            authState is Authenticated ? authState.staff.name : 'Unknown';
+        final waiterName = authState is Authenticated
+            ? authState.staff.name
+            : 'Unknown';
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

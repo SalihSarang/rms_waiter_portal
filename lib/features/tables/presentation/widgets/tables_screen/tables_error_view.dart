@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'components/tables_error_view_content.dart';
 
 /// A specialized view for displaying error states during hall layout loading,

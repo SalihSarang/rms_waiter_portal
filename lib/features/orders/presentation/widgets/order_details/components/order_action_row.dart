@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 import 'add_more_button.dart';
 import 'edit_order_button.dart';
@@ -16,9 +16,11 @@ class OrderActionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final showAddMore = order.orderStatus == OrderStatus.pending ||
+    final showAddMore =
+        order.orderStatus == OrderStatus.pending ||
         order.orderStatus == OrderStatus.served;
-    final showEditOrder = order.orderStatus == OrderStatus.pending ||
+    final showEditOrder =
+        order.orderStatus == OrderStatus.pending ||
         order.orderStatus == OrderStatus.served;
     final showRequestBill = order.orderStatus == OrderStatus.served;
 

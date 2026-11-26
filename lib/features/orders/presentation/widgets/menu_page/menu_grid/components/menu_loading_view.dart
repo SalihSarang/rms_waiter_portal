@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'menu_skeleton.dart';
 import 'package:waiter_portal/core/widgets/rms_shimmer.dart';
 

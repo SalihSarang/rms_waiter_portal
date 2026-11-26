@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 import 'package:waiter_portal/core/widgets/rms_shimmer.dart';
 import '../order_preview/order_total_row.dart';

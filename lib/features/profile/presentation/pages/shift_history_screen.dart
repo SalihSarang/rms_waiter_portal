@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'components/shift_history_app_bar.dart';
 import 'components/shift_history_body.dart';
 

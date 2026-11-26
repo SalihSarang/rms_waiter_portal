@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rms_shared_package/rms_shared_package.dart';
 import '../../../bloc/order/order_bloc.dart';
@@ -19,7 +19,9 @@ class OrderDetailsActions {
   }
 
   static void showRequestBillConfirmation(
-      BuildContext context, OrderModel order) {
+    BuildContext context,
+    OrderModel order,
+  ) {
     showOrderConfirmationDialog(
       context,
       title: 'Request Bill',

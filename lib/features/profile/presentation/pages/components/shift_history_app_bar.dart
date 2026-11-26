@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Standard AppBar for the Shift History screen.
 class ShiftHistoryAppBar extends StatelessWidget

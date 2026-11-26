@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'profile_header/profile_header.dart';
 import 'profile_stats_section.dart';
 import 'profile_personal_section.dart';

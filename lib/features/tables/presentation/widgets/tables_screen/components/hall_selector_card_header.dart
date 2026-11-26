@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'hall_selector_card_icon.dart';
 
@@ -11,11 +11,7 @@ class HallSelectorCardHeader extends StatelessWidget {
       children: [
         HallSelectorCardIcon(),
         Spacer(),
-        Icon(
-          Icons.chevron_right_rounded,
-          color: NeutralColors.icon,
-          size: 20,
-        ),
+        Icon(Icons.chevron_right_rounded, color: NeutralColors.icon, size: 20),
       ],
     );
   }

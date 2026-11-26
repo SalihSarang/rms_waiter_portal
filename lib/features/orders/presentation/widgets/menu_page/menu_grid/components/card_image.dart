@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:rms_design_system/rms_design_system.dart';
 import 'package:rms_shared_package/config/demo_config.dart';
@@ -16,11 +16,7 @@ class CardImage extends StatelessWidget {
   /// Optional name of the food item, used for photo fallback.
   final String? foodName;
 
-  const CardImage({
-    super.key,
-    required this.imageUrl,
-    this.foodName,
-  });
+  const CardImage({super.key, required this.imageUrl, this.foodName});
 
   @override
   Widget build(BuildContext context) {
